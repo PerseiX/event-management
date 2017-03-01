@@ -28,7 +28,8 @@ var gulp = require('gulp'),
 			server: {
 				baseDir: "app",
 				routes: {
-					"/bower_components": "bower_components"
+					"/bower_components": "bower_components",
+					"/assets": "assets"
 				}
 			}
 		})
