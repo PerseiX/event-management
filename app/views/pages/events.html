@@ -2,20 +2,20 @@
 	<table>
 		<thead>
 		<tr>
-			<th>ID</th>
 			<th>NAME</th>
-			<th>DESCRIPTION</th>
 			<th>TERM</th>
 			<th>ACTIVE</th>
+			<th>EDIT</th>
 		</tr>
 		</thead>
 		<tbody>
 		<tr ng-repeat="event in events.events">
-			<th>{{event.id}}</th>
 			<th>{{event.name}}</th>
-			<th>{{event.description}}</th>
 			<th>{{event.event_term|date}}</th>
 			<th>{{event.active}}</th>
+			<th>
+				<a ui-sref="app.content.events.edit-event({eventId: event.id})"> Edit</a>
+			</th>
 		</tr>
 		</tbody>
 	</table>

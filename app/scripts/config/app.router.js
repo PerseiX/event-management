@@ -78,8 +78,24 @@
 					}]
 				}
 			})
+			.state('app.content.events.edit-event', {
+				url: '/:eventId',
+				views: {
+					'events@app.content': {
+						templateUrl: 'views/pages/edit-event.html',
+						controller: 'EventController as event'
+					}
+				},
+				resolve: {
+					Event: ['Events', '$stateParams', function (Events, $stateParams) {
+						return Events.collection.find(function (event) {
+							return event.id == $stateParams.eventId;
+						});
+					}]
+				}
+			})
 		;
-		
+
 		return this;
 	}
 
