@@ -6,12 +6,21 @@
 
 	<script src="../bower_components/angular/angular.js" type="text/javascript"></script>
 	<script src="../bower_components/angular-ui-router/release/angular-ui-router.js"></script>
+	<script src="../bower_components/angular-resource/angular-resource.min.js"></script>
+	<script src="scripts/app.js"></script>
+	<script src="scripts/services/DataFetcher.js"></script>
+	<script src="scripts/config/app.constant.js"></script>
+	<script src="scripts/config/app.router.js"></script>
 
-	<script src="js/min/main.min.js"></script>
+	<script src="scripts/controller/EventsController.js"></script>
+
+
+
+	<!--<script src="js/min/main.min.js"></script>-->
 	<link rel="stylesheet" type="text/css" href="styles/main.css">
 
 </head>
-<body ng-app="eventmanagementApp">
+<body ng-app="eventManagementApp">
 <div ui-view class="container"></div>
 </body>
 </html>

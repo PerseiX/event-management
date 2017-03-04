@@ -2,7 +2,8 @@
 	'use strict';
 
 	angular
-		.module('eventmanagementApp',[
-			'ui.router'
+		.module('eventManagementApp',[
+			'ui.router',
+			'ngResource'
 		]);
 })(angular);

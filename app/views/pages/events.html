@@ -1,0 +1,22 @@
+<div class="events">
+	<table>
+		<thead>
+		<tr>
+			<th>ID</th>
+			<th>NAME</th>
+			<th>DESCRIPTION</th>
+			<th>TERM</th>
+			<th>ACTIVE</th>
+		</tr>
+		</thead>
+		<tbody>
+		<tr ng-repeat="event in events.events">
+			<th>{{event.id}}</th>
+			<th>{{event.name}}</th>
+			<th>{{event.description}}</th>
+			<th>{{event.event_term|date}}</th>
+			<th>{{event.active}}</th>
+		</tr>
+		</tbody>
+	</table>
+</div>

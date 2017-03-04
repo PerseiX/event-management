@@ -1,6 +1,13 @@
 (function (angular) {
 	'use strict';
 
+	/**
+	 * Main state configuration
+	 *
+	 * @param $stateProvider
+	 * @returns {AppRouterConfig}
+	 * @constructor
+	 */
 	function AppRouterConfig($stateProvider) {
 		$stateProvider
 			.state('app', {
@@ -40,7 +47,7 @@
 				}
 			})
 			.state('app.content.contact', {
-				url: 'contact',
+				url: '/contact',
 				views: {
 					'contact@app.content': {
 						templateUrl: 'views/pages/contact.html'
@@ -48,19 +55,36 @@
 				}
 			})
 			.state('app.content.about', {
-				url: 'about',
+				url: '/about',
 				views: {
 					'about@app.content': {
 						templateUrl: 'views/pages/about.html'
 					}
 				}
-			});
-
+			})
+			.state('app.content.events', {
+				url: '/events',
+				views: {
+					'events@app.content': {
+						templateUrl: 'views/pages/events.html',
+						controller: 'EventsController as events'
+					}
+				},
+				resolve: {
+					Events: ['DataFetcher', function (DataFetcher) {
+						return DataFetcher.GETData('/events').then(function (response) {
+							return response;
+						});
+					}]
+				}
+			})
+		;
+		
 		return this;
 	}
 
 	angular
-		.module('eventmanagementApp')
+		.module('eventManagementApp')
 		.config(AppRouterConfig);
 	AppRouterConfig.$inject = ['$stateProvider'];
 

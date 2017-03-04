@@ -1,0 +1,23 @@
+.events {
+	table {
+		//width: 400px;
+		top: 20px;
+		position: relative;
+		margin: 0 auto;
+		font-family: arial;
+		font-size: 14px;
+		font-weight:inherit;
+		border-collapse: collapse;
+		width: 80%;
+	}
+
+	td, th {
+		border: 1px solid #dddddd;
+		text-align: left;
+		padding: 8px;
+	}
+
+	tr:nth-child(2n) {
+		background-color: #dddddd;
+	}
+}
