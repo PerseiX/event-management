@@ -1,7 +1,22 @@
 .events {
+	.enable {
+		background-color: #d9ffde;
+	}
+	.disable {
+		background-color: #ffe9e6;
+	}
+	.alert-success
+	{
+		margin-top: 30px;
+	}
+	.alert-danger
+	{
+		margin-top: 30px;
+	}
 	margin: 0 auto;
 	width: 80%;
 	table {
+
 		position: relative;
 		font-family: arial;
 		font-size: 14px;
@@ -9,6 +24,7 @@
 		border-collapse: collapse;
 		width: 100%;
 		margin: 0 auto;
+		margin-top: 20px;
 	}
 
 	td, th {
@@ -17,7 +33,4 @@
 		padding: 8px;
 	}
 
-	tr:nth-child(2n) {
-		background-color: #dddddd;
-	}
 }

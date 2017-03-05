@@ -1,4 +1,6 @@
 <div class="events">
+	<div id="message-container">
+	</div>
 	<table>
 		<thead>
 		<tr>
@@ -6,15 +8,32 @@
 			<th>TERM</th>
 			<th>ACTIVE</th>
 			<th>EDIT</th>
+			<th>SETTING</th>
 		</tr>
 		</thead>
 		<tbody>
-		<tr ng-repeat="event in events.events">
+		<tr ng-repeat="event in events.events" ng-class="{true: 'enable', false: 'disable'}[event.active == true]">
 			<th>{{event.name}}</th>
-			<th>{{event.event_term|date}}</th>
+			<th>{{event.eventTerm|date}}</th>
 			<th>{{event.active}}</th>
 			<th>
 				<a ui-sref="app.content.events.edit-event({eventId: event.id})"> Edit</a>
+			</th>
+			<th>
+				<div class="dropdown">
+					<button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">
+						<span class="glyphicon glyphicon-cog"></span>
+					</button>
+					<ul class="dropdown-menu">
+						<li>
+							<button ng-if="event.active == true" ng-click="events.disable(event.id)"> Disable</button>
+							<button ng-if="event.active == false" ng-click="events.enable(event.id)"> Enable</button>
+						</li>
+						<li>
+							<button ng-click="events.delete(event.id)">Delete</button>
+						</li>
+					</ul>
+				</div>
 			</th>
 		</tr>
 		</tbody>

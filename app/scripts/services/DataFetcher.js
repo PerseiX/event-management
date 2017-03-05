@@ -47,14 +47,62 @@
 		 * @constructor
 		 */
 		that.PUTData = function (path, data) {
-			console.log(data);
-			var promise = $resource(CONST.DOMAIN + CONST.URL + path + '/' + data.id, {}, {
+			var promise = $resource(CONST.DOMAIN + CONST.URL + path + '/:id', {'id': data.id}, {
 				update: {
 					method: 'PUT'
 				}
 			});
 
 			return returnPromise(promise.update(data).$promise);
+		};
+
+		/**
+		 * @param path
+		 * @param eventId
+		 * @returns {*}
+		 * @constructor
+		 */
+		that.PUTEnable = function (path, eventId) {
+			var promise = $resource(CONST.DOMAIN + CONST.URL + path + '/:id', {'id': eventId}, {
+				update: {
+					method: 'PUT'
+				}
+			});
+
+			return returnPromise(promise.update().$promise);
+		};
+
+		/**
+		 * @param path
+		 * @param eventId
+		 * @returns {*}
+		 * @constructor
+		 */
+		that.PUTDisable = function (path, eventId) {
+			var promise = $resource(CONST.DOMAIN + CONST.URL + path + '/:id', {'id': eventId}, {
+				update: {
+					method: 'PUT'
+				}
+			});
+
+			return returnPromise(promise.update().$promise);
+		};
+
+		/**
+		 *
+		 * @param path
+		 * @param eventId
+		 * @returns {*}
+		 * @constructor
+		 */
+		that.Delete = function (path, eventId) {
+			var promise = $resource(CONST.DOMAIN + CONST.URL + path + '/:id', {'id': eventId}, {
+				delete: {
+					method: 'DELETE'
+				}
+			});
+
+			return returnPromise(promise.delete().$promise);
 		}
 	}
 
