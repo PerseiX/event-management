@@ -2,13 +2,12 @@
 	'use strict';
 
 	/**
-	 *
-	 * @param MessageManager
+	 * @param Growl
 	 * @param EventsRepository
 	 * @param DataFetcher
 	 * @constructor
 	 */
-	function EventsManager(MessageManager, EventsRepository, DataFetcher) {
+	function EventsManager(Growl, EventsRepository, DataFetcher) {
 		var that = this;
 
 		/**
@@ -20,7 +19,7 @@
 					EventsRepository.getEvents().find(function (event) {
 						if (event.id == eventId) {
 							event.active = true;
-							MessageManager.alertSuccess("Twoje wydarzenie zostało włączone.");
+							Growl.success("Twoje wydarzenie zostało włączone.", {ttl: 2500});
 
 							return event;
 						}
@@ -37,7 +36,7 @@
 					EventsRepository.getEvents().find(function (event) {
 						if (event.id == eventId) {
 							event.active = false;
-							MessageManager.alertSuccess("Twoje wydarzenie zostało wyłączone.");
+							Growl.success("Twoje wydarzenie zostało wyłączone.", {ttl: 2500});
 
 							return event;
 						}
@@ -54,12 +53,24 @@
 					EventsRepository.getEvents().find(function (event, id) {
 						if (event.id == eventId) {
 							EventsRepository.getEvents().splice(id, 1);
-							MessageManager.alertDanger("Twoje wydarzenie zostało usunięte.");
+							Growl.error("Twoje wydarzenie zostało usunięte.", {ttl: 2500});
 
 							return event;
 						}
 					});
 				});
+		};
+
+		/**
+		 * @param event
+		 */
+		that.edit = function (event) {
+			DataFetcher.PUTData('/event', event)
+				.then(function () {
+					growl.success("Twoje wydarzenie zostało pomyślnie edytowane.", {ttl: 2500});
+
+					return event;
+				})
 		}
 	}
 
@@ -68,7 +79,7 @@
 		.service('EventsManager', EventsManager);
 
 	EventsManager.$inject = [
-		'MessageManager',
+		'growl',
 		'EventsRepository',
 		'DataFetcher'
 	];

@@ -4,6 +4,7 @@
 	angular
 		.module('eventManagementApp',[
 			'ui.router',
-			'ngResource'
+			'ngResource',
+			'angular-growl'
 		]);
 })(angular);

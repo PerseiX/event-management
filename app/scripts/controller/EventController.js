@@ -3,16 +3,16 @@
 
 	/**
 	 * @param Event
-	 * @param DataFetcher
+	 * @param EventsManager
 	 * @constructor
 	 */
-	function EventController(Event, DataFetcher) {
+	function EventController(Event, EventsManager) {
 		var vm = this;
 
 		vm.event = Event;
 
 		vm.editEvent = function () {
-			DataFetcher.PUTData('/event', vm.event);
+			EventsManager.edit(vm.event);
 		}
 	}
 
@@ -22,7 +22,7 @@
 
 	EventController.$inject = [
 		'Event',
-		'DataFetcher'
+		'EventsManager'
 	];
 
 })(angular);
