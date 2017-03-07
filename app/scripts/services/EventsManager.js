@@ -24,6 +24,8 @@
 							return event;
 						}
 					});
+				}, function (errors) {
+					errorHandler(errors);
 				});
 		};
 
@@ -41,6 +43,8 @@
 							return event;
 						}
 					});
+				}, function (errors) {
+					errorHandler(errors);
 				});
 		};
 
@@ -58,6 +62,8 @@
 							return event;
 						}
 					});
+				}, function (errors) {
+					errorHandler(errors);
 				});
 		};
 
@@ -67,10 +73,27 @@
 		that.edit = function (event) {
 			DataFetcher.PUTData('/event', event)
 				.then(function () {
-					growl.success("Twoje wydarzenie zostało pomyślnie edytowane.", {ttl: 2500});
+						Growl.success("Twoje wydarzenie zostało pomyślnie edytowane.", {ttl: 2500});
 
-					return event;
-				})
+						return event;
+					},
+					function (errors) {
+						errorHandler(errors);
+					});
+		};
+
+		/**
+		 *
+		 * @param errors
+		 */
+		function errorHandler(errors) {
+			for (var property in errors.data) {
+				if (errors.data.hasOwnProperty(property)) {
+					errors.data[property].forEach(function (error) {
+						Growl.error(error, {ttl: 2500});
+					})
+				}
+			}
 		}
 	}
 

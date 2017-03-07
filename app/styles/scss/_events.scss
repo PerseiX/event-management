@@ -1,8 +1,7 @@
 .events {
 	.growl-container.growl-fixed{
-		float: inherit;
-		position: relative;
-		right: 0;
+		position: absolute;
+		left: 10%;
 	}
 
 	.enable {
@@ -15,7 +14,6 @@
 	margin: 0 auto;
 	width: 80%;
 	table {
-
 		position: relative;
 		font-family: arial;
 		font-size: 14px;
@@ -23,7 +21,7 @@
 		border-collapse: collapse;
 		width: 100%;
 		margin: 0 auto;
-		margin-top: 20px;
+		margin-top: 65px;
 	}
 
 	td, th {
@@ -32,4 +30,7 @@
 		padding: 8px;
 	}
 
+	.edit-form{
+		margin-top: 70px;
+	}
 }
