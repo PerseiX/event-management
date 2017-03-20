@@ -103,7 +103,7 @@
 			});
 
 			return returnPromise(promise.delete().$promise);
-		}
+		};
 	}
 
 	angular

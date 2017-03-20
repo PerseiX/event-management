@@ -27,6 +27,7 @@
 				views: {
 					'main-content@app': {
 						templateUrl: 'views/main-content.html'
+
 					}
 				}
 			})
@@ -34,7 +35,8 @@
 				url: '/',
 				views: {
 					'home@app.content': {
-						templateUrl: 'views/pages/home.html'
+						templateUrl: 'views/pages/home.html',
+						controller: 'MainController as main'
 					}
 				}
 			})
@@ -103,5 +105,6 @@
 		.module('eventManagementApp')
 		.config(AppRouterConfig);
 	AppRouterConfig.$inject = ['$stateProvider'];
+
 
 })(angular);

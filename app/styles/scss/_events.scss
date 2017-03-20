@@ -1,5 +1,5 @@
 .events {
-	.growl-container.growl-fixed{
+	.growl-container.growl-fixed {
 		position: absolute;
 		left: 10%;
 	}
@@ -9,6 +9,21 @@
 	}
 	.disable {
 		background-color: #ffe9e6;
+	}
+
+	.dropdown-menu {
+		margin: 0;
+		padding: 0;
+
+		li button {
+			background-color: #f9fdff;
+			width: 100%;
+			border: 1px solid black;
+
+			&:hover {
+				background-color: #ecf0ff;
+			}
+		}
 	}
 
 	margin: 0 auto;
@@ -30,7 +45,7 @@
 		padding: 8px;
 	}
 
-	.edit-form{
+	.edit-form {
 		margin-top: 70px;
 	}
 }

@@ -11,7 +11,7 @@
 		var that = this;
 
 		/**
-		 * @param eventId`
+		 * @param eventId
 		 */
 		that.enable = function (eventId) {
 			DataFetcher.PUTEnable('/event/enable', eventId)
@@ -83,7 +83,6 @@
 		};
 
 		/**
-		 *
 		 * @param errors
 		 */
 		function errorHandler(errors) {
