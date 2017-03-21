@@ -3,16 +3,16 @@
 
 	/**
 	 * @param $q
-	 * @param localStorageService
+	 * @param UserAuthProvider
 	 * @returns {{request: request, responseError: responseError}}
 	 * @constructor
 	 */
-	function TokenInjector($q, localStorageService) {
+	function TokenInjector($q, UserAuthProvider) {
 
 		return {
 			request: function (config) {
-				if (false === angular.isDefined(config.headers['Authorization']) && null !== localStorageService.get('user')) {
-					config.headers['Authorization'] = 'Bearer ' + localStorageService.get('user').access_token;
+				if (false === angular.isDefined(config.headers['Authorization']) && true === UserAuthProvider.isAuthenticated()) {
+					config.headers['Authorization'] = 'Bearer ' + UserAuthProvider.getAccessToken();
 				}
 
 				return config;
@@ -38,7 +38,7 @@
 
 	TokenInjector.$inject = [
 		'$q',
-		'localStorageService'
+		'UserAuthProvider'
 	];
 
 	angular.module('eventManagementApp')

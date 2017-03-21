@@ -2,24 +2,26 @@
 	'use strict';
 
 	/**
+	 *
+	 * @param UserAuthProvider
 	 * @param $auth
-	 * @param localStorageService
 	 * @constructor
 	 */
-	function MainController($auth, localStorageService) {
+	function MainController(UserAuthProvider, $auth) {
 		var vm = this;
 
 		vm.authenticate = function (provider) {
-			$auth.authenticate(provider)
-				.then(function (response) {
-					var authenticateResponse = angular.fromJson(response.data);
-					localStorageService.set('user', authenticateResponse);
-				})
-				.catch(function (error) {
-					console.log(error);
-				});
-
+			UserAuthProvider.setAuth($auth);
+			UserAuthProvider.authenticate(provider);
+			vm.isAuthenticated = UserAuthProvider.isAuthenticated();
 		};
+
+		vm.logout = function () {
+			UserAuthProvider.logout();
+			vm.isAuthenticated = UserAuthProvider.isAuthenticated();
+		};
+
+		vm.isAuthenticated = UserAuthProvider.isAuthenticated();
 	}
 
 	angular
@@ -27,8 +29,8 @@
 		.controller('MainController', MainController);
 
 	MainController.$inject = [
-		'$auth',
-		'localStorageService'
+		'UserAuthProvider',
+		'$auth'
 	];
 })
 (angular);

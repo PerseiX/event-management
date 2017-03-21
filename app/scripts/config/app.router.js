@@ -15,7 +15,8 @@
 				abstract: true,
 				views: {
 					'@': {
-						templateUrl: 'views/main.html'
+						templateUrl: 'views/main.html',
+						controller: 'MainController as main'
 					},
 					'navigation@app': {
 						templateUrl: 'views/navigation.html'
@@ -35,8 +36,7 @@
 				url: '/',
 				views: {
 					'home@app.content': {
-						templateUrl: 'views/pages/home.html',
-						controller: 'MainController as main'
+						templateUrl: 'views/pages/home.html'
 					}
 				}
 			})
