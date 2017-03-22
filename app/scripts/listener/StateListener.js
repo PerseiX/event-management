@@ -4,13 +4,16 @@
 	/**
 	 * @param $transitions
 	 * @param UserAuthProvider
-	 * @param growl
+	 * @param CONST
+	 * @param $auth
 	 * @constructor
 	 */
-	function ChangeStateListener($transitions, UserAuthProvider, growl) {
+	function ChangeStateListener($transitions, UserAuthProvider, CONST, $auth) {
+		UserAuthProvider.setAuth($auth);
+
 		$transitions.onStart({to: ['app.content.events', 'app.content.events.*']}, function (trans) {
 			if (!UserAuthProvider.isAuthenticated()) {
-				growl.error('Brak dostępu!', {ttl: 2500});
+				UserAuthProvider.authenticate(CONST.OAUTH2.DEFAULT_PROVIDER_NAME);
 
 				return trans.router.stateService.target('app.content.home');
 			}
@@ -24,6 +27,7 @@
 	ChangeStateListener.$inject = [
 		'$transitions',
 		'UserAuthProvider',
-		'growl'
+		'CONST',
+		'$auth'
 	];
 })(angular);

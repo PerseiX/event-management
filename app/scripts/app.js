@@ -12,7 +12,7 @@
 
 	function OauthProvider($authProvider, CONST) {
 		$authProvider.oauth2({
-			name: 'event-management-oauth',
+			name: CONST.OAUTH2.DEFAULT_PROVIDER_NAME,
 			url: CONST.OAUTH2.CODE_EXCHANGE_URL,
 			clientId: CONST.OAUTH2.CLIENT_ID,
 			redirectUri: CONST.OAUTH2.REDIRECT_URL,

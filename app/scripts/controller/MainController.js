@@ -2,26 +2,23 @@
 	'use strict';
 
 	/**
-	 *
 	 * @param UserAuthProvider
-	 * @param $auth
 	 * @constructor
 	 */
-	function MainController(UserAuthProvider, $auth) {
+	function MainController(UserAuthProvider) {
 		var vm = this;
+		vm.isAuthenticated = UserAuthProvider.isAuthenticated();
 
 		vm.authenticate = function (provider) {
-			UserAuthProvider.setAuth($auth);
-			UserAuthProvider.authenticate(provider);
-			vm.isAuthenticated = UserAuthProvider.isAuthenticated();
+			UserAuthProvider.authenticate(provider).then(function () {
+				vm.isAuthenticated = UserAuthProvider.isAuthenticated();
+			});
 		};
 
 		vm.logout = function () {
 			UserAuthProvider.logout();
 			vm.isAuthenticated = UserAuthProvider.isAuthenticated();
 		};
-
-		vm.isAuthenticated = UserAuthProvider.isAuthenticated();
 	}
 
 	angular
