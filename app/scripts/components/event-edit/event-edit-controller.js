@@ -2,18 +2,19 @@
 	'use strict';
 
 	/**
-	 * @param Event
+	 * @param SingleEventRepository
 	 * @param EventsManager
 	 * @constructor
 	 */
-	function EventController(Event, EventsManager) {
+	function EventController(SingleEventRepository, EventsManager) {
 		var vm = this;
 
-		vm.event = Event;
+		vm.event = SingleEventRepository.getEvent();
 
 		vm.editEvent = function () {
 			EventsManager.edit(vm.event);
 		}
+
 	}
 
 	angular
@@ -21,7 +22,7 @@
 		.controller('EventController', EventController);
 
 	EventController.$inject = [
-		'Event',
+		'SingleEventRepository',
 		'EventsManager'
 	];
 

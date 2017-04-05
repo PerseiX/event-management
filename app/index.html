@@ -22,7 +22,6 @@
 	<link rel="stylesheet" type="text/css" href="../bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.css">
 	<link rel="stylesheet" type="text/css" href="../bower_components/angular-growl-v2/build/angular-growl.css">
 
-	<script src="js/min/main.min.js"></script>
 	<link rel="stylesheet" type="text/css" href="styles/main.css">
 
 	<!--ANGULAR SECTION-->
@@ -36,17 +35,28 @@
 	<!--SERVICES-->
 	<script src="scripts/services/DataFetcher.js"></script>
 	<script src="scripts/services/EventsManager.js"></script>
-	<script src="scripts/services/EventsRepository.js"></script>
 	<script src="scripts/services/Interceptor.js"></script>
 	<script src="scripts/auth/provider/UserAuthProvider.js"></script>
 
-	<!--CONTROLLERS-->
-	<script src="scripts/controller/EventsController.js"></script>
-	<script src="scripts/controller/EventController.js"></script>
-	<script src="scripts/controller/MainController.js"></script>
+	<!--REPOSITORIES-->
+	<script src="scripts/repositories/EventsRepository.js"></script>
+	<script src="scripts/repositories/SingleEventRepository.js"></script>
 
 	<!--LISTENERS-->
 	<script src="scripts/listener/StateListener.js"></script>
+
+	<!--COMPONENTS-->
+	<!--NAVIGATION-->
+	<script src="scripts/components/navigation/navigation-component.js"></script>
+	<script src="scripts/components/navigation/navigation-controller.js"></script>
+
+	<!--EVENTS-LIST-->
+	<script src="scripts/components/events-list/events-list-controller.js"></script>
+	<script src="scripts/components/events-list/events-list-component.js"></script>
+
+	<!--EVENt-EDIT-->
+	<script src="scripts/components/event-edit/event-edit-component.js"></script>
+	<script src="scripts/components/event-edit/event-edit-controller.js"></script>
 </head>
 
 <body ng-app="eventManagementApp">

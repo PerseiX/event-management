@@ -2,18 +2,14 @@
 	'use strict';
 
 	/**
-	 *
-	 * @param Events
 	 * @param EventsManager
 	 * @param EventsRepository
 	 * @constructor
 	 */
-	function EventsController(Events, EventsManager, EventsRepository) {
+	function EventsController(EventsManager, EventsRepository) {
 		var vm = this;
 
-		EventsRepository.setEvents(Events.collection);
-
-		vm.events = Events.collection;
+		vm.events = EventsRepository.getEvents();
 
 		vm.enable = function (eventId) {
 			EventsManager.enable(eventId);
@@ -33,7 +29,6 @@
 		.controller('EventsController', EventsController);
 
 	EventsController.$inject = [
-		'Events',
 		'EventsManager',
 		'EventsRepository'
 	];

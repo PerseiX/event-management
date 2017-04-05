@@ -15,11 +15,7 @@
 				abstract: true,
 				views: {
 					'@': {
-						templateUrl: 'views/main.html',
-						controller: 'MainController as main'
-					},
-					'navigation@app': {
-						templateUrl: 'views/navigation.html'
+						templateUrl: 'views/main.html'
 					}
 				}
 			})
@@ -68,8 +64,7 @@
 				url: '/events',
 				views: {
 					'events@app.content': {
-						templateUrl: 'views/pages/events.html',
-						controller: 'EventsController as events'
+						template: "<events></events>"
 					}
 				},
 				resolve: {
@@ -78,14 +73,16 @@
 							return response;
 						});
 					}]
-				}
+				},
+				onEnter: ['Events', 'EventsRepository', function (Events, EventsRepository) {
+					EventsRepository.setEvents(Events.collection);
+				}]
 			})
 			.state('app.content.events.edit-event', {
 				url: '/:eventId',
 				views: {
 					'events@app.content': {
-						templateUrl: 'views/pages/edit-event.html',
-						controller: 'EventController as event'
+						template: "<edit-event></edit-event>"
 					}
 				},
 				resolve: {
@@ -94,7 +91,10 @@
 							return event.id == $stateParams.eventId;
 						});
 					}]
-				}
+				},
+				onEnter: ['Event', 'SingleEventRepository', function (Event, SingleEventRepository) {
+					SingleEventRepository.setEvent(Event);
+				}]
 			})
 		;
 

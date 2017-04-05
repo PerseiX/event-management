@@ -1,11 +1,7 @@
 (function (angular) {
 	'use strict';
 
-	/**
-	 * @param UserAuthProvider
-	 * @constructor
-	 */
-	function MainController(UserAuthProvider) {
+	function NavigationController(UserAuthProvider) {
 		var vm = this;
 		vm.isAuthenticated = UserAuthProvider.isAuthenticated();
 
@@ -21,13 +17,10 @@
 		};
 	}
 
-	angular
-		.module('eventManagementApp')
-		.controller('MainController', MainController);
+	angular.module('eventManagementApp')
+		.controller('NavigationController', NavigationController);
 
-	MainController.$inject = [
-		'UserAuthProvider',
-		'$auth'
+	NavigationController.$inject = [
+		'UserAuthProvider'
 	];
-})
-(angular);
+})(angular);

@@ -31,7 +31,7 @@
 		 * @constructor
 		 */
 		that.GETData = function (path) {
-			var promise = $resource(CONST.DOMAIN + CONST.URL + path, {}, {
+			var promise = $resource(CONST.DOMAIN + CONST.URL + path + "/10/limit/1/page", {}, {
 				get: {
 					method: 'GET'
 				}
