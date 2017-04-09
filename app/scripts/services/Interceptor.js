@@ -2,17 +2,19 @@
 	'use strict';
 
 	/**
+	 * @param UserAuthentication
 	 * @param $q
-	 * @param UserAuthProvider
 	 * @returns {{request: request, responseError: responseError}}
 	 * @constructor
 	 */
-	function TokenInjector($q, UserAuthProvider) {
+	function TokenInjector(UserAuthentication, $q) {
 
 		return {
 			request: function (config) {
-				if (false === angular.isDefined(config.headers['Authorization']) && true === UserAuthProvider.isAuthenticated()) {
-					config.headers['Authorization'] = 'Bearer ' + UserAuthProvider.getAccessToken();
+				var User = UserAuthentication.getUser();
+
+				if (false === angular.isDefined(config.headers['Authorization']) && true === User.isAuthenticated()) {
+					config.headers['Authorization'] = 'Bearer ' + User.getAccessToken();
 				}
 
 				return config;
@@ -37,8 +39,8 @@
 	];
 
 	TokenInjector.$inject = [
-		'$q',
-		'UserAuthProvider'
+		'UserAuthentication',
+		'$q'
 	];
 
 	angular.module('eventManagementApp')

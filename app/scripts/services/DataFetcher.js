@@ -104,6 +104,22 @@
 
 			return returnPromise(promise.delete().$promise);
 		};
+
+		/**
+		 * @param User
+		 * @returns {*}
+		 * @constructor
+		 */
+		that.GetUserDetail = function (User) {
+			var url = '/access-token/' + User.getAccessToken() + '/refresh-token/' + User.getRefreshToken() + '/user-details';
+			var promise = $resource(CONST.DOMAIN + CONST.URL + url, {}, {
+				getDetails: {
+					method: 'POST'
+				}
+			});
+
+			return returnPromise(promise.getDetails().$promise);
+		}
 	}
 
 	angular

@@ -3,17 +3,18 @@
 
 	/**
 	 * @param $transitions
-	 * @param UserAuthProvider
+	 * @param UserAuthentication
+	 * @param UserManager
 	 * @param CONST
 	 * @param $auth
 	 * @constructor
 	 */
-	function ChangeStateListener($transitions, UserAuthProvider, CONST, $auth) {
-		UserAuthProvider.setAuth($auth);
+	function ChangeStateListener($transitions, UserAuthentication, UserManager, CONST, $auth) {
+		UserAuthentication.setAuth($auth);
 
 		$transitions.onStart({to: ['app.content.events', 'app.content.events.*']}, function (trans) {
-			if (!UserAuthProvider.isAuthenticated()) {
-				UserAuthProvider.authenticate(CONST.OAUTH2.DEFAULT_PROVIDER_NAME);
+			if (!UserManager.isAuthenticated()) {
+				UserManager.login(CONST.OAUTH2.DEFAULT_PROVIDER_NAME);
 
 				return trans.router.stateService.target('app.content.home');
 			}
@@ -26,7 +27,8 @@
 
 	ChangeStateListener.$inject = [
 		'$transitions',
-		'UserAuthProvider',
+		'UserAuthentication',
+		'UserManager',
 		'CONST',
 		'$auth'
 	];

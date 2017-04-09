@@ -17,10 +17,9 @@
 			<li ui-sref-active="active">
 				<a ui-sref="app.content.events">EVENTS</a>
 			</li>
-
-			<li ui-sref-active="active">
-				<a ng-if="navigation.isAuthenticated==false" href="#" ng-click="navigation.authenticate('event-management-oauth')">LOGIN</a>
-				<a ng-if="navigation.isAuthenticated==true" href="#" ng-click="navigation.logout()">LOGOUT</a>
+			<li>
+				<a ng-if="manager.isAuthenticated()===false"  ui-sref="app.content.events" ng-click="navigation.login('event-management-oauth')">LOGIN</a>
+				<a ng-if="manager.isAuthenticated()===true" ui-sref="app.content.home" ng-click="navigation.logout()">LOGOUT</a>
 			</li>
 		</ul>
 	</nav>

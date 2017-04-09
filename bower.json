@@ -21,6 +21,8 @@
     "jquery": "^1.0",
     "bootstrap-datepicker": "^1.6.4",
     "angular-growl-v2": "angular-growl-2#^0.7.9",
-    "angular-local-storage": "^0.5.2"
+    "angular-local-storage": "^0.5.2",
+    "angular-moment": "^1.0.1",
+    "angular-resource": "^1.6.4"
   }
 }

@@ -1,19 +1,17 @@
 (function (angular) {
 	'use strict';
 
-	function NavigationController(UserAuthProvider) {
+	function NavigationController(UserManager, $scope) {
 		var vm = this;
-		vm.isAuthenticated = UserAuthProvider.isAuthenticated();
 
-		vm.authenticate = function (provider) {
-			UserAuthProvider.authenticate(provider).then(function () {
-				vm.isAuthenticated = UserAuthProvider.isAuthenticated();
-			});
+		$scope.manager = UserManager;
+
+		vm.login = function (provider) {
+			UserManager.login(provider);
 		};
 
 		vm.logout = function () {
-			UserAuthProvider.logout();
-			vm.isAuthenticated = UserAuthProvider.isAuthenticated();
+			UserManager.logout();
 		};
 	}
 
@@ -21,6 +19,7 @@
 		.controller('NavigationController', NavigationController);
 
 	NavigationController.$inject = [
-		'UserAuthProvider'
+		'UserManager',
+		'$scope'
 	];
 })(angular);

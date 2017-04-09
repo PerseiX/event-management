@@ -4,66 +4,49 @@
 	/**
 	 * @param localStorageService
 	 * @param $q
+	 * @param UserRepository
 	 * @constructor
 	 */
-	function UserAuthProvider(localStorageService, $q) {
+	function UserAuthentication(localStorageService, $q, UserRepository) {
 		var that = this;
 
 		/**
-		 * @type {user}
+		 * @returns {UserRepository}
 		 */
-		that.user = null;
+		that.getUser = function () {
+			return UserRepository;
+		};
 
 		/**
-		 * @type {boolean}
-		 */
-		that.authenticated = false;
-
-		/**
-		 *
-		 * @type {null}
+		 * @type {auth}
 		 */
 		that.auth = null;
 
 		/**
-		 * @returns {null|{access_token: *, expires_in: *, refresh_token: *, token_type: *}|*|user}
+		 * @param auth
 		 */
-		that.getUser = function () {
-			return that.user;
+		that.setAuth = function (auth) {
+			that.auth = auth;
 		};
 
-		/**
-		 * @returns {String}
-		 */
-		that.getAccessToken = function () {
-			return that.user.access_token;
-		};
-
-		/**
-		 * @returns {boolean}
-		 */
-		that.isAuthenticated = function () {
-			return that.authenticated;
-		};
 
 		/**
 		 * @param provider
 		 * @returns {user|{access_token: (*|null), expires_in: (string|*), refresh_token: (*|string), token_type: (string|*)}|*}
 		 */
 		that.authenticate = function (provider) {
-
-			return auth(provider).then(function (user) {
-				that.authenticated = true;
-				that.user = {
-					'access_token': user.access_token,
-					'expires_in': user.expires_in,
-					'refresh_token': user.refresh_token,
-					'token_type': user.token_type
-				};
-			});
+			return auth(provider)
+				.then(function (user) {
+					UserRepository
+						.setAccessToken(user.access_token)
+						.setRefreshToken(user.refresh_token);
+				})
+				.then(function () {
+					UserRepository.setIsAuthenticated(true);
+				});
 		};
 
-		/**
+		/**js
 		 * @param provider
 		 * @returns {IPromise<user>}
 		 */
@@ -90,26 +73,19 @@
 		 */
 		that.logout = function () {
 			localStorageService.remove('user');
-			that.user = null;
-			that.authenticated = false;
+			UserRepository.setIsAuthenticated(false);
 
 			return true;
-		};
-
-		/**
-		 * @param auth
-		 */
-		that.setAuth = function (auth) {
-			that.auth = auth;
 		};
 	}
 
 	angular
 		.module('eventManagementApp')
-		.service('UserAuthProvider', UserAuthProvider);
+		.service('UserAuthentication', UserAuthentication);
 
-	UserAuthProvider.$inject = [
+	UserAuthentication.$inject = [
 		'localStorageService',
-		'$q'
+		'$q',
+		'UserRepository'
 	];
 })(angular);
