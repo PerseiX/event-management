@@ -5,9 +5,10 @@
 	 * @param DataFetcher
 	 * @param UserRepository
 	 * @param UserAuthentication
+	 * @param LocalStorageManager
 	 * @constructor
 	 */
-	function UserManager(DataFetcher, UserRepository, UserAuthentication) {
+	function UserManager(DataFetcher, UserRepository, UserAuthentication, LocalStorageManager) {
 		var that = this;
 
 		/**
@@ -26,27 +27,62 @@
 
 		/**
 		 * @param provider
-		 * @returns {IPromise<>}
 		 */
 		that.login = function (provider) {
-			return UserAuthentication.authenticate(provider)
+			UserAuthentication.authenticate(provider)
+				.then(function (tokens) {
+					setTokens(tokens);
+				})
 				.then(function () {
 					DataFetcher.GetUserDetail(UserRepository)
-						.then(function (user) {
-							UserRepository
-								.setUsername(user.username)
-								.setClientSecret(user.clientSecret)
-								.setAccessTokenExpiresAt(user.accessTokenExpiresAt)
-								.setRefreshTokenExpiresAt(user.refreshTokenExpiresAt)
-								.setEmail(user.email)
-								.setClientId(user.clientIdentify);
+						.then(function (User) {
+							setUserData(User);
 						});
 				});
 		};
 
 
+		that.refreshToken = function () {
+			DataFetcher.refreshToken(UserRepository)
+				.then(function (refreshedUser) {
+					LocalStorageManager.saveUser(refreshedUser);
+					setTokens(refreshedUser)
+				})
+				.then(function () {
+					DataFetcher.GetUserDetail(UserRepository)
+						.then(function (User) {
+							setUserData(User);
+						});
+				});
+		};
+
 		that.logout = function () {
 			UserAuthentication.logout();
+		};
+
+		/**
+		 * @param Tokens
+		 * @returns {UserRepository}
+		 */
+		function setTokens(Tokens) {
+			return UserRepository
+				.setAccessToken(Tokens.access_token)
+				.setRefreshToken(Tokens.refresh_token);
+		}
+
+		/**
+		 * @param user
+		 * @returns {UserRepository}
+		 */
+		function setUserData(user) {
+			return UserRepository
+				.setUsername(user.username)
+				.setClientSecret(user.clientSecret)
+				.setAccessTokenExpiresAt(user.accessTokenExpiresAt)
+				.setRefreshTokenExpiresAt(user.refreshTokenExpiresAt)
+				.setEmail(user.email)
+				.setClientId(user.clientIdentify)
+				.setIsAuthenticated(true);
 		}
 	}
 
@@ -56,6 +92,7 @@
 	UserManager.$inject = [
 		'DataFetcher',
 		'UserRepository',
-		'UserAuthentication'
+		'UserAuthentication',
+		'LocalStorageManager'
 	];
 })(angular);

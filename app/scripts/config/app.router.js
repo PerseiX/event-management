@@ -17,7 +17,10 @@
 					'@': {
 						templateUrl: 'views/main.html'
 					}
-				}
+				},
+				onEnter: ['UserAuthentication', '$auth', function (UserAuthentication, $auth) {
+					return UserAuthentication.setAuth($auth);
+				}]
 			})
 			.state('app.content', {
 				abstract: true,

@@ -119,7 +119,29 @@
 			});
 
 			return returnPromise(promise.getDetails().$promise);
-		}
+		};
+
+		/**
+		 * @param User
+		 * @returns {*}
+		 * @constructor
+		 */
+		that.refreshToken = function (User) {
+			var requestData = {
+				'grant_type': 'refresh_token',
+				'client_id': CONST.OAUTH2.CLIENT_ID,
+				'client_secret': CONST.OAUTH2.CLIENT_SECRET,
+				'refresh_token': User.getRefreshToken()
+			};
+			var promise = $resource(CONST.DOMAIN + '/event-management-api/web/app_dev.php/oauth/v2/token', {}, {
+				refreshToken: {
+					method: 'POST'
+				}
+			});
+
+			return returnPromise(promise.refreshToken(requestData).$promise);
+		};
+
 	}
 
 	angular

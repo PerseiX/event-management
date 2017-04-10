@@ -3,16 +3,23 @@
 
 	/**
 	 * @param $transitions
-	 * @param UserAuthentication
 	 * @param UserManager
 	 * @param CONST
 	 * @param $auth
 	 * @constructor
 	 */
-	function ChangeStateListener($transitions, UserAuthentication, UserManager, CONST, $auth) {
-		UserAuthentication.setAuth($auth);
+	function ChangeStateListener($transitions, UserManager, CONST) {
 
 		$transitions.onStart({to: ['app.content.events', 'app.content.events.*']}, function (trans) {
+			var seconds = new Date().getTime() / 1000;
+			seconds = Math.round(seconds);
+
+			if (true === UserManager.isAuthenticated()) {
+				if (UserManager.getUser().getAccessTokenExpiresAt() < seconds + 120) {
+					console.log('refresh token');
+					UserManager.refreshToken();
+				}
+			}
 			if (!UserManager.isAuthenticated()) {
 				UserManager.login(CONST.OAUTH2.DEFAULT_PROVIDER_NAME);
 
@@ -27,9 +34,7 @@
 
 	ChangeStateListener.$inject = [
 		'$transitions',
-		'UserAuthentication',
 		'UserManager',
-		'CONST',
-		'$auth'
+		'CONST'
 	];
 })(angular);

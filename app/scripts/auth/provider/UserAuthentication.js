@@ -2,12 +2,13 @@
 	'use strict';
 
 	/**
-	 * @param localStorageService
+	 * @param LocalStorageManager
 	 * @param $q
 	 * @param UserRepository
+	 * @returns {UserAuthentication}
 	 * @constructor
 	 */
-	function UserAuthentication(localStorageService, $q, UserRepository) {
+	function UserAuthentication(LocalStorageManager, $q, UserRepository) {
 		var that = this;
 
 		/**
@@ -29,54 +30,39 @@
 			that.auth = auth;
 		};
 
-
 		/**
 		 * @param provider
-		 * @returns {user|{access_token: (*|null), expires_in: (string|*), refresh_token: (*|string), token_type: (string|*)}|*}
+		 * @returns {IPromise}
 		 */
 		that.authenticate = function (provider) {
-			return auth(provider)
-				.then(function (user) {
-					UserRepository
-						.setAccessToken(user.access_token)
-						.setRefreshToken(user.refresh_token);
-				})
-				.then(function () {
-					UserRepository.setIsAuthenticated(true);
-				});
-		};
-
-		/**js
-		 * @param provider
-		 * @returns {IPromise<user>}
-		 */
-		function auth(provider) {
 			var deferred = $q.defer();
-			var user = localStorageService.get('user');
+			var user = LocalStorageManager.getUser();
 
 			if (null == user) {
 				that.auth.authenticate(provider)
 					.then(function (response) {
-						localStorageService.set('user', angular.fromJson(response.data));
+						LocalStorageManager.saveUser(response.data);
 						deferred.resolve(angular.fromJson(response.data))
-					})
+					});
 			}
 			else {
 				deferred.resolve(user)
 			}
 
 			return deferred.promise;
-		}
+		};
 
 		/**
 		 * @returns {boolean}
 		 */
 		that.logout = function () {
-			localStorageService.remove('user');
+			LocalStorageManager.remove('user');
 			UserRepository.setIsAuthenticated(false);
 
 			return true;
 		};
+
+		return that;
 	}
 
 	angular
@@ -84,7 +70,7 @@
 		.service('UserAuthentication', UserAuthentication);
 
 	UserAuthentication.$inject = [
-		'localStorageService',
+		'LocalStorageManager',
 		'$q',
 		'UserRepository'
 	];

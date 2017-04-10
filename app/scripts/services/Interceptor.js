@@ -33,7 +33,6 @@
 		$httpProvider.interceptors.push(TokenInjector);
 	}
 
-
 	RequestInterceptor.$inject = [
 		'$httpProvider'
 	];

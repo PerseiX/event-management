@@ -7,7 +7,8 @@
 			'ngResource',
 			'angular-growl',
 			'satellizer',
-			'LocalStorageModule'
+			'LocalStorageModule',
+			'ngCookies'
 		]);
 
 	function OauthProvider($authProvider, CONST) {
