@@ -8,12 +8,11 @@
 	 * @constructor
 	 */
 	function TokenInjector(UserAuthentication, $q) {
-
 		return {
 			request: function (config) {
 				var User = UserAuthentication.getUser();
 
-				if (false === angular.isDefined(config.headers['Authorization']) && true === User.isAuthenticated()) {
+				if (false === angular.isDefined(config.headers['Authorization']) && true === User.isAuthenticated() && config.url.indexOf('code') != -1) {
 					config.headers['Authorization'] = 'Bearer ' + User.getAccessToken();
 				}
 

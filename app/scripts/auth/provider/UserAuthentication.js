@@ -57,7 +57,7 @@
 		 */
 		that.logout = function () {
 			LocalStorageManager.remove('user');
-			UserRepository.setIsAuthenticated(false);
+			UserRepository.user = {};
 
 			return true;
 		};

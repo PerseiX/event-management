@@ -57,7 +57,11 @@
 		};
 
 		that.logout = function () {
-			UserAuthentication.logout();
+			DataFetcher.logout()
+				.then(function () {
+					UserAuthentication.logout();
+				});
+
 		};
 
 		/**

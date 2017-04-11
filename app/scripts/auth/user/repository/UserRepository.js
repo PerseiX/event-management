@@ -159,8 +159,10 @@
 		 * @returns {Boolean}
 		 */
 		that.isAuthenticated = function () {
-			if (that.user.hasOwnProperty('isAuthenticated')) {
-				return that.user.isAuthenticated;
+			if(that.user != null){
+				if (that.user.hasOwnProperty('isAuthenticated')) {
+					return that.user.isAuthenticated;
+				}
 			}
 			return false;
 		};

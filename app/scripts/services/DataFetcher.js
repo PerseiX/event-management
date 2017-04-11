@@ -142,6 +142,18 @@
 			return returnPromise(promise.refreshToken(requestData).$promise);
 		};
 
+		/**
+		 * @returns {*}
+		 */
+		that.logout = function () {
+			var promise = $resource(CONST.DOMAIN + '/event-management-api/web/app_dev.php/logout', {}, {
+				logout: {
+					method: 'GET'
+				}
+			});
+
+			return returnPromise(promise.logout().$promise);
+		};
 	}
 
 	angular
