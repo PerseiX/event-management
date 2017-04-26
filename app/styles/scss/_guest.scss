@@ -1,0 +1,41 @@
+.guest {
+	margin-top: 20px;
+	.table {
+		width: 60%;
+		margin: 0 auto;
+		box-sizing: border-box;
+
+		.thead-inverse {
+			background-color: #4b4b4b;
+			color: white;
+			th {
+				padding-left: 40px;
+			}
+		}
+
+		tbody {
+			tr:nth-child(even) {
+				background-color: #efefef;
+			}
+			th {
+				padding-left: 40px;
+				width: 40%;
+			}
+			#active-guest-action {
+				width: 20%;
+				a {
+					visibility: hidden;
+				}
+			}
+			tr:hover {
+				#active-guest-action {
+					a {
+						visibility: visible;
+					}
+				}
+				background-color: #c7c7c7;
+			}
+		}
+
+	}
+}

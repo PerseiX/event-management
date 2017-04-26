@@ -1,48 +1,76 @@
 .events {
+	margin: 0 auto;
+	width: 80%;
 	.growl-container.growl-fixed {
 		position: absolute;
 		left: 10%;
-	}
-
-	.enable {
-		background-color: #d9ffde;
-	}
-	.disable {
-		background-color: #ffe9e6;
 	}
 
 	.dropdown-menu {
 		margin: 0;
 		padding: 0;
 
-		li button {
+		li button, li a {
 			background-color: #f9fdff;
 			width: 100%;
 			border: 1px solid black;
-
+			color: black;
+			text-align: center;
+			font-weight: 400;
 			&:hover {
 				background-color: #ecf0ff;
 			}
 		}
 	}
 
-	margin: 0 auto;
-	width: 80%;
 	table {
+		.thead-inverse {
+			background-color: #4b4b4b;
+			color: white;
+		}
+		.disable {
+			background-color: #d7d7d7;
+		}
 		position: relative;
-		font-family: arial;
 		font-size: 14px;
 		font-weight: normal;
 		border-collapse: collapse;
 		width: 100%;
 		margin: 0 auto;
 		margin-top: 65px;
-	}
 
-	td, th {
-		border: 1px solid #dddddd;
-		text-align: left;
-		padding: 8px;
+		tbody {
+			th {
+				vertical-align: middle;
+				padding-left: 30px;
+			}
+			#active-event-action {
+				width: 10%;
+				a {
+					visibility: hidden;
+				}
+			}
+			tr:hover {
+				#active-event-action {
+					a {
+						color: #3b3b3b;
+						text-decoration: none;
+						visibility: visible;
+					}
+				}
+				background-color: #c7c7c7;
+			}
+		}
+		thead {
+			th {
+				vertical-align: middle;
+				padding-left: 35px;
+			}
+
+		}
+		.setting {
+			padding-left: 45px;
+		}
 	}
 
 	.edit-form {

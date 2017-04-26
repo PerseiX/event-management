@@ -23,22 +23,8 @@ var gulp = require('gulp'),
 			.pipe(gulp.dest("app/styles"));
 	});
 
-	gulp.task('browserSync', function(){
-		browserSync.init({
-			server: {
-				baseDir: "app",
-				routes: {
-					"/bower_components": "bower_components",
-					"/assets": "assets"
-				}
-			}
-		})
-	});
-
-	gulp.task('watch', ['browserSync'], function () {
-		gulp.watch('app/scripts/**/*.js', ['scripts', browserSync.reload]);
+	gulp.task('watch', ['sass'], function () {
 		gulp.watch('app/styles/scss/*.scss', ['sass', browserSync.reload]);
-		gulp.watch('app/*.html').on("change", browserSync.reload);
 	});
 
 	gulp.task('build', ['scripts', 'sass']);

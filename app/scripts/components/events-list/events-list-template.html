@@ -1,12 +1,11 @@
 <div class="events">
 	<div growl></div>
-	<table>
-		<thead>
+	<table class="table">
+		<thead class="thead-inverse">
 		<tr>
 			<th>NAME</th>
 			<th>TERM</th>
-			<th>ACTIVE</th>
-			<th>EDIT</th>
+			<th></th>
 			<th>SETTING</th>
 		</tr>
 		</thead>
@@ -14,11 +13,10 @@
 		<tr ng-repeat="event in events.events" ng-class="{true: 'enable', false: 'disable'}[event.active == true]">
 			<th>{{event.name}}</th>
 			<th>{{event.eventTerm|date}}</th>
-			<th>{{event.active}}</th>
-			<th>
+			<th id="active-event-action">
 				<a ui-sref="app.content.events.edit-event({eventId: event.id})"> Edit</a>
 			</th>
-			<th>
+			<th class="setting">
 				<div class="dropdown">
 					<button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">
 						<span class="glyphicon glyphicon-cog"></span>
