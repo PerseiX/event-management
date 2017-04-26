@@ -99,6 +99,25 @@
 					SingleEventRepository.setEvent(Event);
 				}]
 			})
+			.state('app.content.events.guests', {
+				url: '/{eventId:int}/guests',
+				views: {
+					'events@app.content': {
+						template: "<guest-list></guest-list>"
+					}
+				},
+				resolve: {
+					Guests: ['DataFetcher', '$stateParams', function (DataFetcher, $stateParams) {
+						return DataFetcher.getGuestCollectionToEvent($stateParams.eventId).then(function (response) {
+							return response;
+						});
+					}]
+				},
+				onEnter: ['Guests', 'GuestsRepository', function (Guests, GuestsRepository) {
+					GuestsRepository.setGuests(Guests.collection);
+				}]
+			})
+
 		;
 
 		return this;

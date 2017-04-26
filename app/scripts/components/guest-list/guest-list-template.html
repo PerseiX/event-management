@@ -1,0 +1,16 @@
+<table>
+	<thead>
+	<tr>
+		<th>NAME</th>
+		<th>SURNAME</th>
+		<th>ACTIVE</th>
+	</tr>
+	</thead>
+	<tbody>
+	<tr ng-repeat="guest in guests.guests" ng-class="{true: 'enable', false: 'disable'}[guest.active == true]">
+		<th>{{guest.name}}</th>
+		<th>{{guest.surname}}</th>
+		<th>{{guest.active}}</th>
+	</tr>
+	</tbody>
+</table>

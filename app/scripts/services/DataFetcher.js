@@ -31,7 +31,8 @@
 		 * @constructor
 		 */
 		that.GETData = function (path) {
-			var promise = $resource(CONST.DOMAIN + CONST.URL + path + "/10/limit/1/page", {}, {
+			console.log(path);
+			var promise = $resource(CONST.DOMAIN + CONST.URL + path, {}, {
 				get: {
 					method: 'GET'
 				}
@@ -153,6 +154,22 @@
 			});
 
 			return returnPromise(promise.logout().$promise);
+		};
+
+
+		//GUSTS
+		/**
+		 * @param eventId
+		 * @returns {*}
+		 */
+		that.getGuestCollectionToEvent = function (eventId) {
+			var promise = $resource(CONST.DOMAIN + CONST.URL + '/event/:eventId/guests', {'eventId': eventId}, {
+				get: {
+					method: 'GET'
+				}
+			});
+
+			return returnPromise(promise.get().$promise);
 		};
 	}
 
