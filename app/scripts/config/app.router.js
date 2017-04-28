@@ -72,13 +72,15 @@
 				},
 				resolve: {
 					Events: ['DataFetcher', function (DataFetcher) {
-						return DataFetcher.GETData('/events').then(function (response) {
+						return DataFetcher.GETData('/events', 1).then(function (response) {
 							return response;
 						});
 					}]
 				},
 				onEnter: ['Events', 'EventsRepository', function (Events, EventsRepository) {
-					EventsRepository.setEvents(Events.collection);
+					EventsRepository.setEvents(Events.collection)
+						.setPages(Events.pages);
+
 				}]
 			})
 			.state('app.content.events.edit-event', {

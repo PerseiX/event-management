@@ -11,6 +11,13 @@
 		var that = this;
 
 		/**
+		 * @param page
+		 */
+		that.getCollection = function (page) {
+			return DataFetcher.GETData('/events', page.page);
+		};
+
+		/**
 		 * @param eventId
 		 */
 		that.enable = function (eventId) {

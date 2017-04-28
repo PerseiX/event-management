@@ -7,7 +7,8 @@
 			'ngResource',
 			'angular-growl',
 			'satellizer',
-			'LocalStorageModule'
+			'LocalStorageModule',
+			'bw.paging'
 		]);
 
 	function OauthProvider($authProvider, CONST) {

@@ -10,6 +10,17 @@
 		var vm = this;
 
 		vm.events = EventsRepository.getEvents();
+		vm.page = 1;
+		vm.total = EventsRepository.getPages() * 10 + 1;
+
+		vm.switchPage = function (page) {
+			EventsManager.getCollection(page).then(function (collection) {
+				vm.events = collection.collection;
+			});
+			vm.page = page.page;
+			vm.total = EventsRepository.getPages() * 10 + 1;
+
+		};
 
 		vm.enable = function (eventId) {
 			EventsManager.enable(eventId);

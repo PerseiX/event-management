@@ -27,12 +27,12 @@
 
 		/**
 		 * @param path
+		 * @param page
 		 * @returns {*}
 		 * @constructor
 		 */
-		that.GETData = function (path) {
-			console.log(path);
-			var promise = $resource(CONST.DOMAIN + CONST.URL + path, {}, {
+		that.GETData = function (path, page) {
+			var promise = $resource(CONST.DOMAIN + CONST.URL + path, {'page': page, 'limit': 10}, {
 				get: {
 					method: 'GET'
 				}
