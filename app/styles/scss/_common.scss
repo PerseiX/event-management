@@ -1,0 +1,42 @@
+.pagination-switcher {
+	color: white;
+	position: absolute;
+	bottom: 10px;
+	ul {
+		li {
+			a {
+				border: 1px solid black;
+				color: black;
+				background-color: #eeeeee;
+				&:hover {
+					color: black;
+					background-color: white;
+					border: 1px solid black;
+				}
+			}
+			span {
+				&:hover {
+					background-color: #313131;
+				}
+				background-color: #313131;
+			}
+		}
+	}
+	.active {
+		background-color: #313131;
+		a {
+			background-color: #3f3f3f;
+			border-color: black;
+			&:hover {
+				background-color: #313131;
+				border-color: black;
+			}
+		}
+		span {
+			&:hover {
+				background-color: #313131;
+			}
+			background-color: #313131;
+		}
+	}
+}

@@ -110,13 +110,15 @@
 				},
 				resolve: {
 					Guests: ['DataFetcher', '$stateParams', function (DataFetcher, $stateParams) {
-						return DataFetcher.getGuestCollectionToEvent($stateParams.eventId).then(function (response) {
+						return DataFetcher.GETData('/event/'+$stateParams.eventId+'/guests', 1).then(function (response) {
 							return response;
 						});
 					}]
 				},
 				onEnter: ['Guests', 'GuestsRepository', function (Guests, GuestsRepository) {
-					GuestsRepository.setGuests(Guests.collection);
+					GuestsRepository.setGuests(Guests.collection)
+						.setPages(Guests.pages);
+
 				}]
 			})
 

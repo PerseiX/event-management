@@ -4,22 +4,22 @@
 	/**
 	 * @param EventsManager
 	 * @param EventsRepository
+	 * @param CONST
 	 * @constructor
 	 */
-	function EventsController(EventsManager, EventsRepository) {
+	function EventsController(EventsManager, EventsRepository, CONST) {
 		var vm = this;
 
 		vm.events = EventsRepository.getEvents();
 		vm.page = 1;
-		vm.total = EventsRepository.getPages() * 10 + 1;
+		vm.total = EventsRepository.getPages() * CONST.PAGINATION_ELEMENT_PER_PAGE;
 
 		vm.switchPage = function (page) {
 			EventsManager.getCollection(page).then(function (collection) {
 				vm.events = collection.collection;
 			});
 			vm.page = page.page;
-			vm.total = EventsRepository.getPages() * 10 + 1;
-
+			vm.total = EventsRepository.getPages() * CONST.PAGINATION_ELEMENT_PER_PAGE;
 		};
 
 		vm.enable = function (eventId) {
@@ -41,7 +41,8 @@
 
 	EventsController.$inject = [
 		'EventsManager',
-		'EventsRepository'
+		'EventsRepository',
+		'CONST'
 	];
 
 })(angular);

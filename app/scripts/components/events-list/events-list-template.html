@@ -36,11 +36,6 @@
 		</tr>
 		</tbody>
 	</table>
-	<div paging
-		 page="events.page"
-		 page-size="10"
-		 total="events.total"
-		 paging-action="events.switchPage({page})">
-	</div>
+	<div ng-if="events.total > 10" class="pagination-switcher" paging page="events.page" page-size="10" total="events.total" paging-action="events.switchPage({page})"></div>
 </div>
 

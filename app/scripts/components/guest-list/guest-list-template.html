@@ -21,4 +21,6 @@
 		</tr>
 		</tbody>
 	</table>
+	<div ng-if="guests.total > 10" class="pagination-switcher" paging page="guests.page" page-size="10" total="guests.total" paging-action="guests.switchPage({page})"></div>
+
 </div>

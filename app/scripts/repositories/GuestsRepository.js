@@ -8,13 +8,16 @@
 
 		/**
 		 * @param guests
+		 * @returns {GuestsRepository}
 		 */
 		that.setGuests = function (guests) {
 			that.guests = guests;
+
+			return that;
 		};
 
 		/**
-		 * @returns {EventsRepository}
+		 * @returns {GuestsRepository|null}
 		 */
 		that.getGuests = function () {
 			return that.guests;
@@ -29,6 +32,23 @@
 					return guestId;
 				}
 			});
+		};
+
+		/**
+		 * @param pages
+		 * @returns {GuestsRepository}
+		 */
+		that.setPages = function (pages) {
+			that.pages = pages;
+
+			return that;
+		};
+
+		/**
+		 * @returns {int}
+		 */
+		that.getPages = function () {
+			return that.pages;
 		}
 	}
 

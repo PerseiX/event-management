@@ -12,7 +12,8 @@
 			AUTHORIZATION_ENDPOINT: 'http://localhost/event-management-api/web/app_dev.php/oauth/v2/auth',
 			RESPONSE_TYPE: 'code',
 			DEFAULT_PROVIDER_NAME: 'event-management-oauth'
-		}
+		},
+		PAGINATION_ELEMENT_PER_PAGE: 10
 	};
 
 	angular
