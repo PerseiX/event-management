@@ -1,6 +1,5 @@
 (function (angular) {
 	'use strict';
-
 	/**
 	 * @param GuestsRepository
 	 * @param GuestsManager
@@ -19,6 +18,7 @@
 		vm.switchPage = function (page) {
 			GuestsManager.getCollection(page, eventId).then(function (collection) {
 				vm.guests = collection.collection;
+				GuestsRepository.setGuests(collection.collection);
 			});
 			vm.page = page.page;
 			vm.total = GuestsRepository.getPages() * CONST.PAGINATION_ELEMENT_PER_PAGE;

@@ -81,7 +81,6 @@
 			DataFetcher.PUTData('/event', event)
 				.then(function () {
 						Growl.success("Twoje wydarzenie zostało pomyślnie edytowane.", {ttl: 2500});
-
 						return event;
 					},
 					function (errors) {
@@ -95,9 +94,7 @@
 		function errorHandler(errors) {
 			for (var property in errors.data) {
 				if (errors.data.hasOwnProperty(property)) {
-					errors.data[property].forEach(function (error) {
-						Growl.error(error, {ttl: 2500});
-					})
+					Growl.error(errors.data.message, {ttl: 2500});
 				}
 			}
 		}

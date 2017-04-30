@@ -17,6 +17,7 @@
 		vm.switchPage = function (page) {
 			EventsManager.getCollection(page).then(function (collection) {
 				vm.events = collection.collection;
+				EventsRepository.setEvents(collection.collection);
 			});
 			vm.page = page.page;
 			vm.total = EventsRepository.getPages() * CONST.PAGINATION_ELEMENT_PER_PAGE;
