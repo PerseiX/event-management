@@ -3,9 +3,11 @@
 
 	/**
 	 * @param DataFetcher
+	 * @param GuestsRepository
+	 * @param Growl
 	 * @constructor
 	 */
-	function GuestsManager(DataFetcher) {
+	function GuestsManager(DataFetcher, GuestsRepository, Growl) {
 		var that = this;
 
 		/**
@@ -14,8 +16,42 @@
 		 * @returns {IPromise}
 		 */
 		that.getCollection = function (page, id) {
-			return DataFetcher.GETData('/event/'+id+'/guests', page.page);
+			return DataFetcher.GETData('/event/' + id + '/guests', page.page);
 		};
+
+		/**
+		 *
+		 * @param guestId {int}
+		 * @returns {IPromise}
+		 * @constructor
+		 */
+		that.Delete = function (guestId) {
+			DataFetcher.Delete('/guest', guestId)
+				.then(function () {
+						GuestsRepository.getGuests().find(function (guest, id) {
+							if (guest.id == guestId) {
+								GuestsRepository.getGuests().splice(id, 1);
+								Growl.error("Twój gość został pomyślnie usunięty.", {ttl: 2500});
+
+								return guest;
+							}
+						})
+					},
+					function (errors) {
+						errorHandler(errors);
+					});
+		};
+
+		/**
+		 * @param errors
+		 */
+		function errorHandler(errors) {
+			for (var property in errors.data) {
+				if (errors.data.hasOwnProperty(property)) {
+					Growl.error(errors.data.message, {ttl: 2500});
+				}
+			}
+		}
 	}
 
 	angular
@@ -23,6 +59,8 @@
 		.service('GuestsManager', GuestsManager);
 
 	GuestsManager.$inject = [
-		'DataFetcher'
+		'DataFetcher',
+		'GuestsRepository',
+		'growl'
 	];
 })(angular);

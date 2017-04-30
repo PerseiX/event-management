@@ -17,7 +17,7 @@
 		 * Return promise when all promises all executed
 		 *
 		 * @param promise
-		 * @returns {*}
+		 * @returns {IPromise}
 		 */
 		function returnPromise(promise) {
 			return $q.all({'requestPromise': promise}).then(function (response) {
@@ -58,13 +58,13 @@
 		};
 
 		/**
-		 * @param path
-		 * @param eventId
-		 * @returns {*}
+		 * @param path {string}
+		 * @param elementId {int}
+		 * @returns {IPromise}
 		 * @constructor
 		 */
-		that.PUTEnable = function (path, eventId) {
-			var promise = $resource(CONST.DOMAIN + CONST.URL + path + '/:id', {'id': eventId}, {
+		that.PUTEnable = function (path, elementId) {
+			var promise = $resource(CONST.DOMAIN + CONST.URL + path + '/:id', {'id': elementId}, {
 				update: {
 					method: 'PUT'
 				}
@@ -74,13 +74,13 @@
 		};
 
 		/**
-		 * @param path
-		 * @param eventId
-		 * @returns {*}
+		 * @param path {string}
+		 * @param elementId {int}
+		 * @returns {IPromise}
 		 * @constructor
 		 */
-		that.PUTDisable = function (path, eventId) {
-			var promise = $resource(CONST.DOMAIN + CONST.URL + path + '/:id', {'id': eventId}, {
+		that.PUTDisable = function (path, elementId) {
+			var promise = $resource(CONST.DOMAIN + CONST.URL + path + '/:id', {'id': elementId}, {
 				update: {
 					method: 'PUT'
 				}
@@ -91,13 +91,13 @@
 
 		/**
 		 *
-		 * @param path
-		 * @param eventId
-		 * @returns {*}
+		 * @param path {string}
+		 * @param elementId {int}
+		 * @returns {IPromise}
 		 * @constructor
 		 */
-		that.Delete = function (path, eventId) {
-			var promise = $resource(CONST.DOMAIN + CONST.URL + path + '/:id', {'id': eventId}, {
+		that.Delete = function (path, elementId) {
+			var promise = $resource(CONST.DOMAIN + CONST.URL + path + '/:id', {'id': elementId}, {
 				delete: {
 					method: 'DELETE'
 				}
@@ -154,22 +154,6 @@
 			});
 
 			return returnPromise(promise.logout().$promise);
-		};
-
-
-		//GUSTS
-		/**
-		 * @param eventId
-		 * @returns {*}
-		 */
-		that.getGuestCollectionToEvent = function (eventId) {
-			var promise = $resource(CONST.DOMAIN + CONST.URL + '/event/:eventId/guests', {'eventId': eventId}, {
-				get: {
-					method: 'GET'
-				}
-			});
-
-			return returnPromise(promise.get().$promise);
 		};
 	}
 

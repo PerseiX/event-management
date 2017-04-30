@@ -23,6 +23,10 @@
 			vm.page = page.page;
 			vm.total = GuestsRepository.getPages() * CONST.PAGINATION_ELEMENT_PER_PAGE;
 		};
+
+		vm.delete = function (guestId) {
+			GuestsManager.Delete(guestId);
+		}
 	}
 
 	angular
