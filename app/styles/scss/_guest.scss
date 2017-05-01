@@ -27,13 +27,13 @@
 			}
 			#active-guest-action {
 				width: 20%;
-				a {
+				confirm-modal, a {
 					visibility: hidden;
 				}
 			}
 			tr:hover {
 				#active-guest-action {
-					a {
+					confirm-modal, a {
 						visibility: visible;
 					}
 				}

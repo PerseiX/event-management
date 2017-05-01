@@ -15,7 +15,8 @@
 
 			</th>
 			<th id="active-guest-action">
-				<a ng-click="guests.delete(guest.id)" class="glyphicon glyphicon-remove"></a>
+				<confirm-modal class="glyphicon glyphicon-remove" delete-action="guests.delete(guest.id)" confirm-message="Czy napewno chcesz usunąć gościa?">DELETE</confirm-modal>
+
 				<a href="#" class="glyphicon glyphicon-edit"></a>
 			</th>
 

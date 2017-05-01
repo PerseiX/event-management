@@ -8,7 +8,8 @@
 			'angular-growl',
 			'satellizer',
 			'LocalStorageModule',
-			'bw.paging'
+			'bw.paging',
+			'ui.bootstrap'
 		]);
 
 	function OauthProvider($authProvider, CONST) {
