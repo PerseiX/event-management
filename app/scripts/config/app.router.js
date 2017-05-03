@@ -110,7 +110,7 @@
 				},
 				resolve: {
 					Guests: ['DataFetcher', '$stateParams', function (DataFetcher, $stateParams) {
-						return DataFetcher.GETData('/event/'+$stateParams.eventId+'/guests', 1).then(function (response) {
+						return DataFetcher.GETData('/event/' + $stateParams.eventId + '/guests', 1).then(function (response) {
 							return response;
 						});
 					}]
@@ -121,7 +121,14 @@
 
 				}]
 			})
-
+			.state('app.content.events.guests.edit-guest', {
+				url: '/{guestId}',
+				views: {
+					'events@app.content': {
+						template: "<guest-edit></guest-edit>"
+					}
+				}
+			})
 		;
 
 		return this;

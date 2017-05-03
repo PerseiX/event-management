@@ -43,6 +43,20 @@
 		};
 
 		/**
+		 * @param guest
+		 */
+		that.edit = function (guest) {
+			DataFetcher.PUTData('/guest', guest)
+				.then(function () {
+						Growl.success("Twój gość został pomyślnie edytowany.", {ttl: 2500});
+						return event;
+					},
+					function (errors) {
+						errorHandler(errors);
+					});
+		};
+
+		/**
 		 * @param errors
 		 */
 		function errorHandler(errors) {

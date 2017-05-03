@@ -1,0 +1,15 @@
+<section class="guest">
+	<form class="edit-form">
+		<div class="form-group">
+			<label> Name</label>
+			<input ng-model="guest.guestRepository.getGuest(guest.guestId).name" type="text" class="form-control" aria-describedby="name" placeholder="Name"/>
+
+			<label>Surname </label>
+			<input ng-model="guest.guestRepository.getGuest(guest.guestId).surname" aria-describedby="surname" placeholder="Surname" class="form-control" rows="3"/>
+		</div>
+		<button type="submit" class="btn btn-primary" ng-click="guest.editGuest()">Submit</button>
+		&nbsp;&nbsp;
+		<a class="btn btn-default" ui-sref="app.content.events.guests"> BACK</a>
+	</form>
+	<div growl></div>
+</section>

@@ -12,7 +12,6 @@
 		 */
 		that.setGuests = function (guests) {
 			that.guests = guests;
-
 			return that;
 		};
 
@@ -26,10 +25,10 @@
 		/**
 		 * @param guestId
 		 */
-		that.getEvent = function (guestId) {
-			that.guests.find(function (guest) {
+		that.getGuest = function (guestId) {
+			return that.guests.find(function (guest) {
 				if (guest.id == guestId) {
-					return guestId;
+					return guest;
 				}
 			});
 		};
