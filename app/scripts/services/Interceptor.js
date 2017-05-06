@@ -11,8 +11,7 @@
 		return {
 			request: function (config) {
 				var User = UserAuthentication.getUser();
-
-				if (false === angular.isDefined(config.headers['Authorization']) && true === User.isAuthenticated() && config.url.indexOf('code') != -1) {
+				if (false === angular.isDefined(config.headers['Authorization']) && true === User.isAuthenticated()) {
 					config.headers['Authorization'] = 'Bearer ' + User.getAccessToken();
 				}
 

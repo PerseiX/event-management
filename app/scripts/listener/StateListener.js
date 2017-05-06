@@ -19,10 +19,11 @@
 					UserManager.refreshToken();
 				}
 			}
+
 			if (!UserManager.isAuthenticated()) {
 				UserManager.login(CONST.OAUTH2.DEFAULT_PROVIDER_NAME);
-				//TODO Fix problem refresh
-				// return trans.router.stateService.target('app.content.home');
+
+				return trans.router.stateService.target('app.content.login');
 			}
 		});
 	}

@@ -117,7 +117,7 @@
 					}
 				}
 			}
-			else {
+			else{
 				Growl.error(errors.data.message, {ttl: 2500});
 			}
 		}

@@ -27,10 +27,9 @@
 		 * @returns {EventsRepository}
 		 */
 		that.getEvent = function (eventId) {
-			//TODO on init only 10 records exist, eventsRepository WTF?
-			that.events.find(function (event) {
+			return that.events.find(function (event) {
 				if (event.id == eventId) {
-					return eventId;
+					return event;
 				}
 			});
 		};

@@ -31,6 +31,9 @@
 					}
 				}
 			})
+			.state('app.content.login', {
+				url: '/login'
+			})
 			.state('app.content.home', {
 				url: '/',
 				views: {
