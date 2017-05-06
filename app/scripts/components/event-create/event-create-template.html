@@ -1,0 +1,23 @@
+<div class="events">
+	<form class="edit-form">
+		<div class="form-group">
+			<label> Name</label>
+			<input ng-model="eventCreate.event.name" type="text" class="form-control" aria-describedby="emailHelp" placeholder="Event name"/>
+
+			<label>Doscription </label>
+			<textarea ng-model="eventCreate.event.description" class="form-control" rows="3"></textarea>
+
+			<label>Event term</label>
+			<div class="input-group date" data-provide="datepicker" data-date-format="yyyy-mm-dd">
+				<input ng-model="eventCreate.event.eventTerm" type="text" class="form-control">
+				<div class="input-group-addon">
+					<span class="glyphicon glyphicon-th"></span>
+				</div>
+			</div>
+		</div>
+		<button type="submit" class="btn btn-primary" ng-click="eventCreate.createEvent(eventCreate.event)">Submit</button>
+		&nbsp;&nbsp;
+		<a class="btn btn-default" ui-sref="app.content.events"> BACK</a>
+	</form>
+	<div growl></div>
+</div>

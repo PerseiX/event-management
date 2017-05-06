@@ -89,13 +89,36 @@
 		};
 
 		/**
+		 * @param event
+		 */
+		that.create = function (event) {
+			console.log(event);
+			DataFetcher.Create('/event', event)
+				.then(function () {
+						Growl.success("Twoje wydarzenie zostało pomyślnie utworzone.", {ttl: 2500});
+						return event;
+					},
+					function (errors) {
+						errorHandler(errors);
+					});
+		};
+
+		/**
 		 * @param errors
 		 */
 		function errorHandler(errors) {
-			for (var property in errors.data) {
-				if (errors.data.hasOwnProperty(property)) {
-					Growl.error(errors.data.message, {ttl: 2500});
+			if (!errors.data.message) {
+				for (var property in errors.data) {
+					if (errors.data.hasOwnProperty(property)) {
+						errors.data[property].forEach(function (error) {
+							Growl.error(property + ": " + error, {ttl: 2500});
+						});
+						break;
+					}
 				}
+			}
+			else {
+				Growl.error(errors.data.message, {ttl: 2500});
 			}
 		}
 	}

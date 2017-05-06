@@ -1,3 +1,14 @@
+@mixin button-style($background-color) {
+	border: 1px solid black;
+	color: black;
+	background-color: $background-color;
+	&:hover {
+		color: black;
+		background-color: white;
+		border: 1px solid black;
+	}
+}
+
 .pagination-switcher {
 	color: white;
 	position: absolute;
@@ -5,14 +16,7 @@
 	ul {
 		li {
 			a {
-				border: 1px solid black;
-				color: black;
-				background-color: #eeeeee;
-				&:hover {
-					color: black;
-					background-color: white;
-					border: 1px solid black;
-				}
+				@include button-style(#eeeeee);
 			}
 			span {
 				&:hover {
@@ -39,4 +43,9 @@
 			background-color: #313131;
 		}
 	}
+}
+
+.growl-container.growl-fixed {
+	position: absolute;
+	margin: 0 auto;
 }

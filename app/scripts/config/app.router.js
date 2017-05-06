@@ -101,6 +101,14 @@
 					SingleEventRepository.setEvent(Event);
 				}]
 			})
+			.state('app.content.events.create-event', {
+				url: '/event-create',
+				views: {
+					'events@app.content': {
+						template: "<create-event></create-event>"
+					}
+				}
+			})
 			.state('app.content.events.guests', {
 				url: '/{eventId:int}/guests',
 				views: {

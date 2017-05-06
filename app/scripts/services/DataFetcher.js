@@ -107,6 +107,23 @@
 		};
 
 		/**
+		 *
+		 * @param path
+		 * @param element
+		 * @returns {IPromise}
+		 * @constructor
+		 */
+		that.Create = function (path, element) {
+			var promise = $resource(CONST.DOMAIN + CONST.URL + path, {}, {
+				create: {
+					method: 'POST'
+				}
+			});
+
+			return returnPromise(promise.create(element).$promise);
+		};
+
+		/**
 		 * @param User
 		 * @returns {*}
 		 * @constructor
