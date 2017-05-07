@@ -1,0 +1,16 @@
+<div class="tag">
+	<div growl></div>
+	<table class="table" ng-if="tags.tags.length >0">
+		<thead class="thead-inverse">
+		<tr>
+			<th>NAME</th>
+		</tr>
+		</thead>
+		<tbody>
+		<tr ng-repeat="tag in tags.tags" ng-class="{true: 'enable', false: 'disable'}[tag.active == true]">
+			<th>{{tag.name}}</th>
+		</tr>
+		</tbody>
+	</table>
+	<div ng-if="tags.total > 10" class="pagination-switcher" paging page="tags.page" page-size="10" total="tags.total" paging-action="tags.switchPage({page})"></div>
+</div>

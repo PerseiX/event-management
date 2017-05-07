@@ -140,6 +140,14 @@
 					}
 				}
 			})
+			.state('app.content.events.tags', {
+				url: '/{eventId:int}/tags',
+				views: {
+					'events@app.content': {
+						template: "<tag-list></tag-list>"
+					}
+				}
+			})
 		;
 
 		return this;
