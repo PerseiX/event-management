@@ -146,7 +146,18 @@
 					'events@app.content': {
 						template: "<tag-list></tag-list>"
 					}
-				}
+				},
+				resolve: {
+					Tags: ['DataFetcher', '$stateParams', function (DataFetcher, $stateParams) {
+						return DataFetcher.GETData('/event/' + $stateParams.eventId + '/tags', 1).then(function (response) {
+							return response;
+						});
+					}]
+				},
+				onEnter: ['Tags', 'TagsRepository', function (Tags, TagsRepository) {
+					TagsRepository.setTags(Tags.collection)
+						.setPages(Tags.pages);
+				}]
 			})
 		;
 
