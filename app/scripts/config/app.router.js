@@ -105,7 +105,7 @@
 				}]
 			})
 			.state('app.content.events.create-event', {
-				url: '/event-create',
+				url: '/create',
 				views: {
 					'events@app.content': {
 						template: "<create-event></create-event>"
@@ -158,6 +158,14 @@
 					TagsRepository.setTags(Tags.collection)
 						.setPages(Tags.pages);
 				}]
+			})
+			.state('app.content.events.tags.tag-create', {
+				url: '/create',
+				views: {
+					'events@app.content': {
+						template: "<create-tag></create-tag>"
+					}
+				}
 			})
 		;
 

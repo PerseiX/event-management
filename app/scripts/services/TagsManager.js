@@ -19,6 +19,21 @@
 		};
 
 		/**
+		 * @param tag
+		 * @returns {IPromise}
+		 */
+		that.tagCreate = function (tag) {
+			return DataFetcher.Create('/tag', tag)
+				.then(function () {
+						Growl.success("Twój tag został pomyślnie utworzony.", {ttl: 2500});
+						return tag;
+					},
+					function (e) {
+						errorHandler(e);
+					});
+		};
+
+		/**
 		 * @param errors
 		 */
 		function errorHandler(errors) {

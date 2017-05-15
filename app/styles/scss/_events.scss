@@ -4,21 +4,9 @@
 	width: 80%;
 
 	.create-event {
-		margin-top: 40px;
-		padding-bottom: 10px;
-		a {
-			padding: 6px;
-			border-radius: 5%;
-			background-color: #737373;
-			color: white;
-			border: 1px solid gray;
-			text-decoration: none;
-			&:hover {
-				background-color: #646464;
-				border-color: black;
-			}
-		}
+		@include create-button();
 	}
+
 	.dropdown-menu {
 		margin: 0;
 		padding: 0;

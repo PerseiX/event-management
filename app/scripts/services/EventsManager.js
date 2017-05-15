@@ -92,7 +92,6 @@
 		 * @param event
 		 */
 		that.create = function (event) {
-			console.log(event);
 			DataFetcher.Create('/event', event)
 				.then(function () {
 						Growl.success("Twoje wydarzenie zostało pomyślnie utworzone.", {ttl: 2500});
@@ -117,7 +116,7 @@
 					}
 				}
 			}
-			else{
+			else {
 				Growl.error(errors.data.message, {ttl: 2500});
 			}
 		}

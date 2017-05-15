@@ -9,6 +9,23 @@
 	}
 }
 
+@mixin create-button {
+	margin-top: 40px;
+	padding-bottom: 10px;
+	a {
+		padding: 6px;
+		border-radius: 5%;
+		background-color: #737373;
+		color: white;
+		border: 1px solid gray;
+		text-decoration: none;
+		&:hover {
+			background-color: #646464;
+			border-color: black;
+		}
+	}
+}
+
 .pagination-switcher {
 	color: white;
 	position: absolute;

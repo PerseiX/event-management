@@ -1,0 +1,14 @@
+<div class="tags">
+	<div growl></div>
+
+	<form class="tag-create">
+		<div class="form-group">
+			<label> Name</label>
+			<input ng-model="tagCreate.tag.name" type="text" class="form-control" aria-describedby="name" placeholder="Tag name"/>
+		</div>
+		<button type="submit" class="btn btn-primary" ng-click="tagCreate.createTag(tagCreate.tag)">Submit</button>
+		&nbsp;&nbsp
+		<a class="btn btn-default" ui-sref="app.content.events"> BACK</a>
+	</form>
+	<div growl></div>
+</div>
