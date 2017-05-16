@@ -28,16 +28,16 @@
 			}
 			th {
 				padding-left: 40px;
-				width: 40%;
+				width: 80%;
 			}
-			#active-guest-action {
+			#active-tag-action {
 				width: 20%;
 				confirm-modal, a {
 					visibility: hidden;
 				}
 			}
 			tr:hover {
-				#active-guest-action {
+				#active-tag-action {
 					confirm-modal, a {
 						visibility: visible;
 					}

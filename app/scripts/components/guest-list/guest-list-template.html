@@ -11,15 +11,11 @@
 		<tbody>
 		<tr ng-repeat="guest in guests.guests" ng-class="{true: 'enable', false: 'disable'}[guest.active == true]">
 			<th>{{guest.name}}</th>
-			<th>{{guest.surname}}
-
-			</th>
+			<th>{{guest.surname}}</th>
 			<th id="active-guest-action">
 				<confirm-modal class="glyphicon glyphicon-remove" delete-action="guests.delete(guest.id)" confirm-message="Czy napewno chcesz usunąć gościa?">DELETE</confirm-modal>
-
 				<a ui-sref="app.content.events.guests.edit-guest({guestId: guest.id})" class="glyphicon glyphicon-edit"></a>
 			</th>
-
 		</tr>
 		</tbody>
 	</table>

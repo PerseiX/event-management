@@ -3,10 +3,11 @@
 
 	/**
 	 * @param DataFetcher
+	 * @param TagsRepository
 	 * @param Growl
 	 * @constructor
 	 */
-	function TagsManager(DataFetcher, Growl) {
+	function TagsManager(DataFetcher, TagsRepository, Growl) {
 		var that = this;
 
 		/**
@@ -34,6 +35,28 @@
 		};
 
 		/**
+		 * @param tagId
+		 * @returns {IPromise<>}
+		 */
+		that.delete = function (tagId) {
+			console.log('remove');
+			return DataFetcher.Delete('/tag', tagId)
+				.then(function () {
+						return TagsRepository.getTags().find(function (tag, id) {
+							if (tag.id === tagId) {
+								TagsRepository.getTags().splice(id, 1);
+								Growl.error("Twój tag został pomyślnie usunięty.", {ttl: 2500});
+
+								return tag;
+							}
+						})
+					},
+					function (errors) {
+						return errorHandler(errors);
+					});
+		};
+
+		/**
 		 * @param errors
 		 */
 		function errorHandler(errors) {
@@ -51,6 +74,7 @@
 
 	TagsManager.$inject = [
 		'DataFetcher',
+		'TagsRepository',
 		'growl'
 	];
 })(angular);
