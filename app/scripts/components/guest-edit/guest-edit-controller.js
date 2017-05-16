@@ -16,7 +16,6 @@
 		vm.editGuest = function () {
 			GuestsManager.edit(GuestsRepository.getGuest(vm.guestId));
 		}
-
 	}
 
 	angular

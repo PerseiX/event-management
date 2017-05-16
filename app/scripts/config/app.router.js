@@ -164,6 +164,14 @@
 					}
 				}
 			})
+			.state('app.content.events.tags.edit', {
+				url: '/{tagId}/edit',
+				views: {
+					'events@app.content': {
+						template: "<tag-edit></tag-edit>"
+					}
+				}
+			})
 		;
 
 		return this;
@@ -172,7 +180,7 @@
 	angular
 		.module('eventManagementApp')
 		.config(AppRouterConfig);
-	
+
 	AppRouterConfig.$inject = [
 		'$stateProvider'
 	];

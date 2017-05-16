@@ -12,7 +12,7 @@
 	function ChangeStateListener($transitions, UserManager, CONST, UserAuthentication, $auth) {
 		UserAuthentication.setAuth($auth);
 
-		$transitions.onStart({to: ['app.content.events', 'app.content.events.*', 'app.content.login']}, function (trans) {
+		$transitions.onStart({to: ['app.content.events', 'app.content.events.*', 'app.content.events.tags.edit', 'app.content.login']}, function (trans) {
 			var seconds = new Date().getTime() / 1000;
 			seconds = Math.round(seconds);
 

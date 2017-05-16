@@ -57,6 +57,21 @@
 		};
 
 		/**
+		 * @param tag
+		 * @returns {IPromise<>}
+		 */
+		that.edit = function (tag) {
+			return DataFetcher.PUTData('/tag', tag)
+				.then(function () {
+						Growl.success("Twój tag został pomyślnie edytowany.", {ttl: 2500});
+						return event;
+					},
+					function (errors) {
+						return errorHandler(errors);
+					});
+		};
+
+		/**
 		 * @param errors
 		 */
 		function errorHandler(errors) {

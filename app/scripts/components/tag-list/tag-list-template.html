@@ -15,7 +15,7 @@
 			<th>{{tag.name}}</th>
 			<th id="active-tag-action">
 				<confirm-modal class="glyphicon glyphicon-remove" delete-action="tags.delete(tag.id)" confirm-message="Czy napewno chcesz usunąć tag?">DELETE</confirm-modal>
-				<!--<a ui-sref="app.content.events.guests.edit-guest({guestId: guest.id})" class="glyphicon glyphicon-edit"></a>-->
+				<a ui-sref="app.content.events.tags.edit({tagId: tag.id})" class="glyphicon glyphicon-edit"></a>
 			</th>
 		</tr>
 		</tbody>
