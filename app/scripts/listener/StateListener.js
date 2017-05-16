@@ -5,11 +5,14 @@
 	 * @param $transitions
 	 * @param UserManager
 	 * @param CONST
+	 * @param UserAuthentication
+	 * @param $auth
 	 * @constructor
 	 */
-	function ChangeStateListener($transitions, UserManager, CONST) {
+	function ChangeStateListener($transitions, UserManager, CONST, UserAuthentication, $auth) {
+		UserAuthentication.setAuth($auth);
 
-		$transitions.onStart({to: ['app.content.events', 'app.content.events.*']}, function (trans) {
+		$transitions.onStart({to: ['app.content.events', 'app.content.events.*', 'app.content.login']}, function (trans) {
 			var seconds = new Date().getTime() / 1000;
 			seconds = Math.round(seconds);
 
@@ -21,11 +24,17 @@
 			}
 
 			if (!UserManager.isAuthenticated()) {
-				UserManager.login(CONST.OAUTH2.DEFAULT_PROVIDER_NAME);
-
-				return trans.router.stateService.target('app.content.login');
+				return UserManager.login(CONST.OAUTH2.DEFAULT_PROVIDER_NAME)
+					.then(function () {
+						return trans.router.stateService.target('app.content.events');
+					})
+					.catch(function () {
+						//TODO Source state
+						return trans.router.stateService.target('app.content.login');
+					});
 			}
 		});
+
 	}
 
 	angular
@@ -35,6 +44,8 @@
 	ChangeStateListener.$inject = [
 		'$transitions',
 		'UserManager',
-		'CONST'
+		'CONST',
+		'UserAuthentication',
+		'$auth'
 	];
 })(angular);

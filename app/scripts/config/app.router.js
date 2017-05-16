@@ -17,10 +17,7 @@
 					'@': {
 						templateUrl: 'views/main.html'
 					}
-				},
-				onEnter: ['UserAuthentication', '$auth', function (UserAuthentication, $auth) {
-					return UserAuthentication.setAuth($auth);
-				}]
+				}
 			})
 			.state('app.content', {
 				abstract: true,
@@ -175,7 +172,10 @@
 	angular
 		.module('eventManagementApp')
 		.config(AppRouterConfig);
-	AppRouterConfig.$inject = ['$stateProvider'];
+	
+	AppRouterConfig.$inject = [
+		'$stateProvider'
+	];
 
 
 })(angular);

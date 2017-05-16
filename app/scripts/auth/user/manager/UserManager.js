@@ -29,12 +29,12 @@
 		 * @param provider
 		 */
 		that.login = function (provider) {
-			UserAuthentication.authenticate(provider)
+			return UserAuthentication.authenticate(provider)
 				.then(function (tokens) {
 					setTokens(tokens);
 				})
 				.then(function () {
-					DataFetcher.GetUserDetail(UserRepository)
+					return DataFetcher.GetUserDetail(UserRepository)
 						.then(function (User) {
 							setUserData(User);
 						});
