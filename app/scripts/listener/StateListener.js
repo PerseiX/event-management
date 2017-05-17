@@ -12,26 +12,36 @@
 	function ChangeStateListener($transitions, UserManager, CONST, UserAuthentication, $auth) {
 		UserAuthentication.setAuth($auth);
 
-		$transitions.onStart({to: ['app.content.events', 'app.content.events.*', 'app.content.events.tags.edit', 'app.content.login']}, function (trans) {
+		$transitions.onStart({
+			to: ['app.content.*', 'app.content.events.*', 'app.content.events.*.*', 'app.content.events.*.*.*']
+		}, function (trans) {
 			var seconds = new Date().getTime() / 1000;
+			var userRepository = UserManager.getUser();
 			seconds = Math.round(seconds);
 
-			if (true === UserManager.isAuthenticated()) {
-				if (UserManager.getUser().getAccessTokenExpiresAt() < seconds + 120) {
-					console.log('refresh token');
-					UserManager.refreshToken();
-				}
+			if (userRepository.getAccessTokenExpiresAt() < seconds + 120 && userRepository.getRefreshTokenExpiresAt() < seconds) {
+
+				return UserManager.refreshToken()
+					.then(function () {
+						return trans.router.stateService.target(trans.$to(), trans.params("to"));
+					})
+					.catch(function () {
+						return trans.router.stateService.target('app.content.login');
+					});
 			}
 
 			if (!UserManager.isAuthenticated()) {
 				return UserManager.login(CONST.OAUTH2.DEFAULT_PROVIDER_NAME)
 					.then(function () {
-						return trans.router.stateService.target('app.content.events');
+						return trans.router.stateService.target(trans.$to(), trans.params("to"));
 					})
 					.catch(function () {
-						//TODO Source state
 						return trans.router.stateService.target('app.content.login');
 					});
+			}
+
+			if (trans.$to().name == 'app.content.login' && UserManager.isAuthenticated() === true) {
+				return trans.router.stateService.target('app.content.home');
 			}
 		});
 

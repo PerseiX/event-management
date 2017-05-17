@@ -43,13 +43,13 @@
 
 
 		that.refreshToken = function () {
-			DataFetcher.refreshToken(UserRepository)
+			return DataFetcher.refreshToken(UserRepository)
 				.then(function (refreshedUser) {
 					LocalStorageManager.saveUser(refreshedUser);
 					setTokens(refreshedUser)
 				})
 				.then(function () {
-					DataFetcher.GetUserDetail(UserRepository)
+					return DataFetcher.GetUserDetail(UserRepository)
 						.then(function (User) {
 							setUserData(User);
 						});

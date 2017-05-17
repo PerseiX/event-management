@@ -156,7 +156,7 @@
 						.setPages(Tags.pages);
 				}]
 			})
-			.state('app.content.events.tags.tag-create', {
+			.state('app.content.events.tags.create', {
 				url: '/create',
 				views: {
 					'events@app.content': {
