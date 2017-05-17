@@ -118,7 +118,7 @@
 				},
 				resolve: {
 					Guests: ['DataFetcher', '$stateParams', function (DataFetcher, $stateParams) {
-						return DataFetcher.GETData('/event/' + $stateParams.eventId + '/guests', 1).then(function (response) {
+						return DataFetcher.GETData('/event/' + $stateParams.eventId + '/guests', 1, 'guest.tag').then(function (response) {
 							return response;
 						});
 					}]
@@ -127,6 +127,25 @@
 					GuestsRepository.setGuests(Guests.collection)
 						.setPages(Guests.pages);
 
+				}]
+			})
+			.state('app.content.events.guests.create', {
+				url: '/create',
+				views: {
+					'events@app.content': {
+						template: "<create-guest></create-guest>"
+					}
+				},
+				resolve: {
+					Tags: ['DataFetcher', '$stateParams', function (DataFetcher, $stateParams) {
+						return DataFetcher.GETData('/event/' + $stateParams.eventId + '/tags', 1).then(function (response) {
+							return response;
+						});
+					}]
+				},
+				onEnter: ['Tags', 'TagsRepository', function (Tags, TagsRepository) {
+					TagsRepository.setTags(Tags.collection)
+						.setPages(Tags.pages);
 				}]
 			})
 			.state('app.content.events.guests.edit-guest', {

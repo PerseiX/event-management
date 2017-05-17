@@ -57,6 +57,20 @@
 		};
 
 		/**
+		 * @param guest
+		 */
+		that.create = function (guest) {
+			return DataFetcher.Create('/guest', guest)
+				.then(function () {
+						Growl.success("Twoje gość został pomyślnie utworzony.", {ttl: 2500});
+						return guest;
+					},
+					function (errors) {
+						errorHandler(errors);
+					});
+		};
+
+		/**
 		 * @param errors
 		 */
 		function errorHandler(errors) {

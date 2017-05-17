@@ -26,19 +26,24 @@
 		}
 
 		/**
+		 *
 		 * @param path
 		 * @param page
-		 * @returns {*}
+		 * @param embedded
+		 * @returns {IPromise}
 		 * @constructor
 		 */
-		that.GETData = function (path, page) {
+		that.GETData = function (path, page, embedded) {
 			var promise = $resource(CONST.DOMAIN + CONST.URL + path, {'page': page, 'limit': 10}, {
 				get: {
 					method: 'GET'
 				}
 			});
+			var request = {
+				'with[]': embedded
+			};
 
-			return returnPromise(promise.get().$promise);
+			return returnPromise(promise.get(request).$promise);
 		};
 
 		/**

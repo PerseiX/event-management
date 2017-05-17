@@ -14,7 +14,7 @@
 		vm.guests = GuestsRepository.getGuests();
 		vm.total = GuestsRepository.getPages() * CONST.PAGINATION_ELEMENT_PER_PAGE;
 		vm.page = 1;
-
+		console.log(vm.guests);
 		vm.switchPage = function (page) {
 			GuestsManager.getCollection(page, eventId).then(function (collection) {
 				vm.guests = collection.collection;
