@@ -1,24 +1,29 @@
 (function (angular) {
 	'use strict';
+
 	/**
 	 * @param GuestsRepository
 	 * @param GuestsManager
 	 * @param CONST
 	 * @param $stateParams
+	 * @param $scope
 	 * @constructor
 	 */
-	function GuestListController(GuestsRepository, GuestsManager, CONST, $stateParams) {
+	function GuestListController(GuestsRepository, GuestsManager, CONST, $stateParams, $scope) {
 		var vm = this;
 
 		var eventId = $stateParams.eventId;
-		vm.guests = GuestsRepository.getGuests();
+		$scope.guestsRepository = GuestsRepository;
+		
 		vm.total = GuestsRepository.getPages() * CONST.PAGINATION_ELEMENT_PER_PAGE;
 		vm.page = 1;
-		console.log(vm.guests);
+
 		vm.switchPage = function (page) {
-			GuestsManager.getCollection(page, eventId).then(function (collection) {
-				vm.guests = collection.collection;
-				GuestsRepository.setGuests(collection.collection);
+			GuestsManager.getCollection(page, eventId)
+				.then(function (collection) {
+					GuestsRepository.setGuests(collection.collection);
+				}).then(function () {
+				$scope.guestsRepository = GuestsRepository;
 			});
 			vm.page = page.page;
 			vm.total = GuestsRepository.getPages() * CONST.PAGINATION_ELEMENT_PER_PAGE;
@@ -37,7 +42,8 @@
 		'GuestsRepository',
 		'GuestsManager',
 		'CONST',
-		'$stateParams'
+		'$stateParams',
+		'$scope'
 	];
 
 })(angular);

@@ -16,7 +16,7 @@
 		 * @returns {IPromise}
 		 */
 		that.getCollection = function (page, id) {
-			return DataFetcher.GETData('/event/' + id + '/guests', page.page);
+			return DataFetcher.GETData('/event/' + id + '/guests', page.page, 'guest.tag');
 		};
 
 		/**
@@ -57,12 +57,20 @@
 		};
 
 		/**
+		 *
 		 * @param guest
+		 * @returns {IPromise<>}
 		 */
 		that.create = function (guest) {
 			return DataFetcher.Create('/guest', guest)
 				.then(function () {
 						Growl.success("Twoje gość został pomyślnie utworzony.", {ttl: 2500});
+						that.getCollection(1, guest.event)
+							.then(function (guests) {
+								GuestsRepository.setGuests(guests.collection);
+							});
+
+
 						return guest;
 					},
 					function (errors) {

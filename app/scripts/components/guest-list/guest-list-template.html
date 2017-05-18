@@ -3,7 +3,7 @@
 	<nav class="create-guest">
 		<a ui-sref="app.content.events.guests.create">Create new guests</a>
 	</nav>
-	<table class="table" ng-if="guests.guests.length >0">
+	<table class="table" ng-if="guestsRepository.getGuests().length >0">
 		<thead class="thead-inverse">
 		<tr>
 			<th>NAME</th>
@@ -13,7 +13,7 @@
 		</tr>
 		</thead>
 		<tbody>
-		<tr ng-repeat="guest in guests.guests" ng-class="{true: 'enable', false: 'disable'}[guest.active == true]">
+		<tr ng-repeat="guest in guestsRepository.getGuests()" ng-class="{true: 'enable', false: 'disable'}[guest.active == true]">
 			<th>{{guest.name}}</th>
 			<th>{{guest.surname}}</th>
 			<th class="tag-per-guest">

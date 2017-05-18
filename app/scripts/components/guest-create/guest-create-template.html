@@ -8,7 +8,7 @@
 			<input ng-model="guestCreate.guest.surname" aria-describedby="surname" placeholder="Surname" class="form-control" rows="3"/>
 			<label>Tags</label>
 			<div>
-				<label ng-repeat="tag in guestCreate.tags"><input type="checkbox" ng-model="guestCreate.guest.tags[tag.id]" value="tag.id"> {{tag.name}}</label>
+				<label ng-repeat="tag in guestCreate.tags"><input type="checkbox" ng-model="guestCreate.guest.tag[tag.id]" value="tag.id"> {{tag.name}}</label>
 			</div>
 		</div>
 		<button type="submit" class="btn btn-primary" ng-click="guestCreate.createGuest()">Submit</button>

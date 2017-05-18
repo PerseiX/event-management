@@ -19,8 +19,7 @@
 			var userRepository = UserManager.getUser();
 			seconds = Math.round(seconds);
 
-			if (userRepository.getAccessTokenExpiresAt() < seconds + 120 && userRepository.getRefreshTokenExpiresAt() < seconds) {
-
+			if (userRepository.getAccessTokenExpiresAt() < seconds + 120 && userRepository.getRefreshTokenExpiresAt() > seconds) {
 				return UserManager.refreshToken()
 					.then(function () {
 						return trans.router.stateService.target(trans.$to(), trans.params("to"));

@@ -18,7 +18,7 @@
 				<a ui-sref="app.content.events">EVENTS</a>
 			</li>
 			<li>
-				<a ng-if="manager.isAuthenticated()===false"  ui-sref="app.content.login">LOGIN</a>
+				<a ng-if="manager.isAuthenticated()===false" ui-sref="app.content.login">LOGIN</a>
 				<a ng-if="manager.isAuthenticated()===true" ui-sref="app.content.home" ng-click="navigation.logout()">LOGOUT</a>
 			</li>
 		</ul>
