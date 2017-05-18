@@ -53,7 +53,13 @@
 					},
 					function (errors) {
 						errorHandler(errors);
-					});
+					})
+				.then(function () {
+					return that.getCollection(1, guest.event)
+						.then(function (guests) {
+							GuestsRepository.setGuests(guests.collection);
+						});
+				});
 		};
 
 		/**
@@ -65,17 +71,18 @@
 			return DataFetcher.Create('/guest', guest)
 				.then(function () {
 						Growl.success("Twoje gość został pomyślnie utworzony.", {ttl: 2500});
-						that.getCollection(1, guest.event)
-							.then(function (guests) {
-								GuestsRepository.setGuests(guests.collection);
-							});
-
 
 						return guest;
 					},
 					function (errors) {
 						errorHandler(errors);
-					});
+					})
+				.then(function () {
+					return that.getCollection(1, guest.event)
+						.then(function (guests) {
+							GuestsRepository.setGuests(guests.collection);
+						});
+				});
 		};
 
 		/**

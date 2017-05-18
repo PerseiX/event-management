@@ -2,10 +2,14 @@
 	<form class="edit-form">
 		<div class="form-group">
 			<label> Name</label>
-			<input ng-model="guest.guestRepository.getGuest(guest.guestId).name" type="text" class="form-control" aria-describedby="name" placeholder="Name"/>
+			<input ng-model="guest.guest.name" type="text" class="form-control" aria-describedby="name" placeholder="Name"/>
 
 			<label>Surname </label>
-			<input ng-model="guest.guestRepository.getGuest(guest.guestId).surname" aria-describedby="surname" placeholder="Surname" class="form-control" rows="3"/>
+			<input ng-model="guest.guest.surname" aria-describedby="surname" placeholder="Surname" class="form-control" rows="3"/>
+			<label>Tags</label>
+			<div>
+				<label ng-repeat="tag in guest.tags"><input type="checkbox" ng-model="guest.guest.tag[tag.id]" value="tag.id"> {{tag.name}}</label>
+			</div>
 		</div>
 		<button type="submit" class="btn btn-primary" ng-click="guest.editGuest()">Submit</button>
 		&nbsp;&nbsp;

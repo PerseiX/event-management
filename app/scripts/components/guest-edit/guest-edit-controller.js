@@ -3,18 +3,25 @@
 
 	/**
 	 * @param GuestsRepository
+	 * @param TagsRepository
 	 * @param GuestsManager
 	 * @param $stateParams
 	 * @constructor
 	 */
-	function GuestController(GuestsRepository, GuestsManager, $stateParams) {
+	function GuestController(GuestsRepository, TagsRepository, GuestsManager, $stateParams) {
 		var vm = this;
-
-		vm.guestRepository = GuestsRepository;
-		vm.guestId = $stateParams.guestId;
+		vm.tags = TagsRepository.getTags();
+		vm.guest = GuestsRepository.getGuest($stateParams.guestId);
 
 		vm.editGuest = function () {
-			GuestsManager.edit(GuestsRepository.getGuest(vm.guestId));
+			var chosenTags = [];
+			angular.forEach(vm.guest.tag, function (value, key) {
+				if (true === value) {
+					chosenTags.push(key);
+				}
+			});
+			vm.guest.tag = chosenTags;
+			GuestsManager.edit(Object.assign(vm.guest, {'event': $stateParams.eventId}));
 		}
 	}
 
@@ -24,6 +31,7 @@
 
 	GuestController.$inject = [
 		'GuestsRepository',
+		'TagsRepository',
 		'GuestsManager',
 		'$stateParams'
 	];

@@ -14,7 +14,7 @@
 
 		var eventId = $stateParams.eventId;
 		$scope.guestsRepository = GuestsRepository;
-		
+
 		vm.total = GuestsRepository.getPages() * CONST.PAGINATION_ELEMENT_PER_PAGE;
 		vm.page = 1;
 
