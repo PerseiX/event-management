@@ -2,8 +2,9 @@ body {
 	background-color: #dde9ff;
 
 }
+
 .main-container {
-	height: 700px;
+	height: 750px;
 	display: flex;
 	width: 960px;
 	margin: 0 auto;
@@ -12,7 +13,7 @@ body {
 	.left-container {
 		width: 259px;
 		position: relative;
-		height: 700px;
+		height: 750px;
 
 		&:after {
 			content: "";
@@ -81,7 +82,7 @@ body {
 	.right-container {
 		overflow: hidden;
 		width: 681px;
-		height: 700px;
+		height: 750px;
 		background-color: white;
 		position: relative;
 
@@ -93,6 +94,23 @@ body {
 			height: 20px;
 			position: absolute;
 			bottom: 0;
+		}
+
+		.breadcrumbs {
+			height: 50px;
+			padding: 10px;
+			padding-top: 20px;
+			font-size: 16px;
+			ol {
+
+				color: #919191;
+				height: 40px;
+				background-color: #f1f1f1;
+				border: 1px solid #cfcfcf;
+				a{
+					color: black;
+				}
+			}
 		}
 	}
 }

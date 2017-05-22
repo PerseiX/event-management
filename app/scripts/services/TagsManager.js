@@ -39,7 +39,6 @@
 		 * @returns {IPromise<>}
 		 */
 		that.delete = function (tagId) {
-			console.log('remove');
 			return DataFetcher.Delete('/tag', tagId)
 				.then(function () {
 						return TagsRepository.getTags().find(function (tag, id) {

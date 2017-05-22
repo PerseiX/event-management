@@ -37,6 +37,9 @@
 					'home@app.content': {
 						templateUrl: 'views/pages/home.html'
 					}
+				},
+				data: {
+					displayName: 'Home'
 				}
 			})
 			.state('app.content.help', {
@@ -45,6 +48,9 @@
 					'help@app.content': {
 						templateUrl: 'views/pages/help.html'
 					}
+				},
+				data: {
+					displayName: 'Help'
 				}
 			})
 			.state('app.content.contact', {
@@ -53,6 +59,9 @@
 					'contact@app.content': {
 						templateUrl: 'views/pages/contact.html'
 					}
+				},
+				data: {
+					displayName: 'Contact'
 				}
 			})
 			.state('app.content.about', {
@@ -61,6 +70,9 @@
 					'about@app.content': {
 						templateUrl: 'views/pages/about.html'
 					}
+				},
+				data: {
+					displayName: 'About'
 				}
 			})
 			.state('app.content.events', {
@@ -69,6 +81,9 @@
 					'events@app.content': {
 						template: "<events></events>"
 					}
+				},
+				data: {
+					displayName: 'Events'
 				},
 				resolve: {
 					Events: ['DataFetcher', function (DataFetcher) {
@@ -90,6 +105,9 @@
 						template: "<edit-event></edit-event>"
 					}
 				},
+				data: {
+					displayName: 'Edit'
+				},
 				resolve: {
 					Event: ['Events', '$stateParams', function (Events, $stateParams) {
 						return Events.collection.find(function (event) {
@@ -107,6 +125,9 @@
 					'events@app.content': {
 						template: "<create-event></create-event>"
 					}
+				},
+				data: {
+					displayName: 'Create'
 				}
 			})
 			.state('app.content.events.guests', {
@@ -115,6 +136,9 @@
 					'events@app.content': {
 						template: "<guest-list></guest-list>"
 					}
+				},
+				data: {
+					displayName: 'Guests'
 				},
 				resolve: {
 					Guests: ['DataFetcher', '$stateParams', function (DataFetcher, $stateParams) {
@@ -142,6 +166,9 @@
 					'events@app.content': {
 						template: "<create-guest></create-guest>"
 					}
+				},
+				data: {
+					displayName: 'Create'
 				}
 			})
 			.state('app.content.events.guests.edit-guest', {
@@ -150,6 +177,9 @@
 					'events@app.content': {
 						template: "<guest-edit></guest-edit>"
 					}
+				},
+				data: {
+					displayName: 'Edit'
 				}
 			})
 			.state('app.content.events.tags', {
@@ -158,6 +188,9 @@
 					'events@app.content': {
 						template: "<tag-list></tag-list>"
 					}
+				},
+				data: {
+					displayName: 'Tags'
 				},
 				resolve: {
 					Tags: ['DataFetcher', '$stateParams', function (DataFetcher, $stateParams) {
@@ -177,6 +210,9 @@
 					'events@app.content': {
 						template: "<create-tag></create-tag>"
 					}
+				},
+				data: {
+					displayName: 'Create'
 				}
 			})
 			.state('app.content.events.tags.edit', {
@@ -185,6 +221,9 @@
 					'events@app.content': {
 						template: "<tag-edit></tag-edit>"
 					}
+				},
+				data: {
+					displayName: 'Edit'
 				}
 			})
 		;

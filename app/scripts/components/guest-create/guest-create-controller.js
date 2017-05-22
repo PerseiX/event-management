@@ -15,7 +15,6 @@
 
 		vm.createGuest = function () {
 			angular.forEach(vm.guest.tag, function (value, key) {
-				console.log(key);
 				if (true === value) {
 					chosenTags.push(key);
 				}
