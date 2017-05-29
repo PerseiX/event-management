@@ -87,7 +87,7 @@
 				},
 				resolve: {
 					Events: ['DataFetcher', function (DataFetcher) {
-						return DataFetcher.GETData('/events', 1).then(function (response) {
+						return DataFetcher.GETData('/events', 1, []).then(function (response) {
 							return response;
 						});
 					}]

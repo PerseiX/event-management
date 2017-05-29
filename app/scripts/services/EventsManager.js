@@ -12,9 +12,11 @@
 
 		/**
 		 * @param page
+		 * @param parameters
+		 * @returns {*}
 		 */
-		that.getCollection = function (page) {
-			return DataFetcher.GETData('/events', page.page);
+		that.getCollection = function (page, parameters) {
+			return DataFetcher.GETData('/events', page.page, parameters);
 		};
 
 		/**

@@ -29,19 +29,28 @@
 		 *
 		 * @param path
 		 * @param page
-		 * @param embedded
+		 * @param parameters
 		 * @returns {IPromise}
 		 * @constructor
 		 */
-		that.GETData = function (path, page, embedded) {
+		that.GETData = function (path, page, parameters) {
+
 			var promise = $resource(CONST.DOMAIN + CONST.URL + path, {'page': page, 'limit': 10}, {
 				get: {
 					method: 'GET'
 				}
 			});
-			var request = {
-				'with[]': embedded
-			};
+
+			var request = [];
+
+			if (typeof parameters['embedded'] !== 'undefined') {
+				request['with[]'] = parameters['embedded'];
+			}
+			if (typeof parameters['sortBy'] !== 'undefined') {
+				var orderBy = Object.keys(parameters['sortBy'])[0];
+				request['sortBy[' + orderBy + ']'] = parameters['sortBy'][orderBy];
+			}
+
 
 			return returnPromise(promise.get(request).$promise);
 		};
