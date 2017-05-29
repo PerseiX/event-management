@@ -87,7 +87,7 @@
 				},
 				resolve: {
 					Events: ['DataFetcher', function (DataFetcher) {
-						return DataFetcher.GETData('/events', 1, []).then(function (response) {
+						return DataFetcher.GETData('/events', 1).then(function (response) {
 							return response;
 						});
 					}]
@@ -142,12 +142,15 @@
 				},
 				resolve: {
 					Guests: ['DataFetcher', '$stateParams', function (DataFetcher, $stateParams) {
-						return DataFetcher.GETData('/event/' + $stateParams.eventId + '/guests', 1, 'guest.tag').then(function (response) {
+						var parameters = [];
+						parameters['embedded'] = 'guest.tag';
+						return DataFetcher.GETData('/event/' + $stateParams.eventId + '/guests', 1, parameters).then(function (response) {
 							return response;
 						});
 					}],
 					Tags: ['DataFetcher', '$stateParams', function (DataFetcher, $stateParams) {
-						return DataFetcher.GETData('/event/' + $stateParams.eventId + '/tags', 1).then(function (response) {
+
+						return DataFetcher.GETData('/event/' + $stateParams.eventId + '/tags', 1, []).then(function (response) {
 							return response;
 						});
 					}]

@@ -16,7 +16,7 @@
 		 * @returns {IPromise}
 		 */
 		that.getCollection = function (page, id) {
-			return DataFetcher.GETData('/event/' + id + '/tags', page.page);
+			return DataFetcher.GETData('/event/' + id + '/tags', page.page, []);
 		};
 
 		/**

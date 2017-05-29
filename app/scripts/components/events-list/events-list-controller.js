@@ -5,17 +5,19 @@
 	 * @param EventsManager
 	 * @param EventsRepository
 	 * @param CONST
+	 * @param sorting
 	 * @constructor
 	 */
-	function EventsController(EventsManager, EventsRepository, CONST) {
+	function EventsController(EventsManager, EventsRepository, CONST, sorting) {
 		var vm = this;
+
 		//TODO INTEGRATE REPOSITORIES TOGETHER WITH FETCHER AND COLLECT ONE REPOSITORY
 		vm.events = EventsRepository.getEvents();
 		vm.page = 1;
 		vm.total = EventsRepository.getPages() * CONST.PAGINATION_ELEMENT_PER_PAGE;
 
 		vm.switchPage = function (page) {
-			EventsManager.getCollection(page, []).then(function (collection) {
+			EventsManager.getCollection(page, sorting.getPreparedSortArgument()).then(function (collection) {
 				vm.events = collection.collection;
 				EventsRepository.setEvents(collection.collection);
 			});
@@ -35,19 +37,14 @@
 			EventsManager.delete(eventId);
 		};
 
-		vm.sortBy = function (field, orderType) {
-			vm.orderType = orderType;
-			var orderBy = [];
-			var param = [];
-			param[field] = orderType;
-			orderBy['sortBy'] = param;
-
-			EventsManager.getCollection(vm.page, orderBy).then(function (collection) {
-				vm.events = collection.collection;
-				EventsRepository.setEvents(collection.collection);
-			});
-			vm.orderType = (vm.orderType === 'ASC') ? 'DESC' : 'ASC';
-		};
+		vm.sort = function () {
+			vm.page = 1;
+			EventsManager.getCollection(vm.page, sorting.getPreparedSortArgument())
+				.then(function (collection) {
+					vm.events = collection.collection;
+					EventsRepository.setEvents(collection.collection);
+				});
+		}
 	}
 
 	angular
@@ -57,7 +54,8 @@
 	EventsController.$inject = [
 		'EventsManager',
 		'EventsRepository',
-		'CONST'
+		'CONST',
+		'sorting'
 	];
 
 })(angular);

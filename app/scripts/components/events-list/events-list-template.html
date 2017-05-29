@@ -6,14 +6,20 @@
 	<table class="table">
 		<thead class="thead-inverse">
 		<tr>
-			<th ng-click="events.sortBy('name', events.orderType)">NAME</th>
-			<th ng-click="events.sortBy('eventTerm', events.orderType)">TERM</th>
+			<th>
+				<sorting order-by="name" default-type="ASC" ng-click="events.sort()">NAME</sorting>
+
+			</th>
+			<th>
+				<sorting order-by="eventTerm" default-type="ASC" ng-click="events.sort()">TERM</sorting>
+			</th>
 			<th></th>
 			<th>SETTING</th>
 		</tr>
 		</thead>
 		<tbody>
-		<tr ng-repeat="event in events.events" ng-class="{true: 'enable', false: 'disable'}[event.active == true]">
+		<tr ng-repeat=" event in events.events
+				" ng-class="{true: 'enable', false: 'disable'}[event.active == true]">
 			<th>{{event.name}}</th>
 			<th>{{event.eventTerm|date}}</th>
 			<th id="active-event-action">

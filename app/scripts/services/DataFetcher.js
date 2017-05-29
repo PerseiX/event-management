@@ -26,14 +26,13 @@
 		}
 
 		/**
-		 *
 		 * @param path
 		 * @param page
 		 * @param parameters
 		 * @returns {IPromise}
 		 * @constructor
 		 */
-		that.GETData = function (path, page, parameters) {
+		that.GETData = function (path, page, parameters = []) {
 
 			var promise = $resource(CONST.DOMAIN + CONST.URL + path, {'page': page, 'limit': 10}, {
 				get: {
@@ -50,7 +49,7 @@
 				var orderBy = Object.keys(parameters['sortBy'])[0];
 				request['sortBy[' + orderBy + ']'] = parameters['sortBy'][orderBy];
 			}
-
+			console.log(request);
 
 			return returnPromise(promise.get(request).$promise);
 		};
