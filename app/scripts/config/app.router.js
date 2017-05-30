@@ -86,38 +86,15 @@
 					displayName: 'Events'
 				},
 				resolve: {
-					Events: ['DataFetcher', function (DataFetcher) {
-						return DataFetcher.GETData('/events', 1).then(function (response) {
-							return response;
-						});
+					Events: ['EventsManager', function (EventsManager) {
+						let parameters = [];
+						parameters['page'] = 1;
+						return EventsManager.getCollection(true, parameters)
+							.then(function (response) {
+								return response;
+							});
 					}]
-				},
-				onEnter: ['Events', 'EventsRepository', function (Events, EventsRepository) {
-					EventsRepository.setEvents(Events.collection)
-						.setPages(Events.pages);
-
-				}]
-			})
-			.state('app.content.events.edit-event', {
-				url: '/:eventId',
-				views: {
-					'events@app.content': {
-						template: "<edit-event></edit-event>"
-					}
-				},
-				data: {
-					displayName: 'Edit'
-				},
-				resolve: {
-					Event: ['Events', '$stateParams', function (Events, $stateParams) {
-						return Events.collection.find(function (event) {
-							return event.id == $stateParams.eventId;
-						});
-					}]
-				},
-				onEnter: ['Event', 'SingleEventRepository', function (Event, SingleEventRepository) {
-					SingleEventRepository.setEvent(Event);
-				}]
+				}
 			})
 			.state('app.content.events.create-event', {
 				url: '/create',
@@ -128,6 +105,17 @@
 				},
 				data: {
 					displayName: 'Create'
+				}
+			})
+			.state('app.content.events.edit-event', {
+				url: '/:eventId',
+				views: {
+					'events@app.content': {
+						template: "<edit-event></edit-event>"
+					}
+				},
+				data: {
+					displayName: 'Edit'
 				}
 			})
 			.state('app.content.events.guests', {

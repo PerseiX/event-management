@@ -7,7 +7,7 @@
 		<thead class="thead-inverse">
 		<tr>
 			<th>
-				<sorting order-by="name" default-type="ASC" ng-click="events.sort()">NAME</sorting>
+				<sorting order-by="name" default-type="ASC">NAME</sorting>
 
 			</th>
 			<th>
@@ -18,8 +18,7 @@
 		</tr>
 		</thead>
 		<tbody>
-		<tr ng-repeat=" event in events.events
-				" ng-class="{true: 'enable', false: 'disable'}[event.active == true]">
+		<tr ng-repeat=" event in manager.getCollection().collection" ng-class="{true: 'enable', false: 'disable'}[event.active == true]">
 			<th>{{event.name}}</th>
 			<th>{{event.eventTerm|date}}</th>
 			<th id="active-event-action">
@@ -32,11 +31,11 @@
 					</button>
 					<ul class="dropdown-menu">
 						<li>
-							<button ng-if="event.active == true" ng-click="events.disable(event.id)"> Disable</button>
-							<button ng-if="event.active == false" ng-click="events.enable(event.id)"> Enable</button>
+							<button ng-if="event.active == true" ng-click="manager.disable(event.id, events.page)"> Disable</button>
+							<button ng-if="event.active == false" ng-click="manager.enable(event.id, events.page)"> Enable</button>
 							<a ui-sref="app.content.events.guests({eventId: event.id})"> Guest</a>
 							<a ui-sref="app.content.events.tags({eventId: event.id})"> Tags</a>
-							<confirm-modal template="Delete" delete-action="events.delete(event.id)" confirm-message="Czy napewno chcesz usunąć wydarzenie?">DELETE</confirm-modal>
+							<confirm-modal template="Delete" delete-action="manager.delete(event.id)" confirm-message="Czy napewno chcesz usunąć wydarzenie?">DELETE</confirm-modal>
 						</li>
 					</ul>
 				</div>

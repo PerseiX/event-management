@@ -2,20 +2,20 @@
 	<form class="edit-form">
 		<div class="form-group">
 			<label> Name</label>
-			<input ng-model="event.eventRepository.getEvent(event.eventId).name" type="text" class="form-control" aria-describedby="emailHelp" placeholder="Event name"/>
+			<input ng-model="event.event.name" type="text" class="form-control" aria-describedby="emailHelp" placeholder="Event name"/>
 
 			<label>Doscription </label>
-			<textarea ng-model="event.eventRepository.getEvent(event.eventId).description" class="form-control" rows="3"></textarea>
+			<textarea ng-model="event.event.description" class="form-control" rows="3"></textarea>
 
 			<label>Event term</label>
 			<div class="input-group date" data-provide="datepicker" data-date-format="yyyy-mm-dd">
-				<input ng-model="event.eventRepository.getEvent(event.eventId).eventTerm" type="text" class="form-control">
+				<input ng-model="event.event.eventTerm" type="text" class="form-control">
 				<div class="input-group-addon">
 					<span class="glyphicon glyphicon-th"></span>
 				</div>
 			</div>
 		</div>
-		<button type="submit" class="btn btn-primary" ng-click="event.editEvent()">Submit</button>
+		<button type="submit" class="btn btn-primary" ng-click="event.manager.edit(event.event)">Submit</button>
 	</form>
 	<div growl></div>
 </div>

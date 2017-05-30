@@ -2,16 +2,19 @@
 	'use strict';
 
 	/**
-	 * Support REST api and provide fetching data
-	 *
 	 * @param $resource
 	 * @param $q
 	 * @param CONST
-	 * @returns {*}
+	 * @param sorting
 	 * @constructor
 	 */
-	function DataFetcher($resource, $q, CONST) {
-		var that = this;
+	function DataFetcher($resource, $q, CONST, sorting) {
+		let that = this;
+
+		/**
+		 * @type {Array}
+		 */
+		that.data = [];
 
 		/**
 		 * Return promise when all promises all executed
@@ -27,31 +30,51 @@
 
 		/**
 		 * @param path
-		 * @param page
+		 * @param force
 		 * @param parameters
-		 * @returns {IPromise}
+		 * @returns {*}
 		 * @constructor
 		 */
-		that.GETData = function (path, page, parameters = []) {
+		that.GETData = function (path, force = false, parameters = []) {
+			if (typeof that.data[path] !== 'undefined' && force === false) {
+				console.log("STORAGE");
+				console.log(sorting.getPreparedSortArgument());
 
-			var promise = $resource(CONST.DOMAIN + CONST.URL + path, {'page': page, 'limit': 10}, {
-				get: {
-					method: 'GET'
+				return that.data[path];
+			}
+			else {
+				let request = [];
+				let page = 1,
+					limit = 10;
+				if (typeof parameters['page'] !== 'undefined') {
+					page = parameters['page'];
 				}
-			});
 
-			var request = [];
+				if (typeof parameters['embedded'] !== 'undefined') {
+					request['with[]'] = parameters['embedded'];
+				}
+				console.log(sorting);
+				if (typeof parameters['sortBy'] !== 'undefined') {
+					let orderBy = Object.keys(parameters['sortBy'])[0];
+					request['sortBy[' + orderBy + ']'] = parameters['sortBy'][orderBy];
+				}
+				else {
+					request['sortBy[id]'] = 'DESC';
+				}
 
-			if (typeof parameters['embedded'] !== 'undefined') {
-				request['with[]'] = parameters['embedded'];
+				let promise = $resource(CONST.DOMAIN + CONST.URL + path, {'page': page, 'limit': limit}, {
+					get: {
+						method: 'GET'
+					}
+				});
+
+				return promise.get(request).$promise
+					.then(function (response) {
+						console.log("DATABASE");
+						return that.data[path] = response;
+					});
+
 			}
-			if (typeof parameters['sortBy'] !== 'undefined') {
-				var orderBy = Object.keys(parameters['sortBy'])[0];
-				request['sortBy[' + orderBy + ']'] = parameters['sortBy'][orderBy];
-			}
-			console.log(request);
-
-			return returnPromise(promise.get(request).$promise);
 		};
 
 		/**
@@ -106,7 +129,7 @@
 		 *
 		 * @param path {string}
 		 * @param elementId {int}
-		 * @returns {IPromise}
+		 * @returns {IPromise|*}
 		 * @constructor
 		 */
 		that.Delete = function (path, elementId) {
@@ -115,15 +138,18 @@
 					method: 'DELETE'
 				}
 			});
-
-			return returnPromise(promise.delete().$promise);
+			return returnPromise(promise.delete().$promise)
+				.then(function () {
+					//TODO Ugly hack route change
+					return that.GETData(path + 's', true);
+				});
 		};
 
 		/**
 		 *
 		 * @param path
 		 * @param element
-		 * @returns {IPromise}
+		 * @returns {IPromise|*}
 		 * @constructor
 		 */
 		that.Create = function (path, element) {
@@ -133,7 +159,10 @@
 				}
 			});
 
-			return returnPromise(promise.create(element).$promise);
+			return returnPromise(promise.create(element).$promise)
+				.then(function () {
+					return that.GETData(path + 's', true);
+				});
 		};
 
 		/**
@@ -194,7 +223,9 @@
 	DataFetcher.$inject = [
 		'$resource',
 		'$q',
-		'CONST'
+		'CONST',
+		'sorting'
 	];
 
-})(angular);
+})
+(angular);

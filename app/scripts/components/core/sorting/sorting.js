@@ -1,7 +1,7 @@
 (function (angular) {
 
 	function sorting() {
-		var that = this;
+		let that = this;
 
 		/**
 		 * @param argument

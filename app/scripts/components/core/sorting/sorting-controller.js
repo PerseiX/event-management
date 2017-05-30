@@ -5,13 +5,13 @@
 	 * @constructor
 	 */
 	function SortingController($attrs, sorting) {
-		var vm = this;
+		let vm = this;
 
 		vm.change = function () {
-			var orderType = $attrs['defaultType'];
-			var orderBy = $attrs['orderBy'];
+			let orderType = $attrs['defaultType'];
+			let orderBy = $attrs['orderBy'];
 
-			var param = [], result = [];
+			let param = [], result = [];
 			param[orderBy] = orderType;
 			result['sortBy'] = param;
 			$attrs['defaultType'] = ($attrs['defaultType'] === 'ASC') ? 'DESC' : 'ASC';

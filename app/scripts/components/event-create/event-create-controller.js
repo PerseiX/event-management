@@ -6,11 +6,8 @@
 	 * @constructor
 	 */
 	function EventCreateController(EventsManager) {
-		var vm = this;
-
-		vm.createEvent = function (event) {
-			EventsManager.create(event);
-		}
+		let vm = this;
+		vm.manager = EventsManager;
 	}
 
 	angular
