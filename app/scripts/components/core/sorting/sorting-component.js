@@ -9,8 +9,7 @@
 			transclude: true,
 			bindings: {
 				defaultType: '@',
-				orderBy: '@',
-				arrayKey: '@'
+				orderBy: '@'
 			}
 		});
 })(angular);

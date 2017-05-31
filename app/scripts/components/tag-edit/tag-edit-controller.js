@@ -3,19 +3,17 @@
 
 	/**
 	 * @param TagsManager
-	 * @param TagsRepository
 	 * @param $stateParams
 	 * @constructor
 	 */
-	function TagEditController(TagsManager, TagsRepository, $stateParams) {
+	function TagEditController(TagsManager, $stateParams) {
 		let vm = this;
 
-		vm.tagsRepository = TagsRepository;
-		vm.tagId = $stateParams.tagId;
+		TagsManager.getSingleResult($stateParams.tagId, $stateParams.eventId).then(function (response) {
+			vm.tag = response;
+		});
 
-		vm.edit = function () {
-			TagsManager.edit(TagsRepository.getTag(vm.tagId));
-		}
+		vm.manager = TagsManager;
 	}
 
 	angular
@@ -24,7 +22,6 @@
 
 	TagEditController.$inject = [
 		'TagsManager',
-		'TagsRepository',
 		'$stateParams'
 	]
 })(angular);

@@ -20,7 +20,7 @@
 
 			return DataFetcher.GETData('/events', force, parameters);
 		};
-
+//TODO Get single result centralised in fetcher
 		/**
 		 * @param eventId
 		 */
@@ -32,7 +32,6 @@
 					}
 				})
 			});
-
 		};
 
 		/**

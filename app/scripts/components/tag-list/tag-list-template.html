@@ -3,22 +3,24 @@
 	<nav class="create-tag">
 		<a ui-sref="app.content.events.tags.create">Create tag</a>
 	</nav>
-	<table class="table" ng-if="tags.tags.length >0">
+	<table class="table" ng-if="response.collection.length >0">
 		<thead class="thead-inverse">
 		<tr>
-			<th>NAME</th>
+			<th>
+				<sorting order-by="name" default-type="ASC" ng-click="tags.sorting()">NAME</sorting>
+			</th>
 			<th></th>
 		</tr>
 		</thead>
 		<tbody>
-		<tr ng-repeat="tag in tags.tags" ng-class="{true: 'enable', false: 'disable'}[tag.active == true]">
+		<tr ng-repeat="tag in response.collection" ng-class="{true: 'enable', false: 'disable'}[tag.active == true]">
 			<th>{{tag.name}}</th>
 			<th id="active-tag-action">
-				<confirm-modal class="glyphicon glyphicon-remove" delete-action="tags.delete(tag.id)" confirm-message="Czy napewno chcesz usunąć tag?">DELETE</confirm-modal>
+				<confirm-modal class="glyphicon glyphicon-remove" delete-action="delete(tag.id, page.page)" confirm-message="Czy napewno chcesz usunąć tag?">DELETE</confirm-modal>
 				<a ui-sref="app.content.events.tags.edit({tagId: tag.id})" class="glyphicon glyphicon-edit"></a>
 			</th>
 		</tr>
 		</tbody>
 	</table>
-	<div ng-if="tags.total > 10" class="pagination-switcher" paging page="tags.page" page-size="10" total="tags.total" paging-action="tags.switchPage({page})"></div>
+	<div ng-if="tags.total > 10" class="pagination-switcher" paging page="response.page" page-size="10" total="tags.total" paging-action="tags.switchPage({page})"></div>
 </div>

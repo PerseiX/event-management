@@ -6,7 +6,7 @@
 	 */
 	function SortingController($attrs, sorting) {
 		let vm = this;
-
+//TODO Sorting per entity
 		vm.change = function () {
 			let orderType = $attrs['defaultType'];
 			let orderBy = $attrs['orderBy'];

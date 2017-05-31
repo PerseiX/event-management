@@ -3,20 +3,38 @@
 
 	/**
 	 * @param DataFetcher
-	 * @param TagsRepository
 	 * @param Growl
 	 * @constructor
 	 */
-	function TagsManager(DataFetcher, TagsRepository, Growl) {
+	function TagsManager(DataFetcher, Growl) {
 		let that = this;
 
 		/**
+		 * @param force
 		 * @param page
-		 * @param id
-		 * @returns {IPromise}
+		 * @param eventId
+		 * @returns {*}
 		 */
-		that.getCollection = function (page, id) {
-			return DataFetcher.GETData('/event/' + id + '/tags', page.page, []);
+		that.getCollection = function (force = false, eventId, page) {
+
+			let parameters = [];
+			parameters['page'] = page;
+
+			return DataFetcher.GETData('/event/' + eventId + '/tags', force, parameters);
+		};
+
+		/**
+		 * @param tagId
+		 * @param evenId
+		 */
+		that.getSingleResult = function (tagId, evenId) {
+			return that.getCollection(false, evenId).then(function (response) {
+				return response.collection.find(function (tag) {
+					if (tag.id == tagId) {
+						return tag;
+					}
+				})
+			});
 		};
 
 		/**
@@ -36,23 +54,23 @@
 
 		/**
 		 * @param tagId
-		 * @returns {IPromise<>}
+		 * @param eventId
+		 * @param page
+		 * @returns {*}
 		 */
-		that.delete = function (tagId) {
+		that.delete = function (tagId, eventId, page) {
 			return DataFetcher.Delete('/tag', tagId)
-				.then(function () {
-						return TagsRepository.getTags().find(function (tag, id) {
-							if (tag.id === tagId) {
-								TagsRepository.getTags().splice(id, 1);
-								Growl.error("Twój tag został pomyślnie usunięty.", {ttl: 2500});
+				.then(function (tag) {
+						Growl.error("Twój tag został pomyślnie usunięty.", {ttl: 2500});
 
-								return tag;
-							}
-						})
+						return tag;
 					},
 					function (errors) {
 						return errorHandler(errors);
-					});
+					})
+				.then(function () {
+					return that.getCollection(true, eventId, page);
+				});
 		};
 
 		/**
@@ -60,10 +78,10 @@
 		 * @returns {IPromise<>}
 		 */
 		that.edit = function (tag) {
+			//TODO  PUT MUST contain additional information e.g. event in this case
 			return DataFetcher.PUTData('/tag', tag)
 				.then(function () {
 						Growl.success("Twój tag został pomyślnie edytowany.", {ttl: 2500});
-						return event;
 					},
 					function (errors) {
 						return errorHandler(errors);
@@ -74,6 +92,7 @@
 		 * @param errors
 		 */
 		function errorHandler(errors) {
+			console.log(errors);
 			for (let property in errors.data) {
 				if (errors.data.hasOwnProperty(property)) {
 					Growl.error(errors.data.message, {ttl: 2500});
@@ -88,7 +107,6 @@
 
 	TagsManager.$inject = [
 		'DataFetcher',
-		'TagsRepository',
 		'growl'
 	];
 })(angular);

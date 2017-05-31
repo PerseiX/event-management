@@ -4,25 +4,35 @@
 	/**
 	 * @constructor
 	 */
-	function TagListController(TagsManager, CONST, TagsRepository, $stateParams) {
+	function TagListController(TagsManager, CONST, $stateParams, $scope) {
 		let vm = this;
 
 		let eventId = $stateParams.eventId;
-		vm.tags = TagsRepository.getTags();
-		vm.total = TagsRepository.getPages() * CONST.PAGINATION_ELEMENT_PER_PAGE;
-		vm.page = 1;
 
-		vm.switchPage = function (page) {
-			TagsManager.getCollection(page, eventId).then(function (collection) {
-				vm.tags = collection.collection;
-				TagsRepository.setTags(collection.collection);
+		TagsManager.getCollection(true, eventId).then(function (response) {
+			vm.total = response.pages * CONST.PAGINATION_ELEMENT_PER_PAGE;
+			$scope.response = response;
+		});
+
+		$scope.delete = function (tagId, page) {
+			TagsManager.delete(tagId, eventId, page).then(function (response) {
+				vm.total = response.pages * CONST.PAGINATION_ELEMENT_PER_PAGE;
+				$scope.response = response;
 			});
-			vm.page = page.page;
-			vm.total = TagsRepository.getPages() * CONST.PAGINATION_ELEMENT_PER_PAGE;
 		};
 
-		vm.delete = function (tagId) {
-			TagsManager.delete(tagId);
+		vm.switchPage = function (page) {
+			TagsManager.getCollection(false, eventId, page.page).then(function (response) {
+				$scope.response = response;
+				vm.total = response.pages * CONST.PAGINATION_ELEMENT_PER_PAGE;
+			});
+		};
+
+		vm.sorting = function () {
+			TagsManager.getCollection(false, eventId).then(function (response) {
+				vm.total = response.pages * CONST.PAGINATION_ELEMENT_PER_PAGE;
+				$scope.response = response;
+			});
 		};
 	}
 
@@ -33,7 +43,7 @@
 	TagListController.$inject = [
 		'TagsManager',
 		'CONST',
-		'TagsRepository',
-		'$stateParams'
+		'$stateParams',
+		'$scope'
 	]
 })(angular);

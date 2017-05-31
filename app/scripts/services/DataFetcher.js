@@ -155,11 +155,11 @@
 					method: 'DELETE'
 				}
 			});
-			return returnPromise(promise.delete().$promise)
-				.then(function () {
-					//TODO Ugly hack route change
-					return that.GETData(path + 's', true);
-				});
+			return returnPromise(promise.delete().$promise);
+			// .then(function () {
+			// 	//TODO Ugly hack route change
+			// 	return that.GETData(path + 's', true);
+			// });
 		};
 
 		/**
