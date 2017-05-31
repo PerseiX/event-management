@@ -2,7 +2,7 @@
 	'use strict';
 
 	function TagsRepository() {
-		var that = this;
+		let that = this;
 
 		that.tags = null;
 

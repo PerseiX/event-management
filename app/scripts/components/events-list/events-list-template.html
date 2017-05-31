@@ -7,18 +7,18 @@
 		<thead class="thead-inverse">
 		<tr>
 			<th>
-				<sorting order-by="name" default-type="ASC">NAME</sorting>
+				<sorting order-by="name" default-type="ASC" ng-click="events.sorting()">NAME</sorting>
 
 			</th>
 			<th>
-				<sorting order-by="eventTerm" default-type="ASC" ng-click="events.sort()">TERM</sorting>
+				<sorting order-by="eventTerm" default-type="ASC" ng-click="events.sorting()">TERM</sorting>
 			</th>
 			<th></th>
 			<th>SETTING</th>
 		</tr>
 		</thead>
 		<tbody>
-		<tr ng-repeat=" event in manager.getCollection().collection" ng-class="{true: 'enable', false: 'disable'}[event.active == true]">
+		<tr ng-repeat=" event in response.collection" ng-class="{true: 'enable', false: 'disable'}[event.active == true]">
 			<th>{{event.name}}</th>
 			<th>{{event.eventTerm|date}}</th>
 			<th id="active-event-action">
@@ -31,11 +31,11 @@
 					</button>
 					<ul class="dropdown-menu">
 						<li>
-							<button ng-if="event.active == true" ng-click="manager.disable(event.id, events.page)"> Disable</button>
-							<button ng-if="event.active == false" ng-click="manager.enable(event.id, events.page)"> Enable</button>
+							<button ng-if="event.active == true" ng-click="disable(event.id, events.page)"> Disable</button>
+							<button ng-if="event.active == false" ng-click="enable(event.id, events.page)"> Enable</button>
 							<a ui-sref="app.content.events.guests({eventId: event.id})"> Guest</a>
 							<a ui-sref="app.content.events.tags({eventId: event.id})"> Tags</a>
-							<confirm-modal template="Delete" delete-action="manager.delete(event.id)" confirm-message="Czy napewno chcesz usunąć wydarzenie?">DELETE</confirm-modal>
+							<confirm-modal template="Delete" delete-action="delete(event.id)" confirm-message="Czy napewno chcesz usunąć wydarzenie?">DELETE</confirm-modal>
 						</li>
 					</ul>
 				</div>
@@ -43,6 +43,6 @@
 		</tr>
 		</tbody>
 	</table>
-	<div ng-if="events.total > 10" class="pagination-switcher" paging page="events.page" page-size="10" total="events.total" paging-action="events.switchPage({page})"></div>
+	<div ng-if="events.total > 10" class="pagination-switcher" paging page="response.page" page-size="10" total="events.total" paging-action="events.switchPage({page})"></div>
 </div>
 

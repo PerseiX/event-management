@@ -10,7 +10,7 @@
 	function TokenInjector(UserAuthentication, $q) {
 		return {
 			request: function (config) {
-				var User = UserAuthentication.getUser();
+				let User = UserAuthentication.getUser();
 				if (false === angular.isDefined(config.headers['Authorization']) && true === User.isAuthenticated()) {
 					config.headers['Authorization'] = 'Bearer ' + User.getAccessToken();
 				}

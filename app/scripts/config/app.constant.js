@@ -1,7 +1,7 @@
 (function (angular) {
 	'use strict';
 
-	var constant = {
+	let constant = {
 		DOMAIN: 'http://localhost',
 		URL: '/event-management-api/web/app_dev.php/api',
 		OAUTH2: {

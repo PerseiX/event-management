@@ -1,6 +1,6 @@
 (function (angular) {
 	function Breadcrumbs() {
-		var that = this;
+		let that = this;
 
 		/**
 		 * @type {Array}
@@ -8,7 +8,7 @@
 		that.breadcrumbs = [];
 
 		that.onEnterBreadcrumbsArray = function (router) {
-			var displayName = getDisplayName(router.globals.$current);
+			let displayName = getDisplayName(router.globals.$current);
 			that.breadcrumbs.push({
 				displayName: displayName,
 				route: ""
@@ -22,10 +22,10 @@
 		 * @param trans
 		 */
 		that.updateBreadcrumbsArray = function (trans) {
-			var workingState;
-			var displayName;
-			var breadcrumbs = [];
-			var currentState = trans.$to();
+			let workingState;
+			let displayName;
+			let breadcrumbs = [];
+			let currentState = trans.$to();
 
 			while (currentState && currentState.name !== '') {
 				workingState = getWorkingState(currentState);
@@ -51,7 +51,7 @@
 		 * @returns {*}
 		 */
 		function getWorkingState(currentState) {
-			var workingState = currentState;
+			let workingState = currentState;
 
 			if (workingState.abstract === true) {
 				workingState = false;
@@ -64,7 +64,7 @@
 		 * @returns {string|boolean}
 		 */
 		function getDisplayName(currentState) {
-			var data = currentState.data;
+			let data = currentState.data;
 			if (data) {
 				if (data.displayName) {
 					return data.displayName;
@@ -72,8 +72,8 @@
 			}
 
 			if (currentState.name) {
-				var explodedName = currentState.name.split('.');
-				var textToDisplay = explodedName[explodedName.length - 2];
+				let explodedName = currentState.name.split('.');
+				let textToDisplay = explodedName[explodedName.length - 2];
 				return textToDisplay.charAt(0).toUpperCase() + textToDisplay.slice(1);
 			}
 		}
@@ -84,8 +84,8 @@
 		 * @returns {boolean}
 		 */
 		function stateAlreadyInBreadcrumbs(state, breadcrumbs) {
-			var i;
-			var alreadyUsed = false;
+			let i;
+			let alreadyUsed = false;
 			for (i = 0; i < breadcrumbs.length; i++) {
 				if (breadcrumbs[i].route === state.name) {
 					alreadyUsed = true;

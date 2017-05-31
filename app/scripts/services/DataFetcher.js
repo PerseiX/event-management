@@ -36,27 +36,43 @@
 		 * @constructor
 		 */
 		that.GETData = function (path, force = false, parameters = []) {
-			if (typeof that.data[path] !== 'undefined' && force === false) {
-				console.log("STORAGE");
-				console.log(sorting.getPreparedSortArgument());
+			let request = [],
+				page = 1,
+				limit = 10,
+				key = path.substring(1);
 
-				return that.data[path];
+			if (typeof parameters['page'] !== 'undefined') {
+				page = parameters['page'];
 			}
-			else {
-				let request = [];
-				let page = 1,
-					limit = 10;
-				if (typeof parameters['page'] !== 'undefined') {
-					page = parameters['page'];
-				}
 
+			//Init array of arguments where key is entity name
+			if (typeof that.data[key] == 'undefined') {
+				that.data[key] = [];
+			}
+
+			//If first sorting clear all data from properly entity
+			if (typeof sorting.getOrderBy() !== 'undefined') {
+				if (sorting.clearStorage === true) {
+					that.data[key] = [];
+					sorting.clearStorage = false;
+				}
+			}
+
+			//If key exist return from data
+			if (typeof that.data[key][page] !== 'undefined' && force === false) {
+				console.log("STORAGE");
+				return returnPromise(that.data[key][page].$promise);
+			}// Get data from database
+			else {
+				console.log("DATABASE");
+				//Embedded param
 				if (typeof parameters['embedded'] !== 'undefined') {
 					request['with[]'] = parameters['embedded'];
 				}
-				console.log(sorting);
-				if (typeof parameters['sortBy'] !== 'undefined') {
-					let orderBy = Object.keys(parameters['sortBy'])[0];
-					request['sortBy[' + orderBy + ']'] = parameters['sortBy'][orderBy];
+
+				//Sorting param, default is by id
+				if (typeof sorting.getOrderBy() !== 'undefined') {
+					request['sortBy[' + sorting.getOrderBy() + ']'] = sorting.getOrderType();
 				}
 				else {
 					request['sortBy[id]'] = 'DESC';
@@ -68,12 +84,13 @@
 					}
 				});
 
-				return promise.get(request).$promise
-					.then(function (response) {
-						console.log("DATABASE");
-						return that.data[path] = response;
-					});
+				let $promise = promise.get(request).$promise;
 
+				return $q.when($promise).then(function (response) {
+					that.data[key][page] = response;
+
+					return response;
+				});
 			}
 		};
 
@@ -84,7 +101,7 @@
 		 * @constructor
 		 */
 		that.PUTData = function (path, data) {
-			var promise = $resource(CONST.DOMAIN + CONST.URL + path + '/:id', {'id': data.id}, {
+			let promise = $resource(CONST.DOMAIN + CONST.URL + path + '/:id', {'id': data.id}, {
 				update: {
 					method: 'PUT'
 				}
@@ -100,7 +117,7 @@
 		 * @constructor
 		 */
 		that.PUTEnable = function (path, elementId) {
-			var promise = $resource(CONST.DOMAIN + CONST.URL + path + '/:id', {'id': elementId}, {
+			let promise = $resource(CONST.DOMAIN + CONST.URL + path + '/:id', {'id': elementId}, {
 				update: {
 					method: 'PUT'
 				}
@@ -116,7 +133,7 @@
 		 * @constructor
 		 */
 		that.PUTDisable = function (path, elementId) {
-			var promise = $resource(CONST.DOMAIN + CONST.URL + path + '/:id', {'id': elementId}, {
+			let promise = $resource(CONST.DOMAIN + CONST.URL + path + '/:id', {'id': elementId}, {
 				update: {
 					method: 'PUT'
 				}
@@ -133,7 +150,7 @@
 		 * @constructor
 		 */
 		that.Delete = function (path, elementId) {
-			var promise = $resource(CONST.DOMAIN + CONST.URL + path + '/:id', {'id': elementId}, {
+			let promise = $resource(CONST.DOMAIN + CONST.URL + path + '/:id', {'id': elementId}, {
 				delete: {
 					method: 'DELETE'
 				}
@@ -153,7 +170,7 @@
 		 * @constructor
 		 */
 		that.Create = function (path, element) {
-			var promise = $resource(CONST.DOMAIN + CONST.URL + path, {}, {
+			let promise = $resource(CONST.DOMAIN + CONST.URL + path, {}, {
 				create: {
 					method: 'POST'
 				}
@@ -171,8 +188,8 @@
 		 * @constructor
 		 */
 		that.GetUserDetail = function (User) {
-			var url = '/event-management-api/web/app_dev.php/access-token/' + User.getAccessToken() + '/refresh-token/' + User.getRefreshToken() + '/user-details';
-			var promise = $resource(CONST.DOMAIN + url, {}, {
+			let url = '/event-management-api/web/app_dev.php/access-token/' + User.getAccessToken() + '/refresh-token/' + User.getRefreshToken() + '/user-details';
+			let promise = $resource(CONST.DOMAIN + url, {}, {
 				getDetails: {
 					method: 'POST'
 				}
@@ -187,13 +204,13 @@
 		 * @constructor
 		 */
 		that.refreshToken = function (User) {
-			var requestData = {
+			let requestData = {
 				'grant_type': 'refresh_token',
 				'client_id': CONST.OAUTH2.CLIENT_ID,
 				'client_secret': CONST.OAUTH2.CLIENT_SECRET,
 				'refresh_token': User.getRefreshToken()
 			};
-			var promise = $resource(CONST.DOMAIN + '/event-management-api/web/app_dev.php/oauth/v2/token', {}, {
+			let promise = $resource(CONST.DOMAIN + '/event-management-api/web/app_dev.php/oauth/v2/token', {}, {
 				refreshToken: {
 					method: 'POST'
 				}
@@ -206,7 +223,7 @@
 		 * @returns {*}
 		 */
 		that.logout = function () {
-			var promise = $resource(CONST.DOMAIN + '/event-management-api/web/app_dev.php/logout', {}, {
+			let promise = $resource(CONST.DOMAIN + '/event-management-api/web/app_dev.php/logout', {}, {
 				logout: {
 					method: 'GET'
 				}

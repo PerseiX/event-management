@@ -15,8 +15,8 @@
 		$transitions.onStart({
 			to: ['app.content.*', 'app.content.events.*', 'app.content.events.*.*', 'app.content.events.*.*.*']
 		}, function (trans) {
-			var seconds = new Date().getTime() / 1000;
-			var userRepository = UserManager.getUser();
+			let seconds = new Date().getTime() / 1000;
+			let userRepository = UserManager.getUser();
 			seconds = Math.round(seconds);
 
 			if (userRepository.getAccessTokenExpiresAt() < seconds + 120 && userRepository.getRefreshTokenExpiresAt() > seconds) {

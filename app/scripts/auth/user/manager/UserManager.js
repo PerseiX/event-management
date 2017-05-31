@@ -9,7 +9,7 @@
 	 * @constructor
 	 */
 	function UserManager(DataFetcher, UserRepository, UserAuthentication, LocalStorageManager) {
-		var that = this;
+		let that = this;
 
 		/**
 		 * @returns {UserRepository}

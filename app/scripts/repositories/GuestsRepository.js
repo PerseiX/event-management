@@ -2,7 +2,7 @@
 	'use strict';
 
 	function GuestsRepository() {
-		var that = this;
+		let that = this;
 
 		that.guests = null;
 

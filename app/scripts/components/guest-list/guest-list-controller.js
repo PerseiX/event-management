@@ -10,9 +10,9 @@
 	 * @constructor
 	 */
 	function GuestListController(GuestsRepository, GuestsManager, CONST, $stateParams, $scope) {
-		var vm = this;
+		let vm = this;
 
-		var eventId = $stateParams.eventId;
+		let eventId = $stateParams.eventId;
 		$scope.guestsRepository = GuestsRepository;
 
 		vm.total = GuestsRepository.getPages() * CONST.PAGINATION_ELEMENT_PER_PAGE;

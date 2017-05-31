@@ -6,7 +6,7 @@
 	 * @constructor
 	 */
 	function LocalStorageManager(localStorageService) {
-		var that = this;
+		let that = this;
 
 		/**
 		 * @param element

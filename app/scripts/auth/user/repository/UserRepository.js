@@ -2,7 +2,7 @@
 	'use strict';
 
 	function UserRepository() {
-		var that = this;
+		let that = this;
 
 		/**
 		 * @type {Object}
@@ -159,7 +159,7 @@
 		 * @returns {Boolean}
 		 */
 		that.isAuthenticated = function () {
-			if(that.user != null){
+			if (that.user != null) {
 				if (that.user.hasOwnProperty('isAuthenticated')) {
 					return that.user.isAuthenticated;
 				}

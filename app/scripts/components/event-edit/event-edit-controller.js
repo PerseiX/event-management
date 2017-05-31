@@ -9,7 +9,10 @@
 	function EventController($stateParams, EventsManager) {
 		let vm = this;
 
-		vm.event = EventsManager.getSingleResult($stateParams.eventId);
+		EventsManager.getSingleResult($stateParams.eventId).then(function (response) {
+			vm.event = response;
+		});
+
 		vm.manager = EventsManager;
 	}
 

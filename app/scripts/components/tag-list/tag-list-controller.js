@@ -5,9 +5,9 @@
 	 * @constructor
 	 */
 	function TagListController(TagsManager, CONST, TagsRepository, $stateParams) {
-		var vm = this;
+		let vm = this;
 
-		var eventId = $stateParams.eventId;
+		let eventId = $stateParams.eventId;
 		vm.tags = TagsRepository.getTags();
 		vm.total = TagsRepository.getPages() * CONST.PAGINATION_ELEMENT_PER_PAGE;
 		vm.page = 1;

@@ -8,7 +8,7 @@
 	 * @constructor
 	 */
 	function TagEditController(TagsManager, TagsRepository, $stateParams) {
-		var vm = this;
+		let vm = this;
 
 		vm.tagsRepository = TagsRepository;
 		vm.tagId = $stateParams.tagId;

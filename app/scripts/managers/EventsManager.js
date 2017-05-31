@@ -7,7 +7,7 @@
 	 * @constructor
 	 */
 	function EventsManager(Growl, DataFetcher) {
-		var that = this;
+		let that = this;
 
 		/**
 		 * @param page
@@ -25,11 +25,14 @@
 		 * @param eventId
 		 */
 		that.getSingleResult = function (eventId) {
-			return that.getCollection().collection.find(function (event) {
-				if (event.id == eventId) {
-					return event;
-				}
+			return that.getCollection().then(function (response) {
+				return response.collection.find(function (event) {
+					if (event.id == eventId) {
+						return event;
+					}
+				})
 			});
+
 		};
 
 		/**
@@ -41,12 +44,13 @@
 		that.enable = function (eventId, page) {
 			return DataFetcher.PUTEnable('/event/enable', eventId)
 				.then(function () {
-					that.getCollection(true, page);
 					Growl.success("Twoje wydarzenie zostało włączone.", {ttl: 2500});
 
 					return event;
 				}, function (errors) {
 					errorHandler(errors);
+				}).then(function () {
+					return that.getCollection(true, page);
 				});
 		};
 
@@ -58,21 +62,22 @@
 		that.disable = function (eventId, page) {
 			return DataFetcher.PUTDisable('/event/disable', eventId)
 				.then(function () {
-						that.getCollection(true, page);
-						Growl.success("Twoje wydarzenie zostało wyłączone.", {ttl: 2500});
+					that.getCollection(true, page);
+					Growl.success("Twoje wydarzenie zostało wyłączone.", {ttl: 2500});
 
-						return event;
-					}, function (errors) {
-						errorHandler(errors);
-					}
-				);
+					return event;
+				}, function (errors) {
+					errorHandler(errors);
+				}).then(function () {
+					return that.getCollection(true, page);
+				});
 		}
 		;
 
 		/**
 		 * @param eventId
 		 */
-		that.delete = function (eventId) {
+		that.delete = function (eventId, page) {
 			return DataFetcher.Delete('/event', eventId)
 				.then(function () {
 					Growl.error("Twoje wydarzenie zostało usunięte.", {ttl: 2500});
@@ -80,6 +85,8 @@
 					return event;
 				}, function (errors) {
 					errorHandler(errors);
+				}).then(function () {
+					return that.getCollection(true, page);
 				});
 		};
 
@@ -120,7 +127,7 @@
 		 */
 		function errorHandler(errors) {
 			if (!errors.data.message) {
-				for (var property in errors.data) {
+				for (let property in errors.data) {
 					console.log(errors);
 					if (errors.data.hasOwnProperty(property)) {
 						errors.data[property].forEach(function (error) {

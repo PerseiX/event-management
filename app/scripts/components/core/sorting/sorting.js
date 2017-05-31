@@ -4,20 +4,43 @@
 		let that = this;
 
 		/**
-		 * @param argument
+		 * @type {boolean}
+		 */
+		that.clearStorage = true;
+
+		/**
+		 * @param orderType
 		 * @returns {sorting}
 		 */
-		that.setPreparedSortArgument = function (argument) {
-			that.argument = argument;
+		that.setOrderType = function (orderType) {
+			that.orderType = orderType;
 			return that;
 		};
 
 		/**
-		 * @returns {*}
+		 * @returns {string}
 		 */
-		that.getPreparedSortArgument = function () {
-			return that.argument;
+		that.getOrderType = function () {
+			return that.orderType;
 		};
+
+		/**
+		 * @param orderBy
+		 * @returns {sorting}
+		 */
+		that.setOrderBy = function (orderBy) {
+			that.orderBy = orderBy;
+			return that;
+		};
+
+		/**
+		 * @returns {string}
+		 */
+		that.getOrderBy = function () {
+			return that.orderBy;
+		};
+
+		return that;
 	}
 
 	angular

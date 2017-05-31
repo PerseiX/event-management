@@ -9,7 +9,7 @@
 	 * @constructor
 	 */
 	function UserAuthentication(LocalStorageManager, $q, UserRepository) {
-		var that = this;
+		let that = this;
 
 		/**
 		 * @returns {UserRepository}
@@ -35,8 +35,8 @@
 		 * @returns {IPromise}
 		 */
 		that.authenticate = function (provider) {
-			var deferred = $q.defer();
-			var user = LocalStorageManager.getUser();
+			let deferred = $q.defer();
+			let user = LocalStorageManager.getUser();
 
 			if (null == user) {
 				that.auth.authenticate(provider)

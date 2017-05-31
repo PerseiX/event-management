@@ -130,7 +130,7 @@
 				},
 				resolve: {
 					Guests: ['DataFetcher', '$stateParams', function (DataFetcher, $stateParams) {
-						var parameters = [];
+						let parameters = [];
 						parameters['embedded'] = 'guest.tag';
 						return DataFetcher.GETData('/event/' + $stateParams.eventId + '/guests', 1, parameters).then(function (response) {
 							return response;

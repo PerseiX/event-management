@@ -2,7 +2,7 @@
 	'use strict';
 
 	function NavigationController(UserManager, $scope) {
-		var vm = this;
+		let vm = this;
 
 		$scope.manager = UserManager;
 

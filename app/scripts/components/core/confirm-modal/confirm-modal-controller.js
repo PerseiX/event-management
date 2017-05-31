@@ -8,7 +8,7 @@
 	 * @constructor
 	 */
 	function ConfirmModalController($modal, $element, $attrs) {
-		var vm = this;
+		let vm = this;
 		vm.template = $attrs.template;
 
 		/**
@@ -16,7 +16,7 @@
 		 * @param $modalInstance
 		 * @constructor
 		 */
-		var ModalInstanceCtrl = function ($scope, $modalInstance) {
+		let ModalInstanceCtrl = function ($scope, $modalInstance) {
 			$scope.approved = function () {
 				vm.deleteAction();
 				$modalInstance.close();
@@ -28,18 +28,18 @@
 		};
 
 		$element.on('click', function () {
-			var message = $attrs.confirmMessage || "Are you sure?";
+			let message = $attrs.confirmMessage || "Are you sure?";
 
-			var approvedMessage = $attrs.approvedMessage || "OK";
-			var cancelMessage = $attrs.cancelMessage || "CANCEL";
+			let approvedMessage = $attrs.approvedMessage || "OK";
+			let cancelMessage = $attrs.cancelMessage || "CANCEL";
 
-			var modalHtml = '<div class="modal-body">' + message + '</div>';
+			let modalHtml = '<div class="modal-body">' + message + '</div>';
 			modalHtml += '<div class="modal-footer">' +
 				'<button class="btn btn-primary" ng-click="approved()">' + approvedMessage + '</button>' +
 				'<button class="btn btn-warning" ng-click="cancel()">' + cancelMessage + '</button>' +
 				'</div>';
 
-			var modalInstance = $modal.open({
+			let modalInstance = $modal.open({
 				template: modalHtml,
 				controller: ModalInstanceCtrl
 			});

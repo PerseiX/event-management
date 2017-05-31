@@ -11,11 +11,11 @@
 			let orderType = $attrs['defaultType'];
 			let orderBy = $attrs['orderBy'];
 
-			let param = [], result = [];
-			param[orderBy] = orderType;
-			result['sortBy'] = param;
+			sorting.setOrderType(orderType);
+			sorting.setOrderBy(orderBy);
+			sorting.clearStorage = true;
+
 			$attrs['defaultType'] = ($attrs['defaultType'] === 'ASC') ? 'DESC' : 'ASC';
-			sorting.setPreparedSortArgument(result);
 		};
 
 	}

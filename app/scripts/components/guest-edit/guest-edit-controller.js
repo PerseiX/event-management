@@ -9,12 +9,12 @@
 	 * @constructor
 	 */
 	function GuestController(GuestsRepository, TagsRepository, GuestsManager, $stateParams) {
-		var vm = this;
+		let vm = this;
 		vm.tags = TagsRepository.getTags();
 		vm.guest = GuestsRepository.getGuest($stateParams.guestId);
 
 		vm.editGuest = function () {
-			var chosenTags = [];
+			let chosenTags = [];
 			angular.forEach(vm.guest.tag, function (value, key) {
 				if (true === value) {
 					chosenTags.push(key);

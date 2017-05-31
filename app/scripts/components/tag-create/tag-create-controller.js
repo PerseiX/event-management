@@ -7,7 +7,7 @@
 	 * @constructor
 	 */
 	function TagCreateController(TagsManager, $stateParams) {
-		var vm = this;
+		let vm = this;
 
 		vm.createTag = function (tag) {
 			TagsManager.tagCreate(Object.assign(tag, {'event': $stateParams.eventId}));

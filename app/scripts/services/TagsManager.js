@@ -8,7 +8,7 @@
 	 * @constructor
 	 */
 	function TagsManager(DataFetcher, TagsRepository, Growl) {
-		var that = this;
+		let that = this;
 
 		/**
 		 * @param page
@@ -74,7 +74,7 @@
 		 * @param errors
 		 */
 		function errorHandler(errors) {
-			for (var property in errors.data) {
+			for (let property in errors.data) {
 				if (errors.data.hasOwnProperty(property)) {
 					Growl.error(errors.data.message, {ttl: 2500});
 				}

@@ -8,10 +8,10 @@
 	 * @constructor
 	 */
 	function GuestCreateController(GuestsManager, TagsRepository, $stateParams) {
-		var vm = this;
+		let vm = this;
 		vm.tags = TagsRepository.getTags();
-		var eventId = $stateParams.eventId;
-		var chosenTags = [];
+		let eventId = $stateParams.eventId;
+		let chosenTags = [];
 
 		vm.createGuest = function () {
 			angular.forEach(vm.guest.tag, function (value, key) {
