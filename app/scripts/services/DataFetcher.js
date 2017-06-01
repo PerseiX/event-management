@@ -106,7 +106,7 @@
 					method: 'PUT'
 				}
 			});
-
+			console.log(promise);
 			return returnPromise(promise.update(data).$promise);
 		};
 
@@ -176,10 +176,7 @@
 				}
 			});
 
-			return returnPromise(promise.create(element).$promise)
-				.then(function () {
-					return that.GETData(path + 's', true);
-				});
+			return returnPromise(promise.create(element).$promise);
 		};
 
 		/**

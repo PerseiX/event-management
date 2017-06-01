@@ -43,9 +43,9 @@
 		 */
 		that.tagCreate = function (tag) {
 			return DataFetcher.Create('/tag', tag)
-				.then(function () {
+				.then(function (response) {
 						Growl.success("Twój tag został pomyślnie utworzony.", {ttl: 2500});
-						return tag;
+						return response;
 					},
 					function (e) {
 						errorHandler(e);
@@ -78,7 +78,6 @@
 		 * @returns {IPromise<>}
 		 */
 		that.edit = function (tag) {
-			//TODO  PUT MUST contain additional information e.g. event in this case
 			return DataFetcher.PUTData('/tag', tag)
 				.then(function () {
 						Growl.success("Twój tag został pomyślnie edytowany.", {ttl: 2500});
@@ -92,7 +91,6 @@
 		 * @param errors
 		 */
 		function errorHandler(errors) {
-			console.log(errors);
 			for (let property in errors.data) {
 				if (errors.data.hasOwnProperty(property)) {
 					Growl.error(errors.data.message, {ttl: 2500});

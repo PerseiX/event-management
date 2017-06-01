@@ -9,11 +9,10 @@
 	function TagEditController(TagsManager, $stateParams) {
 		let vm = this;
 
+		vm.manager = TagsManager;
 		TagsManager.getSingleResult($stateParams.tagId, $stateParams.eventId).then(function (response) {
 			vm.tag = response;
 		});
-
-		vm.manager = TagsManager;
 	}
 
 	angular
