@@ -2,36 +2,42 @@
 	'use strict';
 
 	/**
-	 * @param GuestsRepository
 	 * @param GuestsManager
-	 * @param CONST
 	 * @param $stateParams
 	 * @param $scope
 	 * @constructor
 	 */
-	function GuestListController(GuestsRepository, GuestsManager, CONST, $stateParams, $scope) {
+	function GuestListController(GuestsManager, $stateParams, $scope) {
 		let vm = this;
-
 		let eventId = $stateParams.eventId;
-		$scope.guestsRepository = GuestsRepository;
 
-		vm.total = GuestsRepository.getPages() * CONST.PAGINATION_ELEMENT_PER_PAGE;
-		vm.page = 1;
+		vm.elementPerPage = 8;
+
+		GuestsManager.getCollection(true, eventId, 1).then(function (response) {
+			vm.total = response.pages * vm.elementPerPage;
+			$scope.response = response;
+		});
 
 		vm.switchPage = function (page) {
-			GuestsManager.getCollection(page, eventId)
-				.then(function (collection) {
-					GuestsRepository.setGuests(collection.collection);
-				}).then(function () {
-				$scope.guestsRepository = GuestsRepository;
+			GuestsManager.getCollection(false, eventId, page.page).then(function (response) {
+				vm.total = response.pages * vm.elementPerPage;
+				$scope.response = response;
 			});
-			vm.page = page.page;
-			vm.total = GuestsRepository.getPages() * CONST.PAGINATION_ELEMENT_PER_PAGE;
 		};
 
-		vm.delete = function (guestId) {
-			GuestsManager.Delete(guestId);
-		}
+		vm.sorting = function () {
+			GuestsManager.getCollection(false, eventId).then(function (response) {
+				vm.total = response.pages * vm.elementPerPage;
+				$scope.response = response;
+			});
+		};
+
+		$scope.delete = function (guestId, page) {
+			GuestsManager.delete(guestId, eventId, page).then(function (response) {
+				vm.total = response.pages * vm.elementPerPage;
+				$scope.response = response;
+			});
+		};
 	}
 
 	angular
@@ -39,9 +45,7 @@
 		.controller('GuestListController', GuestListController);
 
 	GuestListController.$inject = [
-		'GuestsRepository',
 		'GuestsManager',
-		'CONST',
 		'$stateParams',
 		'$scope'
 	];

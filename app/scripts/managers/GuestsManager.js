@@ -3,45 +3,65 @@
 
 	/**
 	 * @param DataFetcher
-	 * @param GuestsRepository
 	 * @param Growl
 	 * @constructor
 	 */
-	function GuestsManager(DataFetcher, GuestsRepository, Growl) {
+	function GuestsManager(DataFetcher, Growl) {
 		let that = this;
 
 		/**
+		 *
+		 * @param force
+		 * @param eventId
 		 * @param page
-		 * @param id
-		 * @returns {IPromise}
+		 * @returns {*}
 		 */
-		that.getCollection = function (page, id) {
+		that.getCollection = function (force = false, eventId, page) {
 			let parameters = [];
+
+			parameters['page'] = page;
 			parameters['embedded'] = 'guest.tag';
-			return DataFetcher.GETData('/event/' + id + '/guests', page.page, parameters);
+			parameters['limit'] = '8';
+
+			return DataFetcher.GETData('/event/' + eventId + '/guests', force, parameters);
+		};
+
+		//TODO use Hateos _link response
+		/**
+		 *
+		 * @param guestId
+		 * @param evenId
+		 * @returns {*}
+		 */
+		that.getSingleResult = function (guestId, evenId) {
+			return that.getCollection(true, evenId).then(function (response) {
+				return response.collection.find(function (guest) {
+					if (guest.id == guestId) {
+						return guest;
+					}
+				})
+			});
 		};
 
 		/**
-		 *
-		 * @param guestId {int}
-		 * @returns {IPromise}
+		 * @param guestId
+		 * @param eventId
+		 * @param page
 		 * @constructor
 		 */
-		that.Delete = function (guestId) {
-			DataFetcher.Delete('/guest', guestId)
-				.then(function () {
-						GuestsRepository.getGuests().find(function (guest, id) {
-							if (guest.id == guestId) {
-								GuestsRepository.getGuests().splice(id, 1);
-								Growl.error("Twój gość został pomyślnie usunięty.", {ttl: 2500});
+		that.delete = function (guestId, eventId, page) {
+			return DataFetcher.Delete('/guest', guestId)
+				.then(function (response) {
+						Growl.error("Twój gość został pomyślnie usunięty.", {ttl: 2500});
 
-								return guest;
-							}
-						})
+						return response;
 					},
 					function (errors) {
 						errorHandler(errors);
-					});
+					}
+				).then(function () {
+					return that.getCollection(true, eventId, page);
+				});
 		};
 
 		/**
@@ -57,10 +77,7 @@
 						errorHandler(errors);
 					})
 				.then(function () {
-					return that.getCollection(1, guest.event)
-						.then(function (guests) {
-							GuestsRepository.setGuests(guests.collection);
-						});
+					return that.getCollection(1, guest.event);
 				});
 		};
 
@@ -71,20 +88,13 @@
 		 */
 		that.create = function (guest) {
 			return DataFetcher.Create('/guest', guest)
-				.then(function () {
+				.then(function (response) {
 						Growl.success("Twoje gość został pomyślnie utworzony.", {ttl: 2500});
-
-						return guest;
+						return response;
 					},
 					function (errors) {
 						errorHandler(errors);
 					})
-				.then(function () {
-					return that.getCollection(1, guest.event)
-						.then(function (guests) {
-							GuestsRepository.setGuests(guests.collection);
-						});
-				});
 		};
 
 		/**
@@ -97,6 +107,8 @@
 				}
 			}
 		}
+
+		return that;
 	}
 
 	angular
@@ -105,7 +117,7 @@
 
 	GuestsManager.$inject = [
 		'DataFetcher',
-		'GuestsRepository',
 		'growl'
 	];
-})(angular);
+})
+(angular);

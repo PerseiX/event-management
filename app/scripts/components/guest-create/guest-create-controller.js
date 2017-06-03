@@ -3,24 +3,28 @@
 
 	/**
 	 * @param GuestsManager
-	 * @param TagsRepository
+	 * @param TagsManager
 	 * @param $stateParams
+	 * @param $scope
 	 * @constructor
 	 */
-	function GuestCreateController(GuestsManager, TagsRepository, $stateParams) {
+	function GuestCreateController(GuestsManager, TagsManager, $stateParams, $scope) {
 		let vm = this;
-		vm.tags = TagsRepository.getTags();
 		let eventId = $stateParams.eventId;
-		let chosenTags = [];
+
+		TagsManager.getCollection(false, eventId).then(function (response) {
+			$scope.tags = response;
+		});
 
 		vm.createGuest = function () {
-			angular.forEach(vm.guest.tag, function (value, key) {
+			let chosenTags = [];
+			angular.forEach($scope.guest.tag, function (value, key) {
 				if (true === value) {
 					chosenTags.push(key);
 				}
 			});
-			vm.guest.tag = chosenTags;
-			GuestsManager.create(Object.assign(vm.guest, {'event': eventId}));
+			$scope.guest.tag = chosenTags;
+			GuestsManager.create(Object.assign($scope.guest, {'event': eventId}));
 		}
 	}
 
@@ -30,8 +34,9 @@
 
 	GuestCreateController.$inject = [
 		'GuestsManager',
-		'TagsRepository',
-		'$stateParams'
+		'TagsManager',
+		'$stateParams',
+		'$scope'
 	];
 
 })(angular);

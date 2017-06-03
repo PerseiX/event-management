@@ -3,30 +3,33 @@
 	<nav class="create-guest">
 		<a ui-sref="app.content.events.guests.create">Create new guests</a>
 	</nav>
-	<table class="table" ng-if="guestsRepository.getGuests().length >0">
+	<table class="table" ng-if="response.collection.length >0">
 		<thead class="thead-inverse">
 		<tr>
-			<th>NAME</th>
-			<th>SURNAME</th>
+			<th>
+				<sorting order-by="name" default-type="ASC" ng-click="guests.sorting()">NAME</sorting>
+			</th>
+			<th>
+				<sorting order-by="surname" default-type="ASC" ng-click="guests.sorting()">SURNAME</sorting>
+			</th>
 			<th>Tag</th>
 			<th></th>
 		</tr>
 		</thead>
 		<tbody>
-		<tr ng-repeat="guest in guestsRepository.getGuests()" ng-class="{true: 'enable', false: 'disable'}[guest.active == true]">
+		<tr ng-repeat="guest in response.collection" ng-class="{true: 'enable', false: 'disable'}[guest.active == true]">
 			<th>{{guest.name}}</th>
 			<th>{{guest.surname}}</th>
 			<th class="tag-per-guest">
-
-				<span ng-repeat="tag in guest._embedded.tag" >{{tag.name}} </span>
+				<span ng-repeat="tag in guest._embedded.tag">{{tag.name}} </span>
 			</th>
 			<th id="active-guest-action">
-				<confirm-modal class="glyphicon glyphicon-remove" delete-action="guests.delete(guest.id)" confirm-message="Czy napewno chcesz usunąć gościa?">DELETE</confirm-modal>
+				<confirm-modal class="glyphicon glyphicon-remove" delete-action="delete(guest.id, guest.page)" confirm-message="Czy napewno chcesz usunąć gościa?">DELETE</confirm-modal>
 				<a ui-sref="app.content.events.guests.edit-guest({guestId: guest.id})" class="glyphicon glyphicon-edit"></a>
 			</th>
 		</tr>
 		</tbody>
 	</table>
-	<div ng-if="guests.total > 10" class="pagination-switcher" paging page="guests.page" page-size="10" total="guests.total" paging-action="guests.switchPage({page})"></div>
+	<div ng-if="guests.total > 8" class="pagination-switcher" paging page="guests.page" page-size="8" total="guests.total" paging-action="guests.switchPage({page})"></div>
 
 </div>

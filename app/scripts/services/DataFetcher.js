@@ -45,6 +45,10 @@
 				page = parameters['page'];
 			}
 
+			if (typeof parameters['limit'] !== 'undefined') {
+				limit = parameters['limit'];
+			}
+			
 			//Init array of arguments where key is entity name
 			if (typeof that.data[key] == 'undefined') {
 				that.data[key] = [];
@@ -106,7 +110,6 @@
 					method: 'PUT'
 				}
 			});
-			console.log(promise);
 			return returnPromise(promise.update(data).$promise);
 		};
 

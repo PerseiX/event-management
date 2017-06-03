@@ -2,26 +2,35 @@
 	'use strict';
 
 	/**
-	 * @param GuestsRepository
-	 * @param TagsRepository
 	 * @param GuestsManager
+	 * @param TagsManager
 	 * @param $stateParams
+	 * @param $scope
 	 * @constructor
 	 */
-	function GuestController(GuestsRepository, TagsRepository, GuestsManager, $stateParams) {
+	function GuestController(GuestsManager, TagsManager, $stateParams, $scope) {
 		let vm = this;
-		vm.tags = TagsRepository.getTags();
-		vm.guest = GuestsRepository.getGuest($stateParams.guestId);
 
-		vm.editGuest = function () {
+		let eventId = $stateParams.eventId;
+		let guestId = $stateParams.guestId;
+
+		TagsManager.getCollection(false, eventId).then(function (response) {
+			$scope.tags = response;
+		});
+
+		GuestsManager.getSingleResult(guestId, eventId).then(function (response) {
+			$scope.guest = response;
+		});
+//TODO tag checked
+		$scope.edit = function () {
 			let chosenTags = [];
-			angular.forEach(vm.guest.tag, function (value, key) {
+			angular.forEach($scope.guest.tag, function (value, key) {
 				if (true === value) {
 					chosenTags.push(key);
 				}
 			});
-			vm.guest.tag = chosenTags;
-			GuestsManager.edit(Object.assign(vm.guest, {'event': $stateParams.eventId}));
+			$scope.guest.tag = chosenTags;
+			GuestsManager.edit(Object.assign($scope.guest, {'event': eventId}));
 		}
 	}
 
@@ -30,10 +39,10 @@
 		.controller('GuestController', GuestController);
 
 	GuestController.$inject = [
-		'GuestsRepository',
-		'TagsRepository',
 		'GuestsManager',
-		'$stateParams'
+		'TagsManager',
+		'$stateParams',
+		'$scope'
 	];
 
 })(angular);

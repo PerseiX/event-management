@@ -2,13 +2,14 @@
 	<form class="create-form">
 		<div class="form-group">
 			<label> Name</label>
-			<input ng-model="guestCreate.guest.name" type="text" class="form-control" aria-describedby="name" placeholder="Name"/>
+			<input ng-model="guest.name" type="text" class="form-control" aria-describedby="name" placeholder="Name"/>
 
 			<label>Surname </label>
-			<input ng-model="guestCreate.guest.surname" aria-describedby="surname" placeholder="Surname" class="form-control" rows="3"/>
+			<input ng-model="guest.surname" aria-describedby="surname" placeholder="Surname" class="form-control" rows="3"/>
 			<label>Tags</label>
 			<div>
-				<label ng-repeat="tag in guestCreate.tags"><input type="checkbox" ng-model="guestCreate.guest.tag[tag.id]" value="tag.id"> {{tag.name}}</label>
+				<label ng-repeat="tag in tags.collection">
+					<input type="checkbox" ng-model="guest.tag[tag.id]" value="tag.id"> {{tag.name}} </label>
 			</div>
 		</div>
 		<button type="submit" class="btn btn-primary" ng-click="guestCreate.createGuest()">Submit</button>

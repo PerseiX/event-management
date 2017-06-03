@@ -129,27 +129,17 @@
 					displayName: 'Guests'
 				},
 				resolve: {
-					Guests: ['DataFetcher', '$stateParams', function (DataFetcher, $stateParams) {
-						let parameters = [];
-						parameters['embedded'] = 'guest.tag';
-						return DataFetcher.GETData('/event/' + $stateParams.eventId + '/guests', 1, parameters).then(function (response) {
+					Guests: ['GuestsManager', '$stateParams', function (GuestsManager, $stateParams) {
+						return GuestsManager.getCollection(true, $stateParams.eventId, 1).then(function (response) {
 							return response;
 						});
 					}],
-					Tags: ['DataFetcher', '$stateParams', function (DataFetcher, $stateParams) {
-
-						return DataFetcher.GETData('/event/' + $stateParams.eventId + '/tags', 1, []).then(function (response) {
+					Tags: ['TagsManager', '$stateParams', function (TagsManager, $stateParams) {
+						return TagsManager.getCollection(true, $stateParams.eventId, 1).then(function (response) {
 							return response;
 						});
 					}]
 				}
-				// onEnter: ['Guests', 'GuestsRepository', 'Tags', 'TagsRepository', function (Guests, GuestsRepository, Tags, TagsRepository) {
-				// 	GuestsRepository.setGuests(Guests.collection)
-				// 		.setPages(Guests.pages);
-				// 	TagsRepository.setTags(Tags.collection)
-				// 		.setPages(Tags.pages);
-				//
-				// }]
 			})
 			.state('app.content.events.guests.create', {
 				url: '/create',
@@ -194,10 +184,6 @@
 							});
 					}]
 				}
-				// onEnter: ['Tags', 'TagsRepository', function (Tags, TagsRepository) {
-				// 	TagsRepository.setTags(Tags.collection)
-				// 		.setPages(Tags.pages);
-				// }]
 			})
 			.state('app.content.events.tags.create', {
 				url: '/create',

@@ -35,7 +35,7 @@
 							<button ng-if="event.active == false" ng-click="enable(event.id, events.page)"> Enable</button>
 							<a ui-sref="app.content.events.guests({eventId: event.id})"> Guest</a>
 							<a ui-sref="app.content.events.tags({eventId: event.id})"> Tags</a>
-							<confirm-modal template="Delete" delete-action="delete(event.id)" confirm-message="Czy napewno chcesz usunąć wydarzenie?">DELETE</confirm-modal>
+							<confirm-modal template="Delete" delete-action="delete(event.id, events.page)" confirm-message="Czy napewno chcesz usunąć wydarzenie?">DELETE</confirm-modal>
 						</li>
 					</ul>
 				</div>
