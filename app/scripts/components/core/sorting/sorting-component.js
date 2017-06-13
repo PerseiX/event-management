@@ -9,7 +9,8 @@
 			transclude: true,
 			bindings: {
 				defaultType: '@',
-				orderBy: '@'
+				orderBy: '@',
+				model: '@'
 			}
 		});
 })(angular);

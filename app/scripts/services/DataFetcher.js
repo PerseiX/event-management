@@ -39,7 +39,7 @@
 			let request = [],
 				page = 1,
 				limit = 10,
-				key = path.substring(1);
+				key = path.split('/').pop();
 
 			if (typeof parameters['page'] !== 'undefined') {
 				page = parameters['page'];
@@ -48,14 +48,14 @@
 			if (typeof parameters['limit'] !== 'undefined') {
 				limit = parameters['limit'];
 			}
-			
+
 			//Init array of arguments where key is entity name
-			if (typeof that.data[key] == 'undefined') {
+			if (typeof that.data[key] === 'undefined') {
 				that.data[key] = [];
 			}
 
 			//If first sorting clear all data from properly entity
-			if (typeof sorting.getOrderBy() !== 'undefined') {
+			if (typeof sorting.getOrderBy(key) !== 'undefined') {
 				if (sorting.clearStorage === true) {
 					that.data[key] = [];
 					sorting.clearStorage = false;
@@ -75,8 +75,8 @@
 				}
 
 				//Sorting param, default is by id
-				if (typeof sorting.getOrderBy() !== 'undefined') {
-					request['sortBy[' + sorting.getOrderBy() + ']'] = sorting.getOrderType();
+				if (typeof sorting.getOrderBy(key) !== 'undefined') {
+					request['sortBy[' + sorting.getOrderBy(key) + ']'] = sorting.getOrderType(key);
 				}
 				else {
 					request['sortBy[id]'] = 'DESC';
@@ -223,12 +223,13 @@
 		 * @returns {*}
 		 */
 		that.logout = function () {
+			console.log(CONST.DOMAIN + '/event-management-api/web/app_dev.php/logout');
 			let promise = $resource(CONST.DOMAIN + '/event-management-api/web/app_dev.php/logout', {}, {
 				logout: {
 					method: 'GET'
 				}
 			});
-
+			console.log("LOGOUT");
 			return returnPromise(promise.logout().$promise);
 		};
 	}

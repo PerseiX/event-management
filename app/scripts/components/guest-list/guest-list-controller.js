@@ -26,7 +26,7 @@
 		};
 
 		vm.sorting = function () {
-			GuestsManager.getCollection(false, eventId).then(function (response) {
+			GuestsManager.getCollection(true, eventId).then(function (response) {
 				vm.total = response.pages * vm.elementPerPage;
 				$scope.response = response;
 			});

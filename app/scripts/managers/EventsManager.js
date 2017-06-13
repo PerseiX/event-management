@@ -75,6 +75,8 @@
 
 		/**
 		 * @param eventId
+		 * @param page
+		 * @returns {IPromise<*>}
 		 */
 		that.delete = function (eventId, page) {
 			return DataFetcher.Delete('/event', eventId)
