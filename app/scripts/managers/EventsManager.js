@@ -27,7 +27,7 @@
 		that.getSingleResult = function (eventId) {
 			return that.getCollection().then(function (response) {
 				return response.collection.find(function (event) {
-					if (event.id == eventId) {
+					if (event.id === eventId) {
 						return event;
 					}
 				})

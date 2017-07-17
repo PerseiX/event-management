@@ -29,6 +29,17 @@
 		}
 
 		/**
+		 * Clean array key - force again fetch data
+		 * @param key
+		 * @returns {boolean}
+		 */
+		function removeKey(key) {
+			that.data[key] = [];
+
+			return true;
+		}
+
+		/**
 		 * @param path
 		 * @param force
 		 * @param parameters
@@ -61,7 +72,6 @@
 					sorting.clearStorage = false;
 				}
 			}
-
 			//If key exist return from data
 			if (typeof that.data[key][page] !== 'undefined' && force === false) {
 				console.log("STORAGE");
@@ -158,11 +168,13 @@
 					method: 'DELETE'
 				}
 			});
-			return returnPromise(promise.delete().$promise);
-			// .then(function () {
-			// 	//TODO Ugly hack route change
-			// 	return that.GETData(path + 's', true);
-			// });
+			return returnPromise(promise.delete().$promise)
+				.then(function (response) {
+					//Any idea ? Ugly hack
+					removeKey(path.split('/').pop() + 's');
+
+					return response
+				});
 		};
 
 		/**
@@ -179,7 +191,13 @@
 				}
 			});
 
-			return returnPromise(promise.create(element).$promise);
+			return returnPromise(promise.create(element).$promise)
+				.then(function (response) {
+					//Any idea ? Ugly hack
+					removeKey(path.split('/').pop() + 's');
+
+					return response
+				});
 		};
 
 		/**
@@ -223,7 +241,6 @@
 		 * @returns {*}
 		 */
 		that.logout = function () {
-			console.log(CONST.DOMAIN + '/event-management-api/web/app_dev.php/logout');
 			let promise = $resource(CONST.DOMAIN + '/event-management-api/web/app_dev.php/logout', {}, {
 				logout: {
 					method: 'GET'
