@@ -5,6 +5,6 @@
 		.component('uiBreadcrumbs', {
 			name: 'BREADCRUMBS',
 			templateUrl: "scripts/components/core/breadcrumbs/breadcrumbs.html",
-			controller: "BreadcrumbsController as crumbs"
+			controller: "BreadcrumbsController as bread"
 		});
 })(angular);

@@ -9,12 +9,15 @@
 	 * @param $auth
 	 * @constructor
 	 */
-	function ChangeStateListener($transitions, UserManager, CONST, UserAuthentication, $auth) {
+	function ChangeStateListener($transitions, UserManager, CONST, UserAuthentication, $auth, Breadcrumbs) {
 		UserAuthentication.setAuth($auth);
 
 		$transitions.onStart({
 			to: ['app.content.*', 'app.content.events.*', 'app.content.events.*.*', 'app.content.events.*.*.*']
 		}, function (trans) {
+			//Update breadcrumbs during refresh
+			Breadcrumbs.updateBreadcrumbsArray(trans);
+
 			let seconds = new Date().getTime() / 1000;
 			let userRepository = UserManager.getUser();
 			seconds = Math.round(seconds);
@@ -39,7 +42,7 @@
 					});
 			}
 
-			if (trans.$to().name == 'app.content.login' && UserManager.isAuthenticated() === true) {
+			if (trans.$to().name === 'app.content.login' && UserManager.isAuthenticated() === true) {
 				return trans.router.stateService.target('app.content.home');
 			}
 		});
@@ -55,6 +58,7 @@
 		'UserManager',
 		'CONST',
 		'UserAuthentication',
-		'$auth'
+		'$auth',
+		'Breadcrumbs'
 	];
 })(angular);

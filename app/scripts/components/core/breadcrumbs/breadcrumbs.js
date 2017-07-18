@@ -7,16 +7,6 @@
 		 */
 		that.breadcrumbs = [];
 
-		that.onEnterBreadcrumbsArray = function (router) {
-			let displayName = getDisplayName(router.globals.$current);
-			that.breadcrumbs.push({
-				displayName: displayName,
-				route: ""
-			});
-
-			return that.breadcrumbs;
-		};
-
 		/**
 		 *
 		 * @param trans
