@@ -2,28 +2,29 @@
 	'use strict';
 
 	/**
-	 * @param $modal
+	 * @param $uibModal
 	 * @param $element
 	 * @param $attrs
 	 * @constructor
 	 */
-	function ConfirmModalController($modal, $element, $attrs) {
+	function ConfirmModalController($uibModal, $element, $attrs) {
 		let vm = this;
 		vm.template = $attrs.template;
 
 		/**
+		 *
 		 * @param $scope
-		 * @param $modalInstance
+		 * @param $uibModalInstance
 		 * @constructor
 		 */
-		let ModalInstanceCtrl = function ($scope, $modalInstance) {
+		let ModalInstanceCtrl = function ($scope,  $uibModalInstance) {
 			$scope.approved = function () {
 				vm.deleteAction();
-				$modalInstance.close();
+				$uibModalInstance.close();
 			};
 
 			$scope.cancel = function () {
-				$modalInstance.dismiss('cancel');
+				$uibModalInstance.dismiss('cancel');
 			};
 		};
 
@@ -39,7 +40,7 @@
 				'<button class="btn btn-warning" ng-click="cancel()">' + cancelMessage + '</button>' +
 				'</div>';
 
-			let modalInstance = $modal.open({
+			let modalInstance = $uibModal.open({
 				template: modalHtml,
 				controller: ModalInstanceCtrl
 			});
@@ -52,7 +53,7 @@
 		.controller('ConfirmModalController', ConfirmModalController);
 
 	ConfirmModalController.$inject = [
-		'$modal',
+		'$uibModal',
 		'$element',
 		'$attrs'
 	];
