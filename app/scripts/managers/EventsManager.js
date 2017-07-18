@@ -21,13 +21,14 @@
 			return DataFetcher.GETData('/events', force, parameters);
 		};
 //TODO Get single result centralised in fetcher
+
 		/**
 		 * @param eventId
 		 */
 		that.getSingleResult = function (eventId) {
 			return that.getCollection().then(function (response) {
 				return response.collection.find(function (event) {
-					if (event.id === eventId) {
+					if (parseInt(event.id, 10) === parseInt(eventId, 10)) {
 						return event;
 					}
 				})

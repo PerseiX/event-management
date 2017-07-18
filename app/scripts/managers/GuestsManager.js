@@ -36,7 +36,7 @@
 		that.getSingleResult = function (guestId, evenId) {
 			return that.getCollection(true, evenId).then(function (response) {
 				return response.collection.find(function (guest) {
-					if (guest.id == guestId) {
+					if (parseInt(guest.id, 10) === parseInt(guestId, 10)) {
 						return guest;
 					}
 				})

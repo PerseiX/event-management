@@ -12,7 +12,7 @@
 
 		vm.elementPerPage = CONST.PAGINATION_ELEMENT_PER_PAGE;
 
-		EventsManager.getCollection(true).then(function (response) {
+		EventsManager.getCollection(false).then(function (response) {
 			vm.total = response.pages * CONST.PAGINATION_ELEMENT_PER_PAGE;
 			$scope.response = response;
 		});
