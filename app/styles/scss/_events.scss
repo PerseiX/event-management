@@ -75,4 +75,28 @@
 	.edit-form {
 		margin-top: 70px;
 	}
+
+	.create-form {
+		margin-top: 20px;
+	}
+	.angular-google-map-container {
+		height: 300px;
+		border: 1px solid #585858;
+		border-radius: 20px;
+		.search-box-input {
+			left: 105px;
+			width: 145px;
+			height: 25px;
+			background-color: #dedede;
+			border: 1px solid #585858;
+			font-size: 18px;
+			color: black;
+			top: 10px!important;
+		}
+		.gm-style-mtc div{
+			background-color: #dedede !important;
+			color: white;
+			border: 1px solid #585858;
+		}
+	}
 }

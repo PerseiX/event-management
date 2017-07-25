@@ -1,5 +1,5 @@
-<div class="events">
-	<form class="edit-form">
+<div class="events" id="map_canvas">
+	<form class="create-form">
 		<div class="form-group">
 			<label> Name</label>
 			<input ng-model="eventCreate.event.name" type="text" class="form-control" aria-describedby="emailHelp" placeholder="Event name"/>
@@ -14,8 +14,21 @@
 					<span class="glyphicon glyphicon-th"></span>
 				</div>
 			</div>
+			<label>Choose place</label>
+			<br>
+			<script id="searchbox.tpl.html" type="text/ng-template">
+				<input class="search-box-input" type="text" placeholder="Search" />
+			</script>
+
+			<ui-gmap-google-map center="map.center" zoom="map.zoom" draggable="true" options="options">
+				<ui-gmap-marker coords="marker.coords" options="marker.options" events="marker.events" idkey="marker.id"></ui-gmap-marker>
+				<ui-gmap-search-box template="searchbox.template" events="searchbox.events"></ui-gmap-search-box>
+			</ui-gmap-google-map>
+
 		</div>
-		<button type="submit" class="btn btn-primary" ng-click="eventCreate.manager.create(eventCreate.event)">Submit</button>
 	</form>
 	<div growl></div>
+
+	<button type="submit" class="btn btn-primary" ng-click="eventCreate.manager.create(eventCreate.event)">Submit</button>
+
 </div>

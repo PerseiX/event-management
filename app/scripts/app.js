@@ -1,6 +1,7 @@
 (function (angular) {
 	'use strict';
 
+
 	angular
 		.module('eventManagementApp', [
 			'ui.router',
@@ -9,7 +10,8 @@
 			'satellizer',
 			'LocalStorageModule',
 			'bw.paging',
-			'ui.bootstrap'
+			'ui.bootstrap',
+			'uiGmapgoogle-maps'
 		]);
 
 	function OauthProvider($authProvider, CONST) {
@@ -33,4 +35,14 @@
 		'$authProvider',
 		'CONST'
 	];
+
+	angular.module('eventManagementApp')
+		.config(function (uiGmapGoogleMapApiProvider) {
+			console.log("dupa");
+			uiGmapGoogleMapApiProvider.configure({
+				key: 'AIzaSyARarJIViFnuSvPLVs3rgiXgw-q0o77rcc',
+				v: '3.20',
+				libraries: 'places'
+			});
+		})
 })(angular);
