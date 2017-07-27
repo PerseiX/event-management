@@ -113,7 +113,6 @@
 		 * @returns {*}
 		 */
 		that.create = function (event) {
-			console.log(event);
 			return DataFetcher.Create('/event', event)
 				.then(function () {
 						Growl.success("Twoje wydarzenie zostało pomyślnie utworzone.", {ttl: 2500});

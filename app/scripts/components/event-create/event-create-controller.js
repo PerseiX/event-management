@@ -2,69 +2,49 @@
 	'use strict';
 
 	/**
-	 *
 	 * @param EventsManager
 	 * @param $scope
 	 * @param GoogleMapApi
+	 * @param EventPlace
 	 * @constructor
 	 */
-	function EventCreateController(EventsManager, $scope, GoogleMapApi) {
+	function EventCreateController(EventsManager, $scope, GoogleMapApi, EventPlace) {
 		let vm = this;
-		vm.manager = EventsManager;
 
-		$scope.marker = {
-			id: 0,
-			coords: {
-				latitude: 52.1676031,
-				longitude: 22.2901645
-			},
-			options: {draggable: true},
+		$scope.marker = EventPlace.initMarker();
+		$scope.map = EventPlace.initMap();
+
+		$scope.searchBox = {
+			template: 'searchbox.tpl.html',
 			events: {
-				dragend: function (marker, eventName, args) {
-					var lat = marker.getPosition().lat();
-					var lon = marker.getPosition().lng();
+				places_changed: function (searchBox) {
+					let place = searchBox.getPlaces();
+
+					if (typeof place[0] !== "undefined") {
+						let latitude = place[0].geometry.location.lat();
+						let longitude = place[0].geometry.location.lng();
+						let address = place[0].formatted_address;
+
+						$scope.marker = EventPlace.initMarker();
+						$scope.map = EventPlace.initMap(18);
+
+						EventPlace.latitude = latitude;
+						EventPlace.longitude = longitude;
+						EventPlace.address = address;
+					}
 				}
 			}
 		};
 
-		angular.extend($scope, {
-			map: {
-				center:
-					{
-						latitude: 52.1676031,
-						longitude: 22.2901645
-					},
-				zoom: 5
-			},
-			searchbox: {
-				template: 'searchbox.tpl.html',
-				events: {
-					places_changed: function (searchBox) {
-						let place = searchBox.getPlaces();
-						let latitude = place[0].geometry.location.lat();
-						let longitude = place[0].geometry.location.lng();
-						console.log("zmiana");
-						angular.extend($scope, {
-							map: {
-								center:
-									{
-										latitude: latitude,
-										longitude: longitude
-									},
-								zoom: 18
-							},
-							marker: {
-								coords: {
-									latitude: latitude,
-									longitude: longitude
-								}
-							}
-						});
+		vm.create = function (event = {}) {
+			angular.extend(event, {
+				'address': EventPlace.address,
+				'latitude': EventPlace.latitude,
+				'longitude': EventPlace.longitude
+			});
 
-					}
-				}
-			}
-		});
+			EventsManager.create(event);
+		};
 
 		GoogleMapApi.then(function (maps) {
 			maps.visualRefresh = true;
@@ -78,7 +58,8 @@
 	EventCreateController.$inject = [
 		'EventsManager',
 		'$scope',
-		'uiGmapGoogleMapApi'
+		'uiGmapGoogleMapApi',
+		'EventPlace'
 	];
 
 })(angular);
