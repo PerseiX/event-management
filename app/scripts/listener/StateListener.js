@@ -7,6 +7,7 @@
 	 * @param CONST
 	 * @param UserAuthentication
 	 * @param $auth
+	 * @param Breadcrumbs
 	 * @constructor
 	 */
 	function ChangeStateListener($transitions, UserManager, CONST, UserAuthentication, $auth, Breadcrumbs) {
