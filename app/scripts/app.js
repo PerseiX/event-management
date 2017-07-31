@@ -28,21 +28,27 @@
 		});
 	}
 
+	function GoogleMapsProvider(uiGmapGoogleMapApiProvider, CONST) {
+
+		uiGmapGoogleMapApiProvider.configure({
+			key: CONST.MAPS.KEY,
+			v: CONST.MAPS.VERSION,
+			libraries: CONST.MAPS.LIBRARIES
+		});
+	}
+
 	angular.module('eventManagementApp')
-		.config(OauthProvider);
+		.config(OauthProvider)
+		.config(GoogleMapsProvider);
 
 	OauthProvider.$inject = [
 		'$authProvider',
 		'CONST'
 	];
+	GoogleMapsProvider.$inject = [
+		'uiGmapGoogleMapApiProvider',
+		'CONST'
+	];
 
-	angular.module('eventManagementApp')
-		.config(function (uiGmapGoogleMapApiProvider) {
-			console.log("dupa");
-			uiGmapGoogleMapApiProvider.configure({
-				key: 'AIzaSyARarJIViFnuSvPLVs3rgiXgw-q0o77rcc',
-				v: '3.20',
-				libraries: 'places'
-			});
-		})
+
 })(angular);

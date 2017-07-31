@@ -13,7 +13,12 @@
 			RESPONSE_TYPE: 'code',
 			DEFAULT_PROVIDER_NAME: 'event-management-oauth'
 		},
-		PAGINATION_ELEMENT_PER_PAGE: 10
+		PAGINATION_ELEMENT_PER_PAGE: 10,
+		MAPS: {
+			KEY: 'AIzaSyARarJIViFnuSvPLVs3rgiXgw-q0o77rcc',
+			VERSION: '3.20',
+			LIBRARIES: 'places',
+		}
 	};
 
 	angular
