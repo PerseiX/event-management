@@ -11,6 +11,14 @@
 		vm.lat = 52.1676031;
 		vm.long = 22.2901645;
 
+		this.setLat = function (val) {
+			vm.lat = val;
+		};
+
+		this.setLong = function (val) {
+			vm.long = val;
+		};
+
 		vm.initMarker = function () {
 			vm.marker = {
 				id: 0,

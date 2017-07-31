@@ -25,12 +25,12 @@
 						let longitude = place[0].geometry.location.lng();
 						let address = place[0].formatted_address;
 
+						EventPlace.setLat(latitude);
+						EventPlace.setLong(longitude);
+						EventPlace.address = address;
+
 						$scope.marker = EventPlace.initMarker();
 						$scope.map = EventPlace.initMap(18);
-
-						EventPlace.latitude = latitude;
-						EventPlace.longitude = longitude;
-						EventPlace.address = address;
 					}
 				}
 			}
@@ -42,6 +42,7 @@
 				'latitude': EventPlace.latitude,
 				'longitude': EventPlace.longitude
 			});
+
 
 			EventsManager.create(event);
 		};
