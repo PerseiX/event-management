@@ -108,7 +108,7 @@
 				}
 			})
 			.state('app.content.events.edit-event', {
-				url: '/:eventId:int',
+				url: '/{eventId:int}',
 				views: {
 					'events@app.content': {
 						template: "<edit-event></edit-event>"

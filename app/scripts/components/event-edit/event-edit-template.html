@@ -14,8 +14,18 @@
 					<span class="glyphicon glyphicon-th"></span>
 				</div>
 			</div>
+			<br>
+			<script id="searchbox.tpl.html" type="text/ng-template">
+				<input class="search-box-input" type="text" placeholder="Search"/>
+			</script>
+
+			<ui-gmap-google-map center="map.center" zoom="map.zoom" draggable="true" options="options">
+				<ui-gmap-marker coords="marker.coords" options="marker.options" idkey="marker.id"></ui-gmap-marker>
+				<ui-gmap-search-box template="searchBox.template" events="searchBox.events"></ui-gmap-search-box>
+			</ui-gmap-google-map>
 		</div>
-		<button type="submit" class="btn btn-primary" ng-click="event.manager.edit(event.event)">Submit</button>
+
+		<button type="submit" class="btn btn-primary" ng-click="event.edit(event.event)">Submit</button>
 	</form>
 	<div growl></div>
 </div>

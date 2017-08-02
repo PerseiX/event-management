@@ -47,6 +47,33 @@
 		vm.initMap();
 		vm.initMarker();
 
+		/**
+		 * @param place
+		 * @returns {boolean}
+		 */
+		vm.updateLocation = function (place) {
+			if (typeof place[0] !== "undefined") {
+				let latitude = place[0].geometry.location.lat();
+				let longitude = place[0].geometry.location.lng();
+				let address = place[0].formatted_address;
+				vm.lat = latitude;
+				vm.long = longitude;
+				vm.address = address;
+
+				return true;
+			}
+			return false;
+		};
+
+		/**
+		 * @param lat
+		 * @param long
+		 */
+		vm.updatePlace = function (lat, long) {
+			vm.lat = lat;
+			vm.long = long;
+		};
+
 		return vm;
 	}
 

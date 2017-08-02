@@ -2,10 +2,10 @@
 	'use strict';
 
 	/**
-	 * @param EventsManager
-	 * @param $scope
-	 * @param GoogleMapApi
-	 * @param EventPlace
+	 * @param {EventsManager} EventsManager
+	 * @param {$scope} $scope
+	 * @param {uiGmapGoogleMapApi} GoogleMapApi
+	 * @param {EventPlace} EventPlace
 	 * @constructor
 	 */
 	function EventCreateController(EventsManager, $scope, GoogleMapApi, EventPlace) {
